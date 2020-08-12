@@ -11,17 +11,82 @@ import UICircularProgressRing
 
 class ViewController: UIViewController {
     
+    private let workouts:Workouts = Workouts()
+    private var workoutNames: [String] = []
+    fileprivate var workoutIndex:Int = 0
+    fileprivate var hasBeenStarted = false
+    
     
     //MARK: Properties
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var timerRing: UICircularTimerRing!
+    @IBOutlet weak var workoutNameLabel: UILabel!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
     
     
-    private let workouts:Workouts = Workouts()
+    var isStartState:Bool = true
+    @IBAction func startButtonTapped(_ sender: UIButton) {
+        if (isStartState && !hasBeenStarted) { //first start
+            hasBeenStarted = true
+            timerRing.startTimer(to: workouts.duration, handler: self.handleTimer) //TODO: integrate with array from object
+            isStartState = false
+            changeStartPauseButtonToMode(mode: .pause)
+        } else if (isStartState) { //resuming from pause
+            timerRing.continueTimer()
+            isStartState = false
+            changeStartPauseButtonToMode(mode: .pause)
+        } else { //pause timer
+            timerRing.pauseTimer()
+            isStartState = true
+            changeStartPauseButtonToMode(mode: .start)
+        }
+    }
     
-    private var workoutNames: [String] = []
+    @IBAction func stopButtonTapped(_ sender: UIButton) {
+        timerRing.resetTimer()
+        changeStartPauseButtonToMode(mode: .start)
+        stopButtonEnabled(enabled: false) //override behavior from above method
+        hasBeenStarted = false
+    }
     
-    private func setupTimerRing (timeLeft: Double) {
+    enum ButtonMode {
+        case start
+        case pause
+    }
+    
+    
+    fileprivate func changeStartPauseButtonToMode(mode: ButtonMode) {
+        startButton.isUserInteractionEnabled = true
+        if case .start = mode {
+            startButton.setTitle("Start", for: .normal)
+            startButton.backgroundColor = UIColor.green
+            stopButtonEnabled(enabled: true)
+        } else if case .pause = mode {
+            startButton.setTitle("Pause", for: .normal)
+            startButton.backgroundColor = UIColor.yellow
+            stopButtonEnabled(enabled: false)
+        }
+//        else { //not a valid mode
+//            fatalError("Attempted to change button mode to an invalid mode of \(mode)")
+//        }
+    }
+    
+    fileprivate func stopButtonEnabled(enabled: Bool) {
+        if (enabled) {
+            stopButton.isHidden = false;
+            stopButton.isEnabled = true;
+            stopButton.isUserInteractionEnabled = true;
+        } else {
+            stopButton.isHidden = true;
+            stopButton.isEnabled = false;
+            stopButton.isUserInteractionEnabled = false;
+        }
+    }
+
+    
+    private func initializeTimerRing() {
+        timerRing.backgroundColor = UIColor.clear
         timerRing.startAngle = 90
         //timerRing.endAngle = 180
         timerRing.outerRingColor = UIColor.clear
@@ -29,7 +94,6 @@ class ViewController: UIViewController {
         timerRing.innerCapStyle = .round
         timerRing.innerRingWidth = 20.0
         timerRing.tintColor = UIColor.orange
-        timerRing.startTimer(to: workouts.duration, handler: self.handleTimer)
     }
     
     
@@ -55,17 +119,19 @@ class ViewController: UIViewController {
             gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
             gradientView.secondColor = #colorLiteral(red: 1, green: 0.2969330549, blue: 0, alpha: 1)
         }
-        
-        self.workoutNames = workouts.workoutNames
-        setupTimerRing(timeLeft: 30)
+        startButton.isHidden = false
+        stopButtonEnabled(enabled: false)
+        initializeTimerRing()
         
     }
     
     private func handleTimer(state: UICircularTimerRing.State?) {
-        if case .finished  = state {
+        if case .finished = state {
             timerRing.resetTimer()
             timerRing.startTimer(to: workouts.duration, handler: self.handleTimer)
         }
+        
+        
     }
     
     
