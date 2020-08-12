@@ -10,10 +10,9 @@ import Foundation
 
 class Workouts {
     
-    typealias Workouts = [Workout];
     
-    var workoutNames: [String] = [];
-
+    var workoutNames: [String] = []
+    var workoutList:[Workout] = []
     let duration:TimeInterval = 30.0 //for now
     let numWorkouts: Int = 20 //for now
     
@@ -27,12 +26,12 @@ class Workouts {
         loadData()
     }
     
-    private func loadData() -> [String]{
+    private func loadData() {
         let url = Bundle.main.url(forResource: "WorkoutNames", withExtension: "plist")!
         let workoutNamesData = try! Data(contentsOf: url)
         let myDecodedPlistData = try! PropertyListSerialization.propertyList(from: workoutNamesData, options: [], format: nil)
         workoutNames = myDecodedPlistData as! [String];
-        return workoutNames
+        //return workoutNames
     }
     
     private func initData() {
