@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,10 @@
 		869916D624E370BB000F046D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869916D424E370BB000F046D /* Main.storyboard */; };
 		869916D824E370BD000F046D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 869916D724E370BD000F046D /* Assets.xcassets */; };
 		869916DB24E370BD000F046D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869916D924E370BD000F046D /* LaunchScreen.storyboard */; };
+		869916E724E37761000F046D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916E624E37761000F046D /* GradientView.swift */; };
+		869916E924E37D06000F046D /* Workouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916E824E37D06000F046D /* Workouts.swift */; };
+		869916ED24E383F8000F046D /* WorkoutNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = 869916EC24E383F8000F046D /* WorkoutNames.plist */; };
+		869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = 869916F224E3A6A1000F046D /* UICircularProgressRing */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,9 @@
 		869916D724E370BD000F046D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		869916DA24E370BD000F046D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		869916DC24E370BD000F046D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		869916E624E37761000F046D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		869916E824E37D06000F046D /* Workouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workouts.swift; sourceTree = "<group>"; };
+		869916EC24E383F8000F046D /* WorkoutNames.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WorkoutNames.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +48,7 @@
 		869916C224E370BB000F046D = {
 			isa = PBXGroup;
 			children = (
+				869916E524E37730000F046D /* Resources */,
 				869916CD24E370BB000F046D /* 10MinWorkout */,
 				869916CC24E370BB000F046D /* Products */,
 			);
@@ -59,12 +68,22 @@
 				869916CE24E370BB000F046D /* AppDelegate.swift */,
 				869916D024E370BB000F046D /* SceneDelegate.swift */,
 				869916D224E370BB000F046D /* ViewController.swift */,
+				869916E824E37D06000F046D /* Workouts.swift */,
 				869916D424E370BB000F046D /* Main.storyboard */,
 				869916D724E370BD000F046D /* Assets.xcassets */,
 				869916D924E370BD000F046D /* LaunchScreen.storyboard */,
 				869916DC24E370BD000F046D /* Info.plist */,
 			);
 			path = 10MinWorkout;
+			sourceTree = "<group>";
+		};
+		869916E524E37730000F046D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				869916E624E37761000F046D /* GradientView.swift */,
+				869916EC24E383F8000F046D /* WorkoutNames.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +102,9 @@
 			dependencies = (
 			);
 			name = 10MinWorkout;
+			packageProductDependencies = (
+				869916F224E3A6A1000F046D /* UICircularProgressRing */,
+			);
 			productName = 10MinWorkout;
 			productReference = 869916CB24E370BB000F046D /* 10MinWorkout.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +133,9 @@
 				Base,
 			);
 			mainGroup = 869916C224E370BB000F046D;
+			packageReferences = (
+				869916F124E3A6A1000F046D /* XCRemoteSwiftPackageReference "UICircularProgressRing" */,
+			);
 			productRefGroup = 869916CC24E370BB000F046D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -128,6 +153,7 @@
 				869916DB24E370BD000F046D /* LaunchScreen.storyboard in Resources */,
 				869916D824E370BD000F046D /* Assets.xcassets in Resources */,
 				869916D624E370BB000F046D /* Main.storyboard in Resources */,
+				869916ED24E383F8000F046D /* WorkoutNames.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +165,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				869916D324E370BB000F046D /* ViewController.swift in Sources */,
+				869916E924E37D06000F046D /* Workouts.swift in Sources */,
 				869916CF24E370BB000F046D /* AppDelegate.swift in Sources */,
+				869916E724E37761000F046D /* GradientView.swift in Sources */,
 				869916D124E370BB000F046D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,7 +322,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Gavin.-0MinWorkout";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -312,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Gavin.-0MinWorkout";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -338,6 +366,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		869916F124E3A6A1000F046D /* XCRemoteSwiftPackageReference "UICircularProgressRing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/luispadron/UICircularProgressRing.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		869916F224E3A6A1000F046D /* UICircularProgressRing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 869916F124E3A6A1000F046D /* XCRemoteSwiftPackageReference "UICircularProgressRing" */;
+			productName = UICircularProgressRing;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 869916C324E370BB000F046D /* Project object */;
 }
