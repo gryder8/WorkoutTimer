@@ -8,15 +8,19 @@
 
 import UIKit
 import UICircularProgressRing
+import AVFoundation
 
 class ViewController: UIViewController {
     
+    var audioPlayer = AVAudioPlayer()
     private let workouts:Workouts = Workouts()
     private var workoutNames: [String] = []
     //fileprivate var workoutIndex:Int = 0
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     fileprivate var timerInitiallyStarted = false
+    
+    let bellDingSoundPath = Bundle.main.path(forResource: "BellDing", ofType: "mp3")
     
     //MARK: Testing vars
     private var finishedOnce = false
@@ -160,6 +164,17 @@ class ViewController: UIViewController {
         return UIColor.red
     }
     
+    func roundButton(button:UIButton) {
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+    }
+    
+    fileprivate func roundAllButtons() { //local helper func
+        roundButton(button: startButton)
+        roundButton(button: stopButton)
+        roundButton(button: restartButton)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,12 +186,19 @@ class ViewController: UIViewController {
             gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
             gradientView.secondColor = #colorLiteral(red: 1, green: 0.2969330549, blue: 0, alpha: 1)
         }
+        roundAllButtons()
         timerInitiallyStarted = false
         startButton.isHidden = false
         disableButton(stopButton)
         initializeTimerRing()
         currentWorkout = workouts.getCurrentWorkout()
         updateLabel()
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: bellDingSoundPath!))
+        } catch {
+            print(error)
+        }
         
     }
     
@@ -196,8 +218,11 @@ class ViewController: UIViewController {
         }
     }
     
+    
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state {
+            audioPlayer.volume = 1.0
+            audioPlayer.play()
             workouts.currentWorkoutIndex += 1 //get the next one
             self.currentWorkout = workouts.getCurrentWorkout()
             timerRing.resetTimer()

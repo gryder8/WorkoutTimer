@@ -23,8 +23,8 @@ class Workouts {
     
     
     public init() {
-        workoutNames.reserveCapacity(numWorkouts)
-        workoutList.reserveCapacity(numWorkouts)
+        //workoutNames.reserveCapacity(numWorkouts)
+        //workoutList.reserveCapacity(numWorkouts)
         loadData()
         initData()
     }

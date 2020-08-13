@@ -17,6 +17,8 @@
 		869916E924E37D06000F046D /* Workouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916E824E37D06000F046D /* Workouts.swift */; };
 		869916ED24E383F8000F046D /* WorkoutNames.plist in Resources */ = {isa = PBXBuildFile; fileRef = 869916EC24E383F8000F046D /* WorkoutNames.plist */; };
 		869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = 869916F224E3A6A1000F046D /* UICircularProgressRing */; };
+		869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869916F524E5CE8B000F046D /* AVFoundation.framework */; };
+		869916FD24E5D041000F046D /* BellDing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 869916FC24E5D041000F046D /* BellDing.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		869916E624E37761000F046D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		869916E824E37D06000F046D /* Workouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workouts.swift; sourceTree = "<group>"; };
 		869916EC24E383F8000F046D /* WorkoutNames.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WorkoutNames.plist; sourceTree = "<group>"; };
+		869916F524E5CE8B000F046D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		869916FC24E5D041000F046D /* BellDing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BellDing.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */,
 				869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -48,9 +53,11 @@
 		869916C224E370BB000F046D = {
 			isa = PBXGroup;
 			children = (
+				869916FB24E5CF45000F046D /* Sounds */,
 				869916E524E37730000F046D /* Resources */,
 				869916CD24E370BB000F046D /* 10MinWorkout */,
 				869916CC24E370BB000F046D /* Products */,
+				869916F424E5CE8A000F046D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +91,22 @@
 				869916EC24E383F8000F046D /* WorkoutNames.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		869916F424E5CE8A000F046D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				869916F524E5CE8B000F046D /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		869916FB24E5CF45000F046D /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				869916FC24E5D041000F046D /* BellDing.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +175,7 @@
 			files = (
 				869916DB24E370BD000F046D /* LaunchScreen.storyboard in Resources */,
 				869916D824E370BD000F046D /* Assets.xcassets in Resources */,
+				869916FD24E5D041000F046D /* BellDing.mp3 in Resources */,
 				869916D624E370BB000F046D /* Main.storyboard in Resources */,
 				869916ED24E383F8000F046D /* WorkoutNames.plist in Resources */,
 			);
