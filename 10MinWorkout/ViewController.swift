@@ -73,14 +73,16 @@ class ViewController: UIViewController {
         buttonState = .start
     }
     
-    func enableButton(_ button: UIButton) {
+    func enableButton(_ button: UIButton) { //helper
         button.isHidden = false
         button.isEnabled = true
+        button.isUserInteractionEnabled = true
     }
     
     func disableButton(_ button: UIButton) {
         button.isHidden = true
         button.isEnabled = false
+        button.isUserInteractionEnabled = false
     }
     
     
@@ -95,7 +97,7 @@ class ViewController: UIViewController {
         currentWorkout = workouts.getCurrentWorkout()
         updateLabel()
         timerInitiallyStarted = false
-        stopButtonEnabled(enabled: false)
+        disableButton(stopButton)
         timerRing.shouldShowValueText = false
     }
     
@@ -105,33 +107,33 @@ class ViewController: UIViewController {
         if (mode == .start) {
             startButton.setTitle("Start", for: .normal)
             startButton.backgroundColor = UIColor.green
-            stopButtonEnabled(enabled: true)
+            enableButton(stopButton)
             return
         } else if (mode == .pause){
             startButton.setTitle("Pause", for: .normal)
             startButton.backgroundColor = UIColor.yellow
-            stopButtonEnabled(enabled: false)
+            disableButton(stopButton)
             return
         } else if (mode == .restart) {
             startButton.setTitle("Restart", for: .normal)
             startButton.backgroundColor = UIColor.systemBlue
-            stopButtonEnabled(enabled: false)
+            disableButton(stopButton)
             return
         }
 
     }
     
-    fileprivate func stopButtonEnabled(enabled: Bool) {
-        if (enabled) {
-            stopButton.isHidden = false;
-            stopButton.isEnabled = true;
-            stopButton.isUserInteractionEnabled = true;
-        } else {
-            stopButton.isHidden = true;
-            stopButton.isEnabled = false;
-            stopButton.isUserInteractionEnabled = false;
-        }
-    }
+//    fileprivate func stopButtonEnabled(enabled: Bool) {
+//        if (enabled) {
+//            stopButton.isHidden = false;
+//            stopButton.isEnabled = true;
+//            stopButton.isUserInteractionEnabled = true;
+//        } else {
+//            stopButton.isHidden = true;
+//            stopButton.isEnabled = false;
+//            stopButton.isUserInteractionEnabled = false;
+//        }
+//    }
 
     
     private func initializeTimerRing() {
@@ -171,7 +173,7 @@ class ViewController: UIViewController {
         }
         timerInitiallyStarted = false
         startButton.isHidden = false
-        stopButtonEnabled(enabled: false)
+        disableButton(stopButton)
         initializeTimerRing()
         currentWorkout = workouts.getCurrentWorkout()
         updateLabel()
@@ -186,10 +188,10 @@ class ViewController: UIViewController {
         if (currentWorkout.duration != nil) {
             timerRing.shouldShowValueText = true
             timerRing.startTimer(to: currentWorkout.duration!, handler: self.handleTimer)
-        } else { //done with all exercises
+        } else { // nil duration signifies being done with all exercises
             timerRing.shouldShowValueText = false;
-            changeStartPauseButtonToState(mode: .restart)
-            buttonState = .restart
+            disableButton(startButton)
+            enableButton(restartButton)
             finishedOnce = true
         }
     }
