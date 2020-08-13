@@ -12,12 +12,12 @@ class Workouts {
     
     var workoutNames: [String] = []
     var workoutList:[Workout] = []
-    let duration:TimeInterval = 30.0 //for now
-    let numWorkouts: Int = 20 //for now
-    let currentWorkoutIndex:Int = 0
+    var duration:TimeInterval = 3.0 //for now
+    var numWorkouts: Int = 20 //for now
+    var currentWorkoutIndex:Int = 0
     
     struct Workout: Decodable {
-        let duration:TimeInterval
+        let duration:TimeInterval?
         let name:String
     }
     
@@ -37,7 +37,7 @@ class Workouts {
         print(workoutNames)
     }
     
-    private func initData() {
+    private func initData() { //TODO: Pull workout name and duration from plist
         for i in 0..<workoutNames.count {
             let newWorkout = Workout(duration: self.duration, name: workoutNames[i])
             workoutList.append(newWorkout)
@@ -45,8 +45,11 @@ class Workouts {
         print(workoutList)
     }
     
-    func currentWorkout() -> Workout {
-        return workoutList[currentWorkoutIndex]
+    func getCurrentWorkout() -> Workout {
+        if (currentWorkoutIndex < workoutList.count-1) {
+            return workoutList[currentWorkoutIndex]
+        }
+        return Workout(duration: nil, name: "You're done!")
     }
     
     
@@ -54,7 +57,11 @@ class Workouts {
         if (currentWorkoutIndex < workoutList.count-1) {
             return workoutList[currentWorkoutIndex+1]
         }
-        return Workout(duration: 0, name: "You're done!")
+        return Workout(duration: nil, name: "Last one! Almost there!")
     }
+    
+//    func nextWorkout() {
+//        currentWorkoutIndex += 1
+//    }
     
 }

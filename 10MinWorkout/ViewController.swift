@@ -13,8 +13,13 @@ class ViewController: UIViewController {
     
     private let workouts:Workouts = Workouts()
     private var workoutNames: [String] = []
-    fileprivate var workoutIndex:Int = 0
-    fileprivate var hasBeenStarted = false
+    //fileprivate var workoutIndex:Int = 0
+    private var currentWorkout = Workouts.Workout(duration: 0, name: "")
+    private var nextWorkout = Workouts.Workout(duration: 0, name: "")
+    fileprivate var timerInitiallyStarted = false
+    
+    //MARK: Testing vars
+    private var finishedOnce = false
     
     
     //MARK: Properties
@@ -23,53 +28,97 @@ class ViewController: UIViewController {
     @IBOutlet weak var workoutNameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var restartButton: UIButton!
     
     
-    var isStartState:Bool = true
+    var buttonState:ButtonMode = ButtonMode.start
     @IBAction func startButtonTapped(_ sender: UIButton) {
-        if (isStartState && !hasBeenStarted) { //first start
-            hasBeenStarted = true
-            timerRing.startTimer(to: workouts.duration, handler: self.handleTimer) //TODO: integrate with array from object
-            isStartState = false
-            changeStartPauseButtonToMode(mode: .pause)
-        } else if (isStartState) { //resuming from pause
+        if (buttonState == .start && !timerInitiallyStarted) { //first start
+            timerInitiallyStarted = true
+            startTimer()
+            buttonState = .pause
+            changeStartPauseButtonToState(mode: .pause)
+            return
+        } else if (buttonState == .start) { //resuming from pause
             timerRing.continueTimer()
-            isStartState = false
-            changeStartPauseButtonToMode(mode: .pause)
-        } else { //pause timer
+            buttonState = .pause
+            changeStartPauseButtonToState(mode: .pause)
+            return
+        } else if (buttonState == .pause){ //pause timer
             timerRing.pauseTimer()
-            isStartState = true
-            changeStartPauseButtonToMode(mode: .start)
+            buttonState = .start
+            changeStartPauseButtonToState(mode: .start)
+            return
+        } else if (buttonState == .restart){
+            enableButton(restartButton)
+            disableButton(startButton)
+            return
         }
     }
     
     @IBAction func stopButtonTapped(_ sender: UIButton) {
         timerRing.resetTimer()
-        changeStartPauseButtonToMode(mode: .start)
-        stopButtonEnabled(enabled: false) //override behavior from above method
-        hasBeenStarted = false
+        changeStartPauseButtonToState(mode: .start)
+         //override behavior from above method
+        reset()
     }
     
-    enum ButtonMode {
+    
+    @IBAction func restartButtonTapped(_ sender: UIButton) {
+        timerRing.resetTimer()
+        changeStartPauseButtonToState(mode: .start)
+        reset()
+        disableButton(restartButton)
+        enableButton(startButton)
+        buttonState = .start
+    }
+    
+    func enableButton(_ button: UIButton) {
+        button.isHidden = false
+        button.isEnabled = true
+    }
+    
+    func disableButton(_ button: UIButton) {
+        button.isHidden = true
+        button.isEnabled = false
+    }
+    
+    
+    enum ButtonMode:Equatable {
         case start
         case pause
+        case restart
+    }
+    
+    fileprivate func reset() {
+        workouts.currentWorkoutIndex = 0
+        currentWorkout = workouts.getCurrentWorkout()
+        updateLabel()
+        timerInitiallyStarted = false
+        stopButtonEnabled(enabled: false)
+        timerRing.shouldShowValueText = false
     }
     
     
-    fileprivate func changeStartPauseButtonToMode(mode: ButtonMode) {
+    fileprivate func changeStartPauseButtonToState(mode: ButtonMode) {
         startButton.isUserInteractionEnabled = true
-        if case .start = mode {
+        if (mode == .start) {
             startButton.setTitle("Start", for: .normal)
             startButton.backgroundColor = UIColor.green
             stopButtonEnabled(enabled: true)
-        } else if case .pause = mode {
+            return
+        } else if (mode == .pause){
             startButton.setTitle("Pause", for: .normal)
             startButton.backgroundColor = UIColor.yellow
             stopButtonEnabled(enabled: false)
+            return
+        } else if (mode == .restart) {
+            startButton.setTitle("Restart", for: .normal)
+            startButton.backgroundColor = UIColor.systemBlue
+            stopButtonEnabled(enabled: false)
+            return
         }
-//        else { //not a valid mode
-//            fatalError("Attempted to change button mode to an invalid mode of \(mode)")
-//        }
+
     }
     
     fileprivate func stopButtonEnabled(enabled: Bool) {
@@ -86,6 +135,7 @@ class ViewController: UIViewController {
 
     
     private func initializeTimerRing() {
+        timerRing.shouldShowValueText = false
         timerRing.backgroundColor = UIColor.clear
         timerRing.startAngle = 90
         //timerRing.endAngle = 180
@@ -119,16 +169,38 @@ class ViewController: UIViewController {
             gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
             gradientView.secondColor = #colorLiteral(red: 1, green: 0.2969330549, blue: 0, alpha: 1)
         }
+        timerInitiallyStarted = false
         startButton.isHidden = false
         stopButtonEnabled(enabled: false)
         initializeTimerRing()
+        currentWorkout = workouts.getCurrentWorkout()
+        updateLabel()
         
+    }
+    
+    private func updateLabel() {
+        self.workoutNameLabel.text = currentWorkout.name
+    }
+    
+    fileprivate func startTimer() {
+        if (currentWorkout.duration != nil) {
+            timerRing.shouldShowValueText = true
+            timerRing.startTimer(to: currentWorkout.duration!, handler: self.handleTimer)
+        } else { //done with all exercises
+            timerRing.shouldShowValueText = false;
+            changeStartPauseButtonToState(mode: .restart)
+            buttonState = .restart
+            finishedOnce = true
+        }
     }
     
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state {
+            workouts.currentWorkoutIndex += 1 //get the next one
+            self.currentWorkout = workouts.getCurrentWorkout()
             timerRing.resetTimer()
-            timerRing.startTimer(to: workouts.duration, handler: self.handleTimer)
+            startTimer()
+            updateLabel()
         }
         
         
