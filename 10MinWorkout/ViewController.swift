@@ -33,6 +33,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     var audioPlayer = AVAudioPlayer()
     let bellDingSoundPath = Bundle.main.path(forResource: "Tone", ofType: "mp3")
 
+    var buttonState:ButtonMode = ButtonMode.start
     
     private let workouts:Workouts = Workouts()
     private var workoutNames: [String] = []
@@ -61,30 +62,34 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
+    @IBOutlet weak var soundToggle: UISwitch!
     
     
     
-    var buttonState:ButtonMode = ButtonMode.start
     @IBAction func startButtonTapped(_ sender: UIButton) {
         if (buttonState == .start && !timerInitiallyStarted) { //first start
             timerInitiallyStarted = true
             startTimerIfWorkoutExists()
             buttonState = .pause
             changeStartPauseButtonToState(mode: .pause)
+            soundToggle.isEnabled = false
             return
         } else if (buttonState == .start) { //resuming from pause
             timerRing.continueTimer()
             buttonState = .pause
             changeStartPauseButtonToState(mode: .pause)
+            soundToggle.isEnabled = false
             return
         } else if (buttonState == .pause){ //pause timer
             timerRing.pauseTimer()
+            soundToggle.isEnabled = true
             buttonState = .start
             changeStartPauseButtonToState(mode: .start)
             return
         } else if (buttonState == .restart){
             enableButton(restartButton)
             disableButton(startButton)
+            soundToggle.isEnabled = true
             return
         }
     }
@@ -160,6 +165,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         timerInitiallyStarted = false
         disableButton(stopButton)
         timerRing.shouldShowValueText = false
+        soundToggle.isEnabled = true
     }
     
     
@@ -285,6 +291,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             timerRing.shouldShowValueText = false;
             disableButton(startButton)
             enableButton(restartButton)
+            soundToggle.isEnabled = true
             //finishedOnce = true
         }
     }
@@ -318,9 +325,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state { //when the timer finishes, do this...
             //TODO: Tweak from prefs pane?
-            audioSessionEnabled(enabled: true) //enable audio play
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
+            if (soundToggle.isOn) {
+                audioSessionEnabled(enabled: true) //enable audio play
+                audioPlayer.prepareToPlay()
+                audioPlayer.play()
+            }
             advanceWorkout()
             timerRing.resetTimer()
             startTimerIfWorkoutExists()

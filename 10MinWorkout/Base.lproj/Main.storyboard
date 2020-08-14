@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="399" width="414" height="48"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" staticText="YES" updatesFrequently="YES"/>
+                                    <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                 </accessibility>
                                 <attributedString key="attributedText">
                                     <fragment content="Workout">
@@ -37,6 +37,16 @@
                                         </attributes>
                                     </fragment>
                                 </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2g-Fc-yOZ" userLabel="Next Workout Name">
+                                <rect key="frame" x="0.0" y="449" width="414" height="48"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" updatesFrequently="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="25"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6S-cP-Dvm">
@@ -87,16 +97,21 @@
                                     <action selector="restartButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5KZ-1U-K3H"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m2g-Fc-yOZ" userLabel="Next Workout Name">
-                                <rect key="frame" x="0.0" y="449" width="414" height="48"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Tone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCm-fr-41V">
+                                <rect key="frame" x="121" y="759" width="95" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" staticText="YES" updatesFrequently="YES"/>
+                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                 </accessibility>
-                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="25"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-AR-Rhe" userLabel="Sound Toggle">
+                                <rect key="frame" x="219" y="759" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="onTintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <accessibility key="accessibilityConfiguration">
@@ -118,6 +133,7 @@
                         <outlet property="nextWorkoutNameLabel" destination="m2g-Fc-yOZ" id="HkR-wm-j9U"/>
                         <outlet property="restartButton" destination="fsI-yh-1nd" id="6w4-jW-ZzM"/>
                         <outlet property="selectSongs" destination="om1-Xh-PtC" id="3Ou-Il-DLW"/>
+                        <outlet property="soundToggle" destination="HLl-AR-Rhe" id="0Yx-sG-aeU"/>
                         <outlet property="startButton" destination="prZ-hj-SYw" id="ZkM-FC-u3W"/>
                         <outlet property="stopButton" destination="p6S-cP-Dvm" id="fuU-fs-RnI"/>
                         <outlet property="timerRing" destination="4RF-u0-MSf" id="VFz-M4-eBm"/>
