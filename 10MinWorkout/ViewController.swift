@@ -266,9 +266,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state {
-            audioPlayer.volume = 1.0
+            audioPlayer.volume = 1.0 //TODO: Tweak from prefs pane
             audioSessionEnabled(enabled: true)
-            audioPlayer.prepareToPlay()
+            //audioPlayer.prepareToPlay()
             audioPlayer.play()
             //audioPlayer.stop()
             //audioSessionEnabled(enabled: false)

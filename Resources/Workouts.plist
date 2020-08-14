@@ -6,19 +6,19 @@
 		<key>name</key>
 		<string>Situps</string>
 		<key>duration</key>
-		<integer>10</integer>
+		<integer>40</integer>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Crunches</string>
 		<key>duration</key>
-		<integer>12</integer>
+		<integer>30</integer>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Knee-Touch Crunches</string>
 		<key>duration</key>
-		<integer>15</integer>
+		<integer>25</integer>
 	</dict>
 </array>
 </plist>
