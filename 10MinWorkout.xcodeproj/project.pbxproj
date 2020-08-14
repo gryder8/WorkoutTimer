@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8666596E24E67DE500F7E889 /* Tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8666596D24E67DE500F7E889 /* Tone.mp3 */; };
 		869916CF24E370BB000F046D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916CE24E370BB000F046D /* AppDelegate.swift */; };
 		869916D124E370BB000F046D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D024E370BB000F046D /* SceneDelegate.swift */; };
 		869916D324E370BB000F046D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D224E370BB000F046D /* ViewController.swift */; };
@@ -21,10 +20,10 @@
 		869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869916F524E5CE8B000F046D /* AVFoundation.framework */; };
 		869916FD24E5D041000F046D /* BellDing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 869916FC24E5D041000F046D /* BellDing.mp3 */; };
 		8699170324E64A14000F046D /* Workouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8699170224E64A14000F046D /* Workouts.plist */; };
+		86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48324E690DB005C98E9 /* Tone.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8666596D24E67DE500F7E889 /* Tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Tone.mp3; path = ../../../../Downloads/Tone.mp3; sourceTree = "<group>"; };
 		869916CB24E370BB000F046D /* 10MinWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 10MinWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869916CE24E370BB000F046D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		869916D024E370BB000F046D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +38,7 @@
 		869916F524E5CE8B000F046D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		869916FC24E5D041000F046D /* BellDing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BellDing.mp3; sourceTree = "<group>"; };
 		8699170224E64A14000F046D /* Workouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workouts.plist; sourceTree = "<group>"; };
+		86E1E48324E690DB005C98E9 /* Tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tone.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,7 @@
 		869916FB24E5CF45000F046D /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				8666596D24E67DE500F7E889 /* Tone.mp3 */,
+				86E1E48324E690DB005C98E9 /* Tone.mp3 */,
 				869916FC24E5D041000F046D /* BellDing.mp3 */,
 			);
 			path = Sounds;
@@ -181,9 +181,9 @@
 			files = (
 				869916DB24E370BD000F046D /* LaunchScreen.storyboard in Resources */,
 				869916D824E370BD000F046D /* Assets.xcassets in Resources */,
+				86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */,
 				869916FD24E5D041000F046D /* BellDing.mp3 in Resources */,
 				869916D624E370BB000F046D /* Main.storyboard in Resources */,
-				8666596E24E67DE500F7E889 /* Tone.mp3 in Resources */,
 				8699170324E64A14000F046D /* Workouts.plist in Resources */,
 				869916ED24E383F8000F046D /* WorkoutNames.plist in Resources */,
 			);

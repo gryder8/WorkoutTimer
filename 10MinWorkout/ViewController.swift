@@ -216,7 +216,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         } catch {
             print(error)
         }
-        
+        /*
+         ---------------------------------------------------------------------------------------------------
+         */
         do {
             try AVAudioSession.sharedInstance().setCategory(
             AVAudioSession.Category.playback,
