@@ -33,23 +33,13 @@ class Workouts {
     
     private func loadData() {
         let plistURL = Bundle.main.url(forResource: "Workouts", withExtension: "plist")!
-//        let workoutNamesData = try! Data(contentsOf: plistURL)
-//        let myDecodedPlistData = try! PropertyListSerialization.propertyList(from: workoutNamesData, options: [], format: nil)
-//        workoutNames = myDecodedPlistData as! [String]
         if let data = try? Data(contentsOf: plistURL) {
             let decoder = PropertyListDecoder()
             workoutList = try! decoder.decode(WorkoutList.self, from:data)
         }
-        print(workoutList)
+//        print(workoutList)
     }
     
-//    private func initData() { //TODO: Pull workout name and duration from plist
-//        for i in 0..<workoutNames.count {
-//            let newWorkout = Workout(duration: self.duration, name: workoutNames[i])
-//            workoutList.append(newWorkout)
-//        }
-//        print(workoutList)
-//    }
     
     func getCurrentWorkout() -> Workout {
         if (currentWorkoutIndex < workoutList.count) {
