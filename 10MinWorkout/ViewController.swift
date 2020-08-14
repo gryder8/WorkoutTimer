@@ -264,11 +264,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     fileprivate func startTimerIfWorkoutExists() { //start the timer for the given duration or end the workout session if the current workout has no duration
         if (currentWorkout.duration != nil) {
-            audioPlayer.numberOfLoops = 1
             timerRing.shouldShowValueText = true
             timerRing.startTimer(to: currentWorkout.duration!, handler: self.handleTimer)
         } else { // nil duration signifies being done with all exercises
-            audioPlayer.numberOfLoops = 2
+            audioPlayer.numberOfLoops = 1
             timerRing.shouldShowValueText = false;
             disableButton(startButton)
             enableButton(restartButton)
