@@ -42,10 +42,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     let plistURL:URL = URL(fileURLWithPath: Bundle.main.path(forResource:"", ofType:"plist")!)
     
-    //fileprivate var workoutIndex:Int = 0
+    //private var workoutIndex:Int = 0
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
-    fileprivate var timerInitiallyStarted = false
+    private var timerInitiallyStarted = false
     
     
     //MARK: Testing vars
@@ -56,10 +56,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var timerRing: UICircularTimerRing!
     @IBOutlet weak var workoutNameLabel: UILabel!
+    @IBOutlet weak var nextWorkoutNameLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
+    
     
     
     var buttonState:ButtonMode = ButtonMode.start
@@ -150,17 +152,18 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     
-    fileprivate func reset() {
+    private func reset() {
         workouts.currentWorkoutIndex = 0
         currentWorkout = workouts.getCurrentWorkout()
-        updateLabel()
+        nextWorkout = workouts.getNextWorkout()
+        updateLabels()
         timerInitiallyStarted = false
         disableButton(stopButton)
         timerRing.shouldShowValueText = false
     }
     
     
-    fileprivate func changeStartPauseButtonToState(mode: ButtonMode) {
+    private func changeStartPauseButtonToState(mode: ButtonMode) {
         startButton.isUserInteractionEnabled = true
         //set the state of the button according to the state passed in
         if (mode == .start) {
@@ -201,14 +204,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         button.clipsToBounds = true
     }
     
-    fileprivate func roundAllButtons() { //local helper method
+    private func roundAllButtons() { //local helper method
         roundButton(button: startButton)
         roundButton(button: stopButton)
         roundButton(button: restartButton)
         roundButton(button: selectSongs)
     }
     
-    fileprivate func setupAudio() {
+    private func setupAudio() {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: bellDingSoundPath!))
             audioPlayer.delegate = self
@@ -253,18 +256,27 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         
         initializeTimerRing()
         
-        currentWorkout = workouts.getCurrentWorkout()
+        self.currentWorkout = workouts.getCurrentWorkout()
+        self.nextWorkout = workouts.getNextWorkout()
         
-        updateLabel() //MUST come after current workout init
+        updateLabels() //MUST come after current workout init
         
         setupAudio() //setup audio stuff
     }
     
-    private func updateLabel() { //set the label text to be the same as the name of the current workout
+    private func updateLabels() { //set the label text to be the same as the name of the current workout
         self.workoutNameLabel.text = currentWorkout.name
+        
+        if (currentWorkout.duration == nil) {
+            self.nextWorkoutNameLabel.text = ""
+        } else if (nextWorkout.duration != nil) {
+            self.nextWorkoutNameLabel.text = "Next: \(self.nextWorkout.name)"
+        } else {
+            self.nextWorkoutNameLabel.text = self.nextWorkout.name
+        }
     }
     
-    fileprivate func startTimerIfWorkoutExists() { //start the timer for the given duration or end the workout session if the current workout has no duration
+    private func startTimerIfWorkoutExists() { //start the timer for the given duration or end the workout session if the current workout has no duration
         if (currentWorkout.duration != nil) {
             timerRing.shouldShowValueText = true
             timerRing.startTimer(to: currentWorkout.duration!, handler: self.handleTimer)
@@ -296,6 +308,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
+    private func advanceWorkout() {
+        self.workouts.currentWorkoutIndex += 1 //get the next workout
+        self.currentWorkout = workouts.getCurrentWorkout()
+        self.nextWorkout = workouts.getNextWorkout()
+    }
+    
     
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state { //when the timer finishes, do this...
@@ -303,11 +321,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             audioSessionEnabled(enabled: true) //enable audio play
             audioPlayer.prepareToPlay()
             audioPlayer.play()
-            self.workouts.currentWorkoutIndex += 1 //get the next workout
-            self.currentWorkout = workouts.getCurrentWorkout()
+            advanceWorkout()
             timerRing.resetTimer()
             startTimerIfWorkoutExists()
-            updateLabel()
+            updateLabels()
         }
         
         
