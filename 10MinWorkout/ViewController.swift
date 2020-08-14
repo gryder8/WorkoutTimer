@@ -10,17 +10,23 @@ import UIKit
 import UICircularProgressRing
 import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AVAudioPlayerDelegate {
     
     var audioPlayer = AVAudioPlayer()
+    let bellDingSoundPath = Bundle.main.path(forResource: "BellDing", ofType: "mp3")
+
+    
     private let workouts:Workouts = Workouts()
     private var workoutNames: [String] = []
+    
+    typealias AllWorkouts = [Workouts.Workout]
+    let plistURL:URL = URL(fileURLWithPath: Bundle.main.path(forResource:"", ofType:"plist")!)
+    
     //fileprivate var workoutIndex:Int = 0
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     fileprivate var timerInitiallyStarted = false
     
-    let bellDingSoundPath = Bundle.main.path(forResource: "BellDing", ofType: "mp3")
     
     //MARK: Testing vars
     private var finishedOnce = false
@@ -95,6 +101,11 @@ class ViewController: UIViewController {
         case pause
         case restart
     }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        audioSessionEnabled(enabled: false)
+    }
+    
     
     fileprivate func reset() {
         workouts.currentWorkoutIndex = 0
@@ -196,10 +207,23 @@ class ViewController: UIViewController {
         
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: bellDingSoundPath!))
+            audioPlayer.delegate = self
         } catch {
             print(error)
         }
         
+        do {
+            try AVAudioSession.sharedInstance().setCategory(
+            AVAudioSession.Category.playback,
+            mode: AVAudioSession.Mode.default,
+            options: [
+                AVAudioSession.CategoryOptions.duckOthers
+            ]
+        )
+        } catch {
+            print(error)
+        }
+                
     }
     
     private func updateLabel() {
@@ -208,9 +232,11 @@ class ViewController: UIViewController {
     
     fileprivate func startTimer() {
         if (currentWorkout.duration != nil) {
+            audioPlayer.numberOfLoops = 2
             timerRing.shouldShowValueText = true
             timerRing.startTimer(to: currentWorkout.duration!, handler: self.handleTimer)
         } else { // nil duration signifies being done with all exercises
+            audioPlayer.numberOfLoops = 3
             timerRing.shouldShowValueText = false;
             disableButton(startButton)
             enableButton(restartButton)
@@ -219,10 +245,33 @@ class ViewController: UIViewController {
     }
     
     
+    private func audioSessionEnabled(enabled: Bool) {
+        if (enabled) {
+            do {
+                try AVAudioSession.sharedInstance().setActive(true, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
+            } catch {
+                print("Session failed to activate!")
+                print(error)
+            }
+        } else {
+            do {
+                try AVAudioSession.sharedInstance().setActive(false, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
+            } catch {
+                print("Session failed to deactivate! (Session was busy?)")
+                print(error)
+            }
+        }
+    }
+    
+    
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state {
             audioPlayer.volume = 1.0
+            audioSessionEnabled(enabled: true)
+            audioPlayer.prepareToPlay()
             audioPlayer.play()
+            //audioPlayer.stop()
+            //audioSessionEnabled(enabled: false)
             workouts.currentWorkoutIndex += 1 //get the next one
             self.currentWorkout = workouts.getCurrentWorkout()
             timerRing.resetTimer()

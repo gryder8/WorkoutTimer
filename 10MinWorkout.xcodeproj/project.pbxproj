@@ -19,6 +19,7 @@
 		869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = 869916F224E3A6A1000F046D /* UICircularProgressRing */; };
 		869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869916F524E5CE8B000F046D /* AVFoundation.framework */; };
 		869916FD24E5D041000F046D /* BellDing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 869916FC24E5D041000F046D /* BellDing.mp3 */; };
+		8699170324E64A14000F046D /* Workouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8699170224E64A14000F046D /* Workouts.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		869916EC24E383F8000F046D /* WorkoutNames.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WorkoutNames.plist; sourceTree = "<group>"; };
 		869916F524E5CE8B000F046D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		869916FC24E5D041000F046D /* BellDing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BellDing.mp3; sourceTree = "<group>"; };
+		8699170224E64A14000F046D /* Workouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workouts.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,8 +89,9 @@
 		869916E524E37730000F046D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				869916E624E37761000F046D /* GradientView.swift */,
+				8699170224E64A14000F046D /* Workouts.plist */,
 				869916EC24E383F8000F046D /* WorkoutNames.plist */,
+				869916E624E37761000F046D /* GradientView.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				869916D824E370BD000F046D /* Assets.xcassets in Resources */,
 				869916FD24E5D041000F046D /* BellDing.mp3 in Resources */,
 				869916D624E370BB000F046D /* Main.storyboard in Resources */,
+				8699170324E64A14000F046D /* Workouts.plist in Resources */,
 				869916ED24E383F8000F046D /* WorkoutNames.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

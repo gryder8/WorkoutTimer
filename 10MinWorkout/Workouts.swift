@@ -16,6 +16,8 @@ class Workouts {
     var numWorkouts: Int = 20 //for now
     var currentWorkoutIndex:Int = 0
     
+    typealias WorkoutList = [Workout]
+    
     struct Workout: Decodable {
         let duration:TimeInterval?
         let name:String
@@ -26,27 +28,31 @@ class Workouts {
         //workoutNames.reserveCapacity(numWorkouts)
         //workoutList.reserveCapacity(numWorkouts)
         loadData()
-        initData()
+//        initData()
     }
     
     private func loadData() {
-        let url = Bundle.main.url(forResource: "WorkoutNames", withExtension: "plist")!
-        let workoutNamesData = try! Data(contentsOf: url)
-        let myDecodedPlistData = try! PropertyListSerialization.propertyList(from: workoutNamesData, options: [], format: nil)
-        workoutNames = myDecodedPlistData as! [String]
-        print(workoutNames)
-    }
-    
-    private func initData() { //TODO: Pull workout name and duration from plist
-        for i in 0..<workoutNames.count {
-            let newWorkout = Workout(duration: self.duration, name: workoutNames[i])
-            workoutList.append(newWorkout)
+        let plistURL = Bundle.main.url(forResource: "Workouts", withExtension: "plist")!
+//        let workoutNamesData = try! Data(contentsOf: plistURL)
+//        let myDecodedPlistData = try! PropertyListSerialization.propertyList(from: workoutNamesData, options: [], format: nil)
+//        workoutNames = myDecodedPlistData as! [String]
+        if let data = try? Data(contentsOf: plistURL) {
+            let decoder = PropertyListDecoder()
+            workoutList = try! decoder.decode(WorkoutList.self, from:data)
         }
         print(workoutList)
     }
     
+//    private func initData() { //TODO: Pull workout name and duration from plist
+//        for i in 0..<workoutNames.count {
+//            let newWorkout = Workout(duration: self.duration, name: workoutNames[i])
+//            workoutList.append(newWorkout)
+//        }
+//        print(workoutList)
+//    }
+    
     func getCurrentWorkout() -> Workout {
-        if (currentWorkoutIndex < workoutList.count-1) {
+        if (currentWorkoutIndex < workoutList.count) {
             return workoutList[currentWorkoutIndex]
         }
         return Workout(duration: nil, name: "You're done!")
@@ -59,9 +65,5 @@ class Workouts {
         }
         return Workout(duration: nil, name: "Last one! Almost there!")
     }
-    
-//    func nextWorkout() {
-//        currentWorkoutIndex += 1
-//    }
     
 }
