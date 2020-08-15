@@ -125,6 +125,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         // Get the system music player.
         let musicPlayer = MPMusicPlayerController.systemMusicPlayer
         musicPlayer.setQueue(with: mediaItemCollection)
+        musicPlayer.prepareToPlay()
         mediaPicker.dismiss(animated: true)
         // Begin playback.
         musicPlayer.play()
@@ -275,11 +276,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     @objc func observeBackgroundEntry(notification: Notification) {
         //print("Observer called!")
-        timerRing.pauseTimer()
-        soundToggle.isEnabled = true
-        selectSongs.isEnabled = true
-        buttonState = .start
-        changeStartPauseButtonToState(mode: .start)
+        if (self.buttonState != .pause) {
+            timerRing.pauseTimer()
+            soundToggle.isEnabled = true
+            selectSongs.isEnabled = true
+            buttonState = .start
+            changeStartPauseButtonToState(mode: .start)
+        }
     }
     
     private func updateLabels() { //set the label text to be the same as the name of the current workout

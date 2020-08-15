@@ -32,7 +32,7 @@ class Workouts {
     }
     
     private func loadData() {
-        let plistURL = Bundle.main.url(forResource: "FullWorkouts", withExtension: "plist")!
+        let plistURL = Bundle.main.url(forResource: "TestWorkouts", withExtension: "plist")!
         if let data = try? Data(contentsOf: plistURL) {
             let decoder = PropertyListDecoder()
             workoutList = try! decoder.decode(WorkoutList.self, from:data)
