@@ -21,6 +21,7 @@
 		869916FD24E5D041000F046D /* BellDing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 869916FC24E5D041000F046D /* BellDing.mp3 */; };
 		8699170324E64A14000F046D /* Workouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8699170224E64A14000F046D /* Workouts.plist */; };
 		86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48324E690DB005C98E9 /* Tone.mp3 */; };
+		86E1E48624E7B573005C98E9 /* FullWorkouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48524E7B573005C98E9 /* FullWorkouts.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		869916FC24E5D041000F046D /* BellDing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BellDing.mp3; sourceTree = "<group>"; };
 		8699170224E64A14000F046D /* Workouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workouts.plist; sourceTree = "<group>"; };
 		86E1E48324E690DB005C98E9 /* Tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tone.mp3; sourceTree = "<group>"; };
+		86E1E48524E7B573005C98E9 /* FullWorkouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FullWorkouts.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		869916E524E37730000F046D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				86E1E48524E7B573005C98E9 /* FullWorkouts.plist */,
 				8699170224E64A14000F046D /* Workouts.plist */,
 				869916EC24E383F8000F046D /* WorkoutNames.plist */,
 				869916E624E37761000F046D /* GradientView.swift */,
@@ -184,6 +187,7 @@
 				86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */,
 				869916FD24E5D041000F046D /* BellDing.mp3 in Resources */,
 				869916D624E370BB000F046D /* Main.storyboard in Resources */,
+				86E1E48624E7B573005C98E9 /* FullWorkouts.plist in Resources */,
 				8699170324E64A14000F046D /* Workouts.plist in Resources */,
 				869916ED24E383F8000F046D /* WorkoutNames.plist in Resources */,
 			);

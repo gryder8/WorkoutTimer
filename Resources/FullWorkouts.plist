@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>Crunches</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Knee Touch Crunches</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Heel Touches</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Bicycle Crunches</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Situps</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Reach Through Crunches</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Toe Tap Leg Lifts</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Flutter Kicks</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Scissor Kicks</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Leg Lifts</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Leg Up Alternating Crunch</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Crunch Kicks</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Mountain Climbers</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Plank</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Right Side Plank</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Left Side Plank</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Plank</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Plank Twists</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Spider Climbers</string>
+		<key>duration</key>
+		<integer>30</integer>
+	</dict>
+</array>
+</plist>

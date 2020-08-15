@@ -36,20 +36,17 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private var buttonState:ButtonMode = ButtonMode.start
     
     private let workouts:Workouts = Workouts()
-    private var workoutNames: [String] = []
-    private let purpleGradient:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8509803922, green: 0.5019607843, blue: 0.9803921569, alpha: 1)]
+    private let purpleGradient:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
     
     typealias AllWorkouts = [Workouts.Workout]
     
     let plistURL:URL = URL(fileURLWithPath: Bundle.main.path(forResource:"", ofType:"plist")!)
     
-    //private var workoutIndex:Int = 0
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     private var timerInitiallyStarted = false
     
     //MARK: Testing vars
-    //private var finishedOnce = false
     
     
     //MARK: Properties
@@ -62,19 +59,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
     @IBOutlet weak var soundToggle: UISwitch!
-    
-    var isActive:Bool = false {
-        willSet {
-            print("Active state about to be set!")
-        }
-        didSet { //use observable to change state of timer
-            if (isActive == true){
-                self.timerRing.continueTimer()
-            } else {
-                self.timerRing.pauseTimer()
-            }
-        }
-    }
     
     
     
@@ -214,8 +198,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         timerRing.backgroundColor = UIColor.clear //no background
         timerRing.startAngle = 90
         //timerRing.endAngle = 180 //endAngle broken?
-        timerRing.outerRingColor = UIColor.clear
-        timerRing.innerRingColor = UIColor.black//colorForTime(timeRemaining: timeLeft)
+        timerRing.outerRingColor = UIColor.clear //don't show
+        timerRing.innerRingColor = UIColor.black
         timerRing.innerCapStyle = .round
         timerRing.innerRingWidth = 20.0
         timerRing.tintColor = UIColor.orange //does this do anything?
