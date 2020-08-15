@@ -12,13 +12,13 @@
 		<key>name</key>
 		<string>Crunches</string>
 		<key>duration</key>
-		<integer>4</integer>
+		<integer>3</integer>
 	</dict>
 	<dict>
 		<key>name</key>
 		<string>Knee-Touch Crunches</string>
 		<key>duration</key>
-		<integer>5</integer>
+		<integer>3</integer>
 	</dict>
 </array>
 </plist>
