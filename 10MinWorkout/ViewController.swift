@@ -11,6 +11,8 @@ import UICircularProgressRing
 import AVFoundation
 import MediaPlayer
 
+//TODO: Fix state issues!
+
 extension UIView { //courtesy StackOverflow lol
     @discardableResult
     func applyGradient(colours: [UIColor]) -> CAGradientLayer {
@@ -26,6 +28,22 @@ extension UIView { //courtesy StackOverflow lol
         self.layer.insertSublayer(gradient, at: 0)
         return gradient
     }
+    
+    func setIsHidden(_ hidden: Bool, animated: Bool) {
+        if animated {
+            if self.isHidden && !hidden {
+                self.alpha = 0.0
+                self.isHidden = false
+            }
+            UIView.animate(withDuration: 0.15, animations: {
+                self.alpha = hidden ? 0.0 : 1.0
+            }) { (complete) in
+                self.isHidden = hidden
+            }
+        } else {
+            self.isHidden = hidden
+        }
+    }
 }
 
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
@@ -39,9 +57,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private let purpleGradient:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
     
     typealias AllWorkouts = [Workouts.Workout]
-    
-    let plistURL:URL = URL(fileURLWithPath: Bundle.main.path(forResource:"", ofType:"plist")!)
-    
+        
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     private var timerInitiallyStarted = false
@@ -66,15 +82,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         if (buttonState == .start && !timerInitiallyStarted) { //first start
             timerInitiallyStarted = true
             startTimerIfWorkoutExists()
-            buttonState = .pause
-            changeStartPauseButtonToState(mode: .pause)
+            //buttonState = .pause
+            changeStartPauseFunctionToMode(mode: .pause)
             soundToggle.isEnabled = false
             selectSongs.isEnabled = false
             return
         } else if (buttonState == .start) { //resuming from pause
             timerRing.continueTimer()
-            buttonState = .pause
-            changeStartPauseButtonToState(mode: .pause)
+            //buttonState = .pause
+            changeStartPauseFunctionToMode(mode: .pause)
             soundToggle.isEnabled = false
             selectSongs.isEnabled = false
             return
@@ -82,8 +98,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
-            buttonState = .start
-            changeStartPauseButtonToState(mode: .start)
+            //buttonState = .start
+            changeStartPauseFunctionToMode(mode: .start)
             return
         } else if (buttonState == .restart){ //restart timer
             enableButton(restartButton)
@@ -94,22 +110,43 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
+    private func changeStartPauseFunctionToMode(mode: ButtonMode) {
+        startButton.isUserInteractionEnabled = true
+        //set the state of the button according to the state passed in
+        if (mode == .start && !timerInitiallyStarted) { //first start
+            startButton.setTitle("Start", for: .normal)
+            startButton.backgroundColor = UIColor.green
+            self.buttonState = mode
+            return
+        } else if (mode == .start && timerInitiallyStarted) { //resume
+            startButton.setTitle("Resume", for: .normal)
+            startButton.backgroundColor = UIColor.green
+            enableButton(stopButton)
+            self.buttonState = mode
+            return
+        } else if (mode == .pause){ //pause
+            startButton.setTitle("Pause", for: .normal)
+            startButton.backgroundColor = UIColor.yellow
+            disableButton(stopButton)
+            self.buttonState = mode
+            return
+        } else if (mode == .restart) { //restart
+            startButton.setTitle("Restart", for: .normal)
+            startButton.backgroundColor = UIColor.systemBlue
+            disableButton(stopButton)
+            self.buttonState = mode
+            return
+        }
+    }
+    
     
     @IBAction func stopButtonTapped(_ sender: UIButton) {
-        timerRing.resetTimer()
-        changeStartPauseButtonToState(mode: .start)
-         //override behavior from above method
-        reset()
+        self.resetAll()
     }
     
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {
-        timerRing.resetTimer()
-        changeStartPauseButtonToState(mode: .start)
-        reset()
-        disableButton(restartButton)
-        enableButton(startButton)
-        buttonState = .start
+        self.resetAll()
     }
     
     @IBAction func selectSongs(_ sender: UIButton) {
@@ -135,14 +172,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         mediaPicker.dismiss(animated: true)
     }
     
-    func enableButton(_ button: UIButton) { //helper
-        button.isHidden = false
+    func enableButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
+        button.setIsHidden(false, animated: isAnimated!)
         button.isEnabled = true
         button.isUserInteractionEnabled = true
     }
     
-    func disableButton(_ button: UIButton) { //helper
-        button.isHidden = true
+    func disableButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
+        button.setIsHidden(true, animated: isAnimated!)
         button.isEnabled = false
         button.isUserInteractionEnabled = false
     }
@@ -159,39 +196,24 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     
-    private func reset() {
+    private func resetAll() {
+        timerRing.resetTimer()
         workouts.currentWorkoutIndex = 0
         currentWorkout = workouts.getCurrentWorkout()
         nextWorkout = workouts.getNextWorkout()
         updateLabels()
         timerInitiallyStarted = false
-        disableButton(stopButton)
+        disableButton(restartButton, isAnimated: false)
+        disableButton(stopButton, isAnimated: false)
+        enableButton(startButton)
         timerRing.shouldShowValueText = false
         soundToggle.isEnabled = true
+        startButton.setTitle("Start", for: .normal)
+        changeStartPauseFunctionToMode(mode: .start)
     }
     
     
-    private func changeStartPauseButtonToState(mode: ButtonMode) {
-        startButton.isUserInteractionEnabled = true
-        //set the state of the button according to the state passed in
-        if (mode == .start) {
-            startButton.setTitle("Start", for: .normal)
-            startButton.backgroundColor = UIColor.green
-            enableButton(stopButton)
-            return
-        } else if (mode == .pause){
-            startButton.setTitle("Pause", for: .normal)
-            startButton.backgroundColor = UIColor.yellow
-            disableButton(stopButton)
-            return
-        } else if (mode == .restart) {
-            startButton.setTitle("Restart", for: .normal)
-            startButton.backgroundColor = UIColor.systemBlue
-            disableButton(stopButton)
-            return
-        }
 
-    }
 
     
     private func initializeTimerRing() {
@@ -280,8 +302,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
-            buttonState = .start
-            changeStartPauseButtonToState(mode: .start)
+            //buttonState = .start
+            changeStartPauseFunctionToMode(mode: .start)
         }
     }
     
@@ -299,6 +321,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     private func startTimerIfWorkoutExists() { //start the timer for the given duration or end the workout session if the current workout has no duration
         if (currentWorkout.duration != nil) {
+            audioPlayer.numberOfLoops = 0
             timerRing.shouldShowValueText = true
             timerRing.startTimer(to: currentWorkout.duration!, handler: self.handleTimer)
         } else { // nil duration signifies being done with all exercises
@@ -341,14 +364,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state { //when the timer finishes, do this...
             //TODO: Tweak from prefs pane?
+            advanceWorkout()
+            timerRing.resetTimer()
+            startTimerIfWorkoutExists()
             if (soundToggle.isOn) {
                 audioSessionEnabled(enabled: true) //enable audio play
                 audioPlayer.prepareToPlay()
                 audioPlayer.play()
             }
-            advanceWorkout()
-            timerRing.resetTimer()
-            startTimerIfWorkoutExists()
             updateLabels()
         }
         
