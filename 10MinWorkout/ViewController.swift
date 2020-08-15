@@ -83,14 +83,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             timerInitiallyStarted = true
             startTimerIfWorkoutExists()
             //buttonState = .pause
-            changeStartPauseFunctionToMode(mode: .pause)
+            changeToMode(mode: .pause)
             soundToggle.isEnabled = false
             selectSongs.isEnabled = false
             return
         } else if (buttonState == .start) { //resuming from pause
             timerRing.continueTimer()
             //buttonState = .pause
-            changeStartPauseFunctionToMode(mode: .pause)
+            changeToMode(mode: .pause)
             soundToggle.isEnabled = false
             selectSongs.isEnabled = false
             return
@@ -99,18 +99,19 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
             //buttonState = .start
-            changeStartPauseFunctionToMode(mode: .start)
+            changeToMode(mode: .start)
             return
         } else if (buttonState == .restart){ //restart timer
-            enableButton(restartButton)
-            disableButton(startButton)
-            soundToggle.isEnabled = true
-            selectSongs.isEnabled = true
+            self.resetAll()
+//            enableButton(restartButton)
+//            disableButton(startButton)
+//            soundToggle.isEnabled = true
+//            selectSongs.isEnabled = true
             return
         }
     }
     
-    private func changeStartPauseFunctionToMode(mode: ButtonMode) {
+    private func changeToMode(mode: ButtonMode) {
         startButton.isUserInteractionEnabled = true
         //set the state of the button according to the state passed in
         if (mode == .start && !timerInitiallyStarted) { //first start
@@ -198,18 +199,20 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     private func resetAll() {
         timerRing.resetTimer()
+        timerInitiallyStarted = false
         workouts.currentWorkoutIndex = 0
         currentWorkout = workouts.getCurrentWorkout()
         nextWorkout = workouts.getNextWorkout()
         updateLabels()
-        timerInitiallyStarted = false
         disableButton(restartButton, isAnimated: false)
         disableButton(stopButton, isAnimated: false)
-        enableButton(startButton)
+        enableButton(startButton, isAnimated: true)
         timerRing.shouldShowValueText = false
+        //soundToggle.isEnabled = true
+        //startButton.setTitle("Start", for: .normal)
+        changeToMode(mode: .start)
         soundToggle.isEnabled = true
-        startButton.setTitle("Start", for: .normal)
-        changeStartPauseFunctionToMode(mode: .start)
+        selectSongs.isEnabled = true
     }
     
     
@@ -303,7 +306,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
             //buttonState = .start
-            changeStartPauseFunctionToMode(mode: .start)
+            changeToMode(mode: .start)
         }
     }
     
