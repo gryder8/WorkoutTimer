@@ -283,8 +283,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         roundAllButtons()
         selectSongs.applyGradient(colours: purpleGradient)
         
+        
         enableButton(startButton)
         disableButton(stopButton)
+        disableButton(restartButton)
+        
+        workoutNameLabel.textColor = .black
+        nextWorkoutNameLabel.textColor = .black
         
         initializeTimerRing()
         
@@ -312,7 +317,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         self.workoutNameLabel.text = currentWorkout.name
         
         if (currentWorkout.duration == nil) {
-            self.nextWorkoutNameLabel.text = ""
+            self.nextWorkoutNameLabel.text = "" //won't be visible but isn't technically hidden
         } else if (nextWorkout.duration != nil) {
             self.nextWorkoutNameLabel.text = "Next: \(self.nextWorkout.name)"
         } else {
