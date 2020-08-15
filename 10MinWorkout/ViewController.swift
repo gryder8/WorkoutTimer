@@ -85,16 +85,19 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             buttonState = .pause
             changeStartPauseButtonToState(mode: .pause)
             soundToggle.isEnabled = false
+            selectSongs.isEnabled = false
             return
         } else if (buttonState == .start) { //resuming from pause
             timerRing.continueTimer()
             buttonState = .pause
             changeStartPauseButtonToState(mode: .pause)
             soundToggle.isEnabled = false
+            selectSongs.isEnabled = false
             return
         } else if (buttonState == .pause){ //pause timer
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
+            selectSongs.isEnabled = true
             buttonState = .start
             changeStartPauseButtonToState(mode: .start)
             return
@@ -102,6 +105,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             enableButton(restartButton)
             disableButton(startButton)
             soundToggle.isEnabled = true
+            selectSongs.isEnabled = true
             return
         }
     }
@@ -281,13 +285,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         updateLabels() //MUST come after current workout init
         
         setupAudio() //setup audio stuff
-        NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
     }
     
     @objc func observeBackgroundEntry(notification: Notification) {
-        print("Observer called!")
+        //print("Observer called!")
         timerRing.pauseTimer()
         soundToggle.isEnabled = true
+        selectSongs.isEnabled = true
         buttonState = .start
         changeStartPauseButtonToState(mode: .start)
     }
@@ -314,6 +320,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             disableButton(startButton)
             enableButton(restartButton)
             soundToggle.isEnabled = true
+            selectSongs.isEnabled = true
             //finishedOnce = true
         }
     }
