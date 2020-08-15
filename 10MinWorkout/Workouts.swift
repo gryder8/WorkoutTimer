@@ -25,14 +25,11 @@ class Workouts {
     
     
     public init() {
-        //workoutNames.reserveCapacity(numWorkouts)
-        //workoutList.reserveCapacity(numWorkouts)
         loadData()
-//        initData()
     }
     
     private func loadData() {
-        let plistURL = Bundle.main.url(forResource: "TestWorkouts", withExtension: "plist")!
+        let plistURL = Bundle.main.url(forResource: "FullWorkouts", withExtension: "plist")!
         if let data = try? Data(contentsOf: plistURL) {
             let decoder = PropertyListDecoder()
             workoutList = try! decoder.decode(WorkoutList.self, from:data)
