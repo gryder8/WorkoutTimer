@@ -30,14 +30,14 @@ extension UIView { //courtesy StackOverflow lol
 
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
     
-    var audioPlayer = AVAudioPlayer()
-    let bellDingSoundPath = Bundle.main.path(forResource: "Tone", ofType: "mp3")
+    private var audioPlayer = AVAudioPlayer()
+    private let bellDingSoundPath = Bundle.main.path(forResource: "Tone", ofType: "mp3")
 
-    var buttonState:ButtonMode = ButtonMode.start
+    private var buttonState:ButtonMode = ButtonMode.start
     
     private let workouts:Workouts = Workouts()
     private var workoutNames: [String] = []
-    let purpleGradient:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8509803922, green: 0.5019607843, blue: 0.9803921569, alpha: 1)]
+    private let purpleGradient:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8509803922, green: 0.5019607843, blue: 0.9803921569, alpha: 1)]
     
     typealias AllWorkouts = [Workouts.Workout]
     
@@ -47,7 +47,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     private var timerInitiallyStarted = false
-    
     
     //MARK: Testing vars
     //private var finishedOnce = false
@@ -63,6 +62,19 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
     @IBOutlet weak var soundToggle: UISwitch!
+    
+    var isActive:Bool = false {
+        willSet {
+            print("Active state about to be set!")
+        }
+        didSet { //use observable to change state of timer
+            if (isActive == true){
+                self.timerRing.continueTimer()
+            } else {
+                self.timerRing.pauseTimer()
+            }
+        }
+    }
     
     
     
@@ -86,13 +98,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             buttonState = .start
             changeStartPauseButtonToState(mode: .start)
             return
-        } else if (buttonState == .restart){
+        } else if (buttonState == .restart){ //restart timer
             enableButton(restartButton)
             disableButton(startButton)
             soundToggle.isEnabled = true
             return
         }
     }
+    
     
     @IBAction func stopButtonTapped(_ sender: UIButton) {
         timerRing.resetTimer()
@@ -268,6 +281,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         updateLabels() //MUST come after current workout init
         
         setupAudio() //setup audio stuff
+        NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    @objc func observeBackgroundEntry(notification: Notification) {
+        print("Observer called!")
+        timerRing.pauseTimer()
+        soundToggle.isEnabled = true
+        buttonState = .start
+        changeStartPauseButtonToState(mode: .start)
     }
     
     private func updateLabels() { //set the label text to be the same as the name of the current workout
