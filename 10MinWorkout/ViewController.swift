@@ -208,8 +208,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         disableButton(stopButton, isAnimated: false)
         enableButton(startButton, isAnimated: true)
         timerRing.shouldShowValueText = false
-        //soundToggle.isEnabled = true
-        //startButton.setTitle("Start", for: .normal)
+
         changeToMode(mode: .start)
         soundToggle.isEnabled = true
         selectSongs.isEnabled = true
@@ -232,7 +231,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     
-    func roundButton(button:UIButton) { //round the corners of the button passed in
+    private func roundButton(button:UIButton) { //round the corners of the button passed in
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
     }
@@ -274,11 +273,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         // Do any additional setup after loading the view.
         timerInitiallyStarted = false
         if (self.traitCollection.userInterfaceStyle == .dark){
-            gradientView.firstColor =   #colorLiteral(red: 1, green: 0.2969330549, blue: 0, alpha: 1)
+            gradientView.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
             gradientView.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
         } else {
             gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
-            gradientView.secondColor = #colorLiteral(red: 1, green: 0.2969330549, blue: 0, alpha: 1)
+            gradientView.secondColor = #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
         }
         
         roundAllButtons()
@@ -305,7 +304,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
-            //buttonState = .start
             changeToMode(mode: .start)
         }
     }
