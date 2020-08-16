@@ -62,10 +62,17 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     private var timerInitiallyStarted = false
     
-    //MARK: Testing vars
+    
+    enum ButtonMode:Equatable { //button states
+        case start
+        case pause
+        case restart
+    }
+    
+    //MARK: - Testing vars
     
     
-    //MARK: Properties
+    //MARK:  - Properties
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var timerRing: UICircularTimerRing!
     @IBOutlet weak var workoutNameLabel: UILabel!
@@ -77,7 +84,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var soundToggle: UISwitch!
     
     
-    
+    //MARK: - State Management
     @IBAction func startButtonTapped(_ sender: UIButton) {
         if (buttonState == .start && !timerInitiallyStarted) { //first start
             timerInitiallyStarted = true
@@ -140,7 +147,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    
+    //MARK: - Button Action Handlers
     @IBAction func stopButtonTapped(_ sender: UIButton) {
         self.resetAll()
     }
@@ -157,7 +164,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         controller.delegate = self
         self.present(controller, animated: true)
     }
-    
+     //MARK: - Delegates
     func mediaPicker(_ mediaPicker: MPMediaPickerController,
                      didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         // Get the system music player.
@@ -173,6 +180,22 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         mediaPicker.dismiss(animated: true)
     }
     
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) { //delegate method
+        audioSessionEnabled(enabled: false)
+    }
+    
+    @objc func observeBackgroundEntry(notification: Notification) {
+        //print("Observer called!")
+        if (self.buttonState != .pause) {
+            timerRing.pauseTimer()
+            soundToggle.isEnabled = true
+            selectSongs.isEnabled = true
+            changeToMode(mode: .start)
+        }
+    }
+    
+    
+    //MARK: - Local Helper and Initialization Functions
     func enableButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
         button.setIsHidden(false, animated: isAnimated!)
         button.isEnabled = true
@@ -186,15 +209,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     
-    enum ButtonMode:Equatable { //button states
-        case start
-        case pause
-        case restart
-    }
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) { //delegate method
-        audioSessionEnabled(enabled: false)
-    }
     
     
     private func resetAll() {
@@ -215,7 +229,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     
-
 
     
     private func initializeTimerRing() {
@@ -267,7 +280,25 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-
+    private func updateLabels() { //set the label text to be the same as the name of the current workout
+        self.workoutNameLabel.text = currentWorkout.name
+        
+        if (currentWorkout.duration == nil) {
+            self.nextWorkoutNameLabel.text = "" //won't be visible but isn't technically hidden
+        } else if (nextWorkout.duration != nil) {
+            self.nextWorkoutNameLabel.text = "Next: \(self.nextWorkout.name)"
+        } else {
+            self.nextWorkoutNameLabel.text = self.nextWorkout.name
+        }
+    }
+    
+    private func advanceWorkout() {
+        self.workouts.currentWorkoutIndex += 1 //get the next workout
+        self.currentWorkout = workouts.getCurrentWorkout()
+        self.nextWorkout = workouts.getNextWorkout()
+    }
+    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -303,28 +334,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
     }
     
-    @objc func observeBackgroundEntry(notification: Notification) {
-        //print("Observer called!")
-        if (self.buttonState != .pause) {
-            timerRing.pauseTimer()
-            soundToggle.isEnabled = true
-            selectSongs.isEnabled = true
-            changeToMode(mode: .start)
-        }
-    }
-    
-    private func updateLabels() { //set the label text to be the same as the name of the current workout
-        self.workoutNameLabel.text = currentWorkout.name
-        
-        if (currentWorkout.duration == nil) {
-            self.nextWorkoutNameLabel.text = "" //won't be visible but isn't technically hidden
-        } else if (nextWorkout.duration != nil) {
-            self.nextWorkoutNameLabel.text = "Next: \(self.nextWorkout.name)"
-        } else {
-            self.nextWorkoutNameLabel.text = self.nextWorkout.name
-        }
-    }
-    
+
+    //MARK: - Timer and Audio Control
     private func startTimerIfWorkoutExists() { //start the timer for the given duration or end the workout session if the current workout has no duration
         if (currentWorkout.duration != nil) {
             audioPlayer.numberOfLoops = 0
@@ -337,7 +348,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             enableButton(restartButton)
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
-            //finishedOnce = true
         }
     }
     
@@ -360,28 +370,20 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    private func advanceWorkout() {
-        self.workouts.currentWorkoutIndex += 1 //get the next workout
-        self.currentWorkout = workouts.getCurrentWorkout()
-        self.nextWorkout = workouts.getNextWorkout()
-    }
-    
     
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state { //when the timer finishes, do this...
             //TODO: Tweak from prefs pane?
-            advanceWorkout()
-            timerRing.resetTimer()
-            startTimerIfWorkoutExists()
             if (soundToggle.isOn) {
                 audioSessionEnabled(enabled: true) //enable audio play
                 audioPlayer.prepareToPlay()
                 audioPlayer.play()
             }
+            advanceWorkout()
+            timerRing.resetTimer()
+            startTimerIfWorkoutExists()
             updateLabels()
         }
-        
-        
     }
     
     
