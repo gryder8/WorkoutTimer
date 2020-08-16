@@ -19,6 +19,8 @@
 		869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869916F524E5CE8B000F046D /* AVFoundation.framework */; };
 		869916FD24E5D041000F046D /* BellDing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 869916FC24E5D041000F046D /* BellDing.mp3 */; };
 		8699170324E64A14000F046D /* TestWorkouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8699170224E64A14000F046D /* TestWorkouts.plist */; };
+		86D7FBBE24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */; };
+		86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */; };
 		86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48324E690DB005C98E9 /* Tone.mp3 */; };
 		86E1E48624E7B573005C98E9 /* FullWorkouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48524E7B573005C98E9 /* FullWorkouts.plist */; };
 /* End PBXBuildFile section */
@@ -37,6 +39,8 @@
 		869916F524E5CE8B000F046D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		869916FC24E5D041000F046D /* BellDing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BellDing.mp3; sourceTree = "<group>"; };
 		8699170224E64A14000F046D /* TestWorkouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestWorkouts.plist; sourceTree = "<group>"; };
+		86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutEditorControllerTableViewController.swift; sourceTree = "<group>"; };
+		86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCellTableViewCell.swift; sourceTree = "<group>"; };
 		86E1E48324E690DB005C98E9 /* Tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tone.mp3; sourceTree = "<group>"; };
 		86E1E48524E7B573005C98E9 /* FullWorkouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FullWorkouts.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +83,8 @@
 				869916CE24E370BB000F046D /* AppDelegate.swift */,
 				869916D024E370BB000F046D /* SceneDelegate.swift */,
 				869916D224E370BB000F046D /* ViewController.swift */,
+				86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */,
+				86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */,
 				869916E824E37D06000F046D /* Workouts.swift */,
 				869916D424E370BB000F046D /* Main.storyboard */,
 				869916D724E370BD000F046D /* Assets.xcassets */,
@@ -200,6 +206,8 @@
 				869916E924E37D06000F046D /* Workouts.swift in Sources */,
 				869916CF24E370BB000F046D /* AppDelegate.swift in Sources */,
 				869916E724E37761000F046D /* GradientView.swift in Sources */,
+				86D7FBBE24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift in Sources */,
+				86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */,
 				869916D124E370BB000F046D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

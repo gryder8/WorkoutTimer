@@ -49,18 +49,21 @@ extension UIView { //courtesy StackOverflow lol
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
     
     private var audioPlayer = AVAudioPlayer()
-    private let bellDingSoundPath = Bundle.main.path(forResource: "Tone", ofType: "mp3")
+    private let toneSoundPath = Bundle.main.path(forResource: "Tone", ofType: "mp3")
 
     private var buttonState:ButtonMode = ButtonMode.start
     
-    private let workouts:Workouts = Workouts()
     private let purpleGradient:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
     
-    typealias AllWorkouts = [Workouts.Workout]
+    typealias AllWorkouts = [Workouts.Workout] //array of struct
         
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     private var timerInitiallyStarted = false
+    
+    //MARK: - Workouts Singleton!
+    private let workouts:Workouts = Workouts.shared
+
     
     
     enum ButtonMode:Equatable { //button states
@@ -258,7 +261,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     private func setupAudio() {
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: bellDingSoundPath!))
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: toneSoundPath!))
             audioPlayer.delegate = self
             audioPlayer.volume = 1.0
         } catch {
