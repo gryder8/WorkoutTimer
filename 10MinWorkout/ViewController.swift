@@ -304,6 +304,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
         timerInitiallyStarted = false
         if (self.traitCollection.userInterfaceStyle == .dark){
