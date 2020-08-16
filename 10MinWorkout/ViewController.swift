@@ -189,7 +189,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     @objc func observeBackgroundEntry(notification: Notification) {
         //print("Observer called!")
-        if (self.buttonState != .pause) {
+        if (self.buttonState != .start) {
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
