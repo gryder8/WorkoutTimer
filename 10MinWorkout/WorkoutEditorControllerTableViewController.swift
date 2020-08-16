@@ -8,47 +8,102 @@
 
 import UIKit
 
+extension UIFont {
+    func withTraits(traits:UIFontDescriptor.SymbolicTraits) -> UIFont {
+        let descriptor = fontDescriptor.withSymbolicTraits(traits)
+        return UIFont(descriptor: descriptor!, size: 0) //size 0 means keep the size as it is
+    }
+
+    func bold() -> UIFont {
+        return withTraits(traits: .traitBold)
+    }
+    
+    func italic() -> UIFont {
+        return withTraits(traits: .traitItalic)
+    }
+
+}
+
+extension Double {
+    var removeDecimalAndZero: String {
+        return truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+    }
+}
+
 class WorkoutEditorControllerTableViewController: UITableViewController {
+    
+    private let WorkoutsMaster: Workouts = Workouts.shared
+    private let tableGradient:GradientView = GradientView()
+    private var workoutList:[Workouts.Workout] = [] //array of Workout structs
+    private var darkModeEnabled:Bool = false
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
+        if (darkModeEnabled){
+            tableGradient.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
+            tableGradient.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
+        } else {
+            tableGradient.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
+            tableGradient.secondColor = #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
+        }
+        self.tableView.backgroundView = tableGradient
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        //self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return WorkoutsMaster.numWorkouts()
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 40)
+        tableView.separatorColor = UIColor(red:0.18, green:0.18, blue:0.18, alpha:0.5)
+        self.workoutList = WorkoutsMaster.workoutList
+        let cellIdentifier = "WorkoutCell"
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? WorkoutCellTableViewCell else {
+            fatalError("Dequeued cell not an instance of WorkoutCell")
+        }
+        cell.workoutLabel.textColor = .black
+        cell.backgroundColor = .clear
+        
+        let name = workoutList[indexPath.row].name
+        let duration = workoutList[indexPath.row].duration
+        let num:Double = Double(duration ?? -1.0)
+        var combinedText:String
+        if (duration != nil) {
+            combinedText = "\(name) : \(String(num.removeDecimalAndZero)) secs"
+        } else {
+            combinedText = "\(name)"
+        }
+        cell.workoutLabel.text = combinedText
+        
         return cell
     }
-    */
+    
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        if (indexPath.row != WorkoutsMaster.numWorkouts()-1) { //make the last cell not editable (for now at least)
+            return true
+        }
+        return false
     }
-    */
+    
 
     /*
     // Override to support editing the table view.

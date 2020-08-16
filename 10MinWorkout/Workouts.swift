@@ -12,8 +12,6 @@ class Workouts {
     
     var workoutNames: [String] = []
     var workoutList:[Workout] = []
-    var duration:TimeInterval = 3.0 //for now
-    var numWorkouts: Int = 20 //for now
     var currentWorkoutIndex:Int = 0
     
     typealias WorkoutList = [Workout]
@@ -31,7 +29,7 @@ class Workouts {
     }
     
     private func loadData() {
-        let plistURL = Bundle.main.url(forResource: "TestWorkouts", withExtension: "plist")!
+        let plistURL = Bundle.main.url(forResource: "FullWorkouts", withExtension: "plist")!
         if let data = try? Data(contentsOf: plistURL) {
             let decoder = PropertyListDecoder()
             workoutList = try! decoder.decode(WorkoutList.self, from:data)
@@ -53,6 +51,10 @@ class Workouts {
             return workoutList[currentWorkoutIndex+1]
         }
         return Workout(duration: nil, name: "Last one! Almost there!")
+    }
+    
+    func numWorkouts() -> Int { //helper
+        return workoutList.count
     }
     
 }

@@ -9,7 +9,9 @@
 import UIKit
 
 class WorkoutCellTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var workoutLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

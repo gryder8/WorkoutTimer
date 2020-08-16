@@ -132,6 +132,7 @@
                         <accessibility key="accessibilityConfiguration">
                             <accessibilityTraits key="traits" notEnabled="YES"/>
                         </accessibility>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="NO"/>
@@ -142,6 +143,10 @@
                                 <color key="value" red="1" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="laL-KP-eQx" appends="YES" id="S7a-d9-ZOX"/>
+                            <outletCollection property="gestureRecognizers" destination="WxT-fH-0xD" appends="YES" id="c30-qi-jRh"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="W3y-4c-OvB"/>
                     <connections>
@@ -157,6 +162,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="laL-KP-eQx">
+                    <connections>
+                        <segue destination="YWr-Pi-07R" kind="show" id="3nt-5H-XqZ"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="WxT-fH-0xD"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
@@ -169,13 +180,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Yil-T6-lnc">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkoutCell" id="Yil-T6-lnc" customClass="WorkoutCellTableViewCell" customModule="_0MinWorkout" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yil-T6-lnc" id="46w-gl-7SD">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Name: 30 sec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nF-E9-tjC">
+                                            <rect key="frame" x="13" y="0.0" width="396" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="workoutLabel" destination="3nF-E9-tjC" id="Swk-rO-xxM"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -187,7 +210,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MDJ-b8-NNT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1133" y="138"/>
+            <point key="canvasLocation" x="1131.8840579710145" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>

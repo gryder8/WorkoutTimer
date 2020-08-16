@@ -53,7 +53,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
 
     private var buttonState:ButtonMode = ButtonMode.start
     
-    private let purpleGradient:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
+    private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
     
     typealias AllWorkouts = [Workouts.Workout] //array of struct
         
@@ -315,7 +315,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
         
         roundAllButtons()
-        selectSongs.applyGradient(colours: purpleGradient)
+        selectSongs.applyGradient(colours: purpleGradientColors)
         
         
         enableButton(startButton)
