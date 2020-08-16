@@ -63,6 +63,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     //MARK: - Workouts Singleton!
     private let workouts:Workouts = Workouts.shared
+    
+    
+    //MARK: - VC Singleton
+    static let shared = ViewController()
 
     
     
@@ -85,6 +89,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
     @IBOutlet weak var soundToggle: UISwitch!
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "swipeFromMain") {
+            segue.destination.addChild(self)
+        }
+    }
     
     
     //MARK: - State Management
@@ -214,7 +224,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     
     
-    private func resetAll() {
+    func resetAll() {
         timerRing.resetTimer()
         timerInitiallyStarted = false
         workouts.currentWorkoutIndex = 0

@@ -13,14 +13,15 @@ class Workouts {
     var workoutNames: [String] = []
     var workoutList:[Workout] = []
     var currentWorkoutIndex:Int = 0
+    let defaults = UserDefaults.standard
     
     typealias WorkoutList = [Workout]
     
     static let shared = Workouts()
     
     struct Workout: Decodable {
-        let duration:TimeInterval?
-        let name:String
+        var duration:TimeInterval?
+        var name:String
     }
     
     
@@ -55,6 +56,15 @@ class Workouts {
     
     func numWorkouts() -> Int { //helper
         return workoutList.count
+    }
+    
+    func updateWorkoutList(index: Int, _ newName:String?, _ newDuration:TimeInterval?) {
+        if (newName != nil) {
+            workoutList[index].name = newName!
+        }
+        if (newDuration != nil) {
+            workoutList[index].duration = newDuration!
+        }
     }
     
 }

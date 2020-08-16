@@ -149,7 +149,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="laL-KP-eQx">
                     <connections>
-                        <segue destination="YWr-Pi-07R" kind="show" id="3nt-5H-XqZ"/>
+                        <segue destination="YWr-Pi-07R" kind="show" identifier="swipeFromMain" id="3nt-5H-XqZ"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="WxT-fH-0xD"/>
