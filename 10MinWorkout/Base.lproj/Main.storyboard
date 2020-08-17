@@ -192,7 +192,12 @@
                             <outlet property="delegate" destination="YWr-Pi-07R" id="W6w-D6-oj0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="qgX-Ul-puL"/>
+                    <navigationItem key="navigationItem" id="qgX-Ul-puL">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2c1-XL-OEw"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="2c1-XL-OEw" id="ayz-vX-yDA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MDJ-b8-NNT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

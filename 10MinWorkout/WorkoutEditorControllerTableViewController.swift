@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import LongPressReorder
 
 extension UIFont {
     func withTraits(traits:UIFontDescriptor.SymbolicTraits) -> UIFont {
@@ -24,6 +25,8 @@ extension UIFont {
 
 }
 
+
+
 extension Double {
     var removeDecimalAndZero: String {
         return truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
@@ -33,19 +36,25 @@ extension Double {
 class WorkoutEditorControllerTableViewController: UITableViewController {
     
     private var isInitialized = false
+    private var darkModeEnabled:Bool = false
+    
     private let WorkoutsMaster: Workouts = Workouts.shared
     private var VCMaster: ViewController = ViewController()
     private let tableGradient:GradientView = GradientView()
+    var reorderTableView: LongPressReorderTableView!
     private var workoutList:[Workouts.Workout] = [] {
         didSet {
             if (isInitialized) {
                 self.WorkoutsMaster.allWorkouts = self.workoutList
             }
-//            print(self.workoutList[0].name)
-//            print(self.WorkoutsMaster.workoutList[0].name)
         }
-    }//array of Workout structs
-    private var darkModeEnabled:Bool = false
+    }
+    //array of Workout structs
+    
+    
+    @IBOutlet weak var addButton: UIBarButtonItem!
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         setUpTableViewHeader()
@@ -69,18 +78,43 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         let label = UILabel(frame: CGRect(x:0, y:0, width:350, height:30))
         label.backgroundColor = .clear
         label.numberOfLines = 1
-        label.font = UIFont (name: "Avenir Next", size: 12.0)!
+        label.font = UIFont (name: "Avenir Next", size: 14.0)!
         label.textAlignment = .center
         label.textColor = .black
-        label.text = "Swipe right on a workout to edit"
+        label.numberOfLines = 2
+        label.text = "Swipe right to remove or edit a workout \n Long press to re-arrange"
         self.navigationItem.titleView = label
+        addButton.action = #selector(self.addCellTapped)
+        addButton.target = self
     }
     
     @objc func backTapped(){
         navigationController?.popToRootViewController(animated: true)
     }
+    
+    @objc func addCellTapped() {
+        let alert = UIAlertController(title: "", message: "Add Workout", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Workout Name"
+        })
+        
+        alert.addTextField(configurationHandler: { (numberField) in
+            numberField.keyboardType = .numberPad
+//            let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
+            numberField.placeholder = "Duration (sec)"
+        })
+        
+        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (updateAction) in
+            let newWorkout:Workouts.Workout = Workouts.Workout(duration: Double(alert.textFields![1].text!), name: alert.textFields!.first!.text!)
+            self.workoutList.append(newWorkout)
+            self.VCMaster.resetAll()
+            self.tableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: false)
+    }
 
-
+//MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,16 +131,21 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         //self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //self.navigationItem.rightBarButtonItem = self.addWorkoutButton
         
         self.workoutList = WorkoutsMaster.allWorkouts
-        isInitialized = true
+        reorderTableView = LongPressReorderTableView(self.tableView)
+        reorderTableView.enableLongPressReorder()
+        reorderTableView.delegate = self
+        self.isInitialized = true
     }
     
+    
+    //MARK: - VC Hierarchy
     override func addChild(_ childController: UIViewController) { //TODO: kinda hacky
-        //super.addChild(childController)
         VCMaster = childController as! ViewController
     }
+    
     
     // MARK: - Table view data sourcing
 
@@ -188,55 +227,31 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         return swipeActions
     }
     
-    
-    /*
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //self.list = PeriodNames.getPeriodNames()
-        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
-            let alert = UIAlertController(title: "", message: "Edit Workout", preferredStyle: .alert)
-            alert.addTextField(configurationHandler: { (textField) in
-                textField.text = self.workoutList[indexPath.row].name
-            })
-            
-            alert.addTextField(configurationHandler: { (numberField) in
-                numberField.keyboardType = .numberPad
-                let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
-                numberField.text = String(durationAsDouble.removeDecimalAndZero)
-            })
-            alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
-                self.workoutList[indexPath.row].name = alert.textFields!.first!.text!
-                self.workoutList[indexPath.row].duration = Double(alert.textFields![1].text!) //cast the string into a double to be used as a time interval
-                self.WorkoutsMaster.updateWorkoutList(index: indexPath.row, self.workoutList[indexPath.row].name, self.workoutList[indexPath.row].duration)
-                self.tableView.reloadRows(at: [indexPath], with: .right)
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: false)
-            
-        })
-        return [editAction]
-    }
-    */
-    
 
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+        if (editingStyle == .delete) {
             self.workoutList.remove(at: indexPath.row)
             //self.WorkoutsMaster.workoutList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
+    }
+
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
     }
     
 
-    /*
+    
     // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
+//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+//        let movedObject = self.workoutList[fromIndexPath.row]
+//        self.workoutList.remove(at: fromIndexPath.row)
+//        self.workoutList.insert(movedObject, at: to.row)
+//        VCMaster.resetAll()
+//    }
+    
 
     /*
     // Override to support conditional rearranging of the table view.
@@ -256,4 +271,14 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension WorkoutEditorControllerTableViewController {
+    
+    override func reorderFinished(initialIndex: IndexPath, finalIndex: IndexPath) {
+        self.workoutList.swapAt(initialIndex.row, finalIndex.row) //swap the rows in the underlying data model
+        VCMaster.resetAll()
+    }
+    
+    
 }
