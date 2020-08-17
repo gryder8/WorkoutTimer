@@ -142,6 +142,7 @@
                         <outlet property="soundToggle" destination="HLl-AR-Rhe" id="0Yx-sG-aeU"/>
                         <outlet property="startButton" destination="prZ-hj-SYw" id="ZkM-FC-u3W"/>
                         <outlet property="stopButton" destination="p6S-cP-Dvm" id="fuU-fs-RnI"/>
+                        <outlet property="swipeToTableView" destination="laL-KP-eQx" id="Sak-4L-1Va"/>
                         <outlet property="timerRing" destination="4RF-u0-MSf" id="VFz-M4-eBm"/>
                         <outlet property="workoutNameLabel" destination="1ll-GI-7F3" id="xUH-3E-MoD"/>
                     </connections>

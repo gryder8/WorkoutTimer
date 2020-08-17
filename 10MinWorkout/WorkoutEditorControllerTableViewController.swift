@@ -39,7 +39,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
     private var workoutList:[Workouts.Workout] = [] {
         didSet {
             if (isInitialized) {
-                self.WorkoutsMaster.workoutList = self.workoutList
+                self.WorkoutsMaster.allWorkouts = self.workoutList
             }
 //            print(self.workoutList[0].name)
 //            print(self.WorkoutsMaster.workoutList[0].name)
@@ -51,6 +51,10 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         setUpTableViewHeader()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     //MARK: - View customization and UI Event handling
     private func setUpTableViewHeader(){
         self.navigationController?.navigationBar.isHidden = false
@@ -60,8 +64,8 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         self.navigationController?.navigationBar.barTintColor = tableGradient.firstColor
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.navigationBar.tintColor = .black
-        navigationItem.hidesBackButton = true //we want to use "Done" to clarify that data is saved
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done,target: self, action: #selector(backTapped))
+        navigationItem.hidesBackButton = false
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done,target: self, action: #selector(backTapped))
         let label = UILabel(frame: CGRect(x:0, y:0, width:350, height:30))
         label.backgroundColor = .clear
         label.numberOfLines = 1
@@ -95,7 +99,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        self.workoutList = WorkoutsMaster.workoutList
+        self.workoutList = WorkoutsMaster.allWorkouts
         isInitialized = true
     }
     
@@ -176,11 +180,10 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         })
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { (action, view, boolValue) in
-                self.workoutList.remove(at: indexPath.row) //calls didSet?
-                //self.WorkoutsMaster.workoutList = self.workoutList
+            self.workoutList.remove(at: indexPath.row)
             self.VCMaster.resetAll()
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-            })
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        })
         let swipeActions = UISwipeActionsConfiguration(actions: [editAction, deleteAction])
         return swipeActions
     }

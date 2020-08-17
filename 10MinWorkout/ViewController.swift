@@ -89,11 +89,18 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
     @IBOutlet weak var soundToggle: UISwitch!
+    @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "swipeFromMain") {
             segue.destination.addChild(self)
         }
+    }
+    
+    func externalizingActionsEnabled(_ enabled: Bool) {
+        soundToggle.isEnabled = enabled
+        selectSongs.isEnabled = enabled
+        swipeToTableView.isEnabled = enabled
     }
     
     
@@ -104,20 +111,19 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             startTimerIfWorkoutExists()
             //buttonState = .pause
             changeToMode(mode: .pause)
-            soundToggle.isEnabled = false
-            selectSongs.isEnabled = false
+            externalizingActionsEnabled(false)
             return
         } else if (buttonState == .start) { //resuming from pause
             timerRing.continueTimer()
             //buttonState = .pause
             changeToMode(mode: .pause)
-            soundToggle.isEnabled = false
-            selectSongs.isEnabled = false
+            externalizingActionsEnabled(false)
             return
         } else if (buttonState == .pause){ //pause timer
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
+            swipeToTableView.isEnabled = false
             //buttonState = .start
             changeToMode(mode: .start)
             return
@@ -237,8 +243,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         timerRing.shouldShowValueText = false
 
         changeToMode(mode: .start)
-        soundToggle.isEnabled = true
-        selectSongs.isEnabled = true
+        externalizingActionsEnabled(true)
     }
     
     

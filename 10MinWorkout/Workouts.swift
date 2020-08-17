@@ -10,16 +10,23 @@ import Foundation
 
 class Workouts {
     
-    var workoutNames: [String] = []
-    var workoutList:[Workout] = []
+    var allWorkouts:[Workout] = [] {
+        didSet {
+            if let dataToWrite = try? PropertyListEncoder().encode(allWorkouts) {
+                defaults.set(dataToWrite, forKey: WORKOUTS_KEY)
+                print("Wrote updated data to cache")
+            }
+        }
+    }
     var currentWorkoutIndex:Int = 0
     let defaults = UserDefaults.standard
+    let WORKOUTS_KEY:String = "WORKOUTS"
     
     typealias WorkoutList = [Workout]
     
     static let shared = Workouts()
     
-    struct Workout: Decodable {
+    struct Workout: Codable {
         var duration:TimeInterval?
         var name:String
     }
@@ -30,40 +37,49 @@ class Workouts {
     }
     
     private func loadData() {
-        let plistURL = Bundle.main.url(forResource: "FullWorkouts", withExtension: "plist")!
-        if let data = try? Data(contentsOf: plistURL) {
-            let decoder = PropertyListDecoder()
-            workoutList = try! decoder.decode(WorkoutList.self, from:data)
+        if let data = defaults.data(forKey: WORKOUTS_KEY) {
+            self.allWorkouts = try! PropertyListDecoder().decode(WorkoutList.self, from: data)
+            print("Got data from cache")
+        } else {
+            let plistURL = Bundle.main.url(forResource: "FullWorkouts", withExtension: "plist")!
+            if let data = try? Data(contentsOf: plistURL) {
+                let decoder = PropertyListDecoder()
+                allWorkouts = try! decoder.decode(WorkoutList.self, from:data)
+            }
+            if let dataToWrite = try? PropertyListEncoder().encode(allWorkouts) {
+                defaults.set(dataToWrite, forKey: WORKOUTS_KEY)
+                print("Wrote data to cache")
+            }
         }
         //print(workoutList.count)
     }
     
     
     func getCurrentWorkout() -> Workout {
-        if (currentWorkoutIndex < workoutList.count) {
-            return workoutList[currentWorkoutIndex]
+        if (currentWorkoutIndex < allWorkouts.count) {
+            return allWorkouts[currentWorkoutIndex]
         }
         return Workout(duration: nil, name: "You're done!")
     }
     
     
     func getNextWorkout() -> Workout {
-        if (currentWorkoutIndex < workoutList.count-1) {
-            return workoutList[currentWorkoutIndex+1]
+        if (currentWorkoutIndex < allWorkouts.count-1) {
+            return allWorkouts[currentWorkoutIndex+1]
         }
         return Workout(duration: nil, name: "Last one! Almost there!")
     }
     
     func numWorkouts() -> Int { //helper
-        return workoutList.count
+        return allWorkouts.count
     }
     
     func updateWorkoutList(index: Int, _ newName:String?, _ newDuration:TimeInterval?) {
         if (newName != nil) {
-            workoutList[index].name = newName!
+            allWorkouts[index].name = newName!
         }
         if (newDuration != nil) {
-            workoutList[index].duration = newDuration!
+            allWorkouts[index].duration = newDuration!
         }
     }
     
