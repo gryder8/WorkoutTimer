@@ -72,7 +72,7 @@
 				86CA866D24EB59AA008B57E6 /* Icons */,
 				869916FB24E5CF45000F046D /* Sounds */,
 				869916E524E37730000F046D /* Resources */,
-				869916CD24E370BB000F046D /* 10MinWorkout */,
+				869916CD24E370BB000F046D /* WorkoutTimer */,
 				869916CC24E370BB000F046D /* Products */,
 				869916F424E5CE8A000F046D /* Frameworks */,
 			);
@@ -86,7 +86,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		869916CD24E370BB000F046D /* 10MinWorkout */ = {
+		869916CD24E370BB000F046D /* WorkoutTimer */ = {
 			isa = PBXGroup;
 			children = (
 				869916CE24E370BB000F046D /* AppDelegate.swift */,
@@ -98,7 +98,7 @@
 				869916D724E370BD000F046D /* Assets.xcassets */,
 				869916DC24E370BD000F046D /* Info.plist */,
 			);
-			path = 10MinWorkout;
+			path = WorkoutTimer;
 			sourceTree = "<group>";
 		};
 		869916E524E37730000F046D /* Resources */ = {
@@ -203,7 +203,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 869916C624E370BB000F046D /* Build configuration list for PBXProject "10MinWorkout" */;
+			buildConfigurationList = 869916C624E370BB000F046D /* Build configuration list for PBXProject "WorkoutTimer" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -402,12 +402,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LTHP4N872E;
-				INFOPLIST_FILE = 10MinWorkout/Info.plist;
+				INFOPLIST_FILE = WorkoutTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Gavin.-0MinWorkout";
+				PRODUCT_BUNDLE_IDENTIFIER = Gavin.WorkoutTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -420,12 +420,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LTHP4N872E;
-				INFOPLIST_FILE = 10MinWorkout/Info.plist;
+				INFOPLIST_FILE = WorkoutTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Gavin.-0MinWorkout";
+				PRODUCT_BUNDLE_IDENTIFIER = Gavin.WorkoutTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -435,7 +435,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		869916C624E370BB000F046D /* Build configuration list for PBXProject "10MinWorkout" */ = {
+		869916C624E370BB000F046D /* Build configuration list for PBXProject "WorkoutTimer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				869916DD24E370BD000F046D /* Debug */,
