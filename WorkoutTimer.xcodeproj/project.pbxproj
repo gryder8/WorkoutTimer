@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		865B6C4A24EBBE3300B167C1 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865B6C4924EBBE3300B167C1 /* SettingViewController.swift */; };
 		869916CF24E370BB000F046D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916CE24E370BB000F046D /* AppDelegate.swift */; };
 		869916D124E370BB000F046D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D024E370BB000F046D /* SceneDelegate.swift */; };
 		869916D324E370BB000F046D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D224E370BB000F046D /* ViewController.swift */; };
@@ -30,7 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		869916CB24E370BB000F046D /* 10MinWorkout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 10MinWorkout.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		865B6C4924EBBE3300B167C1 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		869916CB24E370BB000F046D /* WorkoutTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869916CE24E370BB000F046D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		869916D024E370BB000F046D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		869916D224E370BB000F046D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +83,7 @@
 		869916CC24E370BB000F046D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				869916CB24E370BB000F046D /* 10MinWorkout.app */,
+				869916CB24E370BB000F046D /* WorkoutTimer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				869916D224E370BB000F046D /* ViewController.swift */,
+				865B6C4924EBBE3300B167C1 /* SettingViewController.swift */,
 				869916E824E37D06000F046D /* Workouts.swift */,
 				869916CE24E370BB000F046D /* AppDelegate.swift */,
 				869916D024E370BB000F046D /* SceneDelegate.swift */,
@@ -168,9 +171,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		869916CA24E370BB000F046D /* 10MinWorkout */ = {
+		869916CA24E370BB000F046D /* WorkoutTimer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 869916DF24E370BD000F046D /* Build configuration list for PBXNativeTarget "10MinWorkout" */;
+			buildConfigurationList = 869916DF24E370BD000F046D /* Build configuration list for PBXNativeTarget "WorkoutTimer" */;
 			buildPhases = (
 				869916C724E370BB000F046D /* Sources */,
 				869916C824E370BB000F046D /* Frameworks */,
@@ -180,12 +183,12 @@
 			);
 			dependencies = (
 			);
-			name = 10MinWorkout;
+			name = WorkoutTimer;
 			packageProductDependencies = (
 				869916F224E3A6A1000F046D /* UICircularProgressRing */,
 			);
 			productName = 10MinWorkout;
-			productReference = 869916CB24E370BB000F046D /* 10MinWorkout.app */;
+			productReference = 869916CB24E370BB000F046D /* WorkoutTimer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -219,7 +222,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				869916CA24E370BB000F046D /* 10MinWorkout */,
+				869916CA24E370BB000F046D /* WorkoutTimer */,
 			);
 		};
 /* End PBXProject section */
@@ -254,6 +257,7 @@
 				869916E924E37D06000F046D /* Workouts.swift in Sources */,
 				869916CF24E370BB000F046D /* AppDelegate.swift in Sources */,
 				869916E724E37761000F046D /* GradientView.swift in Sources */,
+				865B6C4A24EBBE3300B167C1 /* SettingViewController.swift in Sources */,
 				86D7FBBE24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift in Sources */,
 				86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */,
 				869916D124E370BB000F046D /* SceneDelegate.swift in Sources */,
@@ -444,7 +448,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		869916DF24E370BD000F046D /* Build configuration list for PBXNativeTarget "10MinWorkout" */ = {
+		869916DF24E370BD000F046D /* Build configuration list for PBXNativeTarget "WorkoutTimer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				869916E024E370BD000F046D /* Debug */,

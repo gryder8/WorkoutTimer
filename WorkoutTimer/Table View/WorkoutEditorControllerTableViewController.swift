@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import LongPressReorder
+import Foundation
 
 extension UIFont {
     func withTraits(traits:UIFontDescriptor.SymbolicTraits) -> UIFont {
@@ -33,7 +33,7 @@ extension Double {
     }
 }
 
-class WorkoutEditorControllerTableViewController: UITableViewController {
+class WorkoutEditorControllerTableViewController: UITableViewController, UITextFieldDelegate {
     
     private var isInitialized = false
     private var darkModeEnabled:Bool = false
@@ -54,6 +54,14 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
     
     @IBOutlet weak var addButton: UIBarButtonItem!
     
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string:String) -> Bool {
+        
+        let allowedChars = "1234567890"
+        let allowedCharSet = CharacterSet(charactersIn: allowedChars)
+        let typedCharSet = CharacterSet(charactersIn: string)
+        return allowedCharSet.isSuperset(of: typedCharSet)
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,12 +108,19 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
         
         alert.addTextField(configurationHandler: { (numberField) in
             numberField.keyboardType = .numberPad
+            numberField.delegate = self //should restrict to nums only
 //            let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
             numberField.placeholder = "Duration (sec)"
         })
         
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (updateAction) in
-            let newWorkout:Workouts.Workout = Workouts.Workout(duration: Double(alert.textFields![1].text!), name: alert.textFields!.first!.text!)
+            let durationInput = alert.textFields![1].text!
+            var newWorkout:Workouts.Workout
+//            if (!CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: durationInput))) {
+//                newWorkout = Workouts.Workout(duration: self.workoutList[], name: alert.textFields!.first!.text!)
+//            } else {
+                newWorkout = Workouts.Workout(duration: Double(durationInput), name: alert.textFields!.first!.text!)
+            //}
             self.workoutList.append(newWorkout)
             self.VCMaster.resetAll()
             self.tableView.reloadData()
@@ -203,6 +218,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
             
             alert.addTextField(configurationHandler: { (numberField) in
                 numberField.keyboardType = .numberPad
+                numberField.delegate = self //should restrict input to numeric only
                 let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
                 numberField.text = String(durationAsDouble.removeDecimalAndZero)
             })
