@@ -120,7 +120,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController {
 
         self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
         if (darkModeEnabled){
-            tableGradient.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
+            tableGradient.firstColor =   #colorLiteral(red: 1, green: 0.3529411765, blue: 0, alpha: 1)
             tableGradient.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
         } else {
             tableGradient.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)

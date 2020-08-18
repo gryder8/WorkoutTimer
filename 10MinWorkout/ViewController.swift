@@ -88,11 +88,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
+    @IBOutlet weak var workoutViewBtn: UIButton!
     @IBOutlet weak var soundToggle: UISwitch!
     @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "swipeFromMain") {
+        if (segue.identifier == "swipeFromMain" || segue.identifier == "workoutBtnPressed") {
             segue.destination.addChild(self)
         }
     }
@@ -100,6 +101,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     func externalizingActionsEnabled(_ enabled: Bool) {
         soundToggle.isEnabled = enabled
         selectSongs.isEnabled = enabled
+        workoutViewBtn.isEnabled = enabled
         swipeToTableView.isEnabled = enabled
     }
     
@@ -271,7 +273,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         roundButton(button: startButton)
         roundButton(button: stopButton)
         roundButton(button: restartButton)
-        roundButton(button: selectSongs)
+        //roundButton(button: selectSongs)
     }
     
     private func setupAudio() {
@@ -331,7 +333,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
         
         roundAllButtons()
-        selectSongs.applyGradient(colours: purpleGradientColors)
+        //selectSongs.applyGradient(colours: purpleGradientColors)
         
         
         enableButton(startButton)
