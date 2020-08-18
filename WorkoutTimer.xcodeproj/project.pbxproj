@@ -89,10 +89,10 @@
 		869916CD24E370BB000F046D /* WorkoutTimer */ = {
 			isa = PBXGroup;
 			children = (
-				869916CE24E370BB000F046D /* AppDelegate.swift */,
-				869916D024E370BB000F046D /* SceneDelegate.swift */,
 				869916D224E370BB000F046D /* ViewController.swift */,
 				869916E824E37D06000F046D /* Workouts.swift */,
+				869916CE24E370BB000F046D /* AppDelegate.swift */,
+				869916D024E370BB000F046D /* SceneDelegate.swift */,
 				86CA867024EB5C24008B57E6 /* Table View */,
 				86CA866F24EB5C12008B57E6 /* Storyboards */,
 				869916D724E370BD000F046D /* Assets.xcassets */,

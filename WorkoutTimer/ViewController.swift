@@ -252,6 +252,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
 
     
     private func initializeTimerRing() {
+        timerRing.font = UIFont (name: "Avenir Next", size: 30.0)!.italic()
         timerRing.shouldShowValueText = false
         timerRing.backgroundColor = UIColor.clear //no background
         timerRing.startAngle = 90
