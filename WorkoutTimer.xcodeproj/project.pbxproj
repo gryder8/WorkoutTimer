@@ -24,6 +24,7 @@
 		86CA866624EB4FE6008B57E6 /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CA866524EB4FE6008B57E6 /* menuIcon.png */; };
 		86CA866824EB5125008B57E6 /* musicButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CA866724EB5125008B57E6 /* musicButton.png */; };
 		86CA866C24EB55AE008B57E6 /* workoutList.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CA866B24EB55AE008B57E6 /* workoutList.png */; };
+		86CB44C724ECE7AC00865BE9 /* settingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CB44C624ECE7AC00865BE9 /* settingsIcon.png */; };
 		86D7FBBE24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */; };
 		86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */; };
 		86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48324E690DB005C98E9 /* Tone.mp3 */; };
@@ -49,6 +50,7 @@
 		86CA866524EB4FE6008B57E6 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
 		86CA866724EB5125008B57E6 /* musicButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicButton.png; sourceTree = "<group>"; };
 		86CA866B24EB55AE008B57E6 /* workoutList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = workoutList.png; sourceTree = "<group>"; };
+		86CB44C624ECE7AC00865BE9 /* settingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsIcon.png; sourceTree = "<group>"; };
 		86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutEditorControllerTableViewController.swift; sourceTree = "<group>"; };
 		86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCellTableViewCell.swift; sourceTree = "<group>"; };
 		86E1E48324E690DB005C98E9 /* Tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tone.mp3; sourceTree = "<group>"; };
@@ -96,7 +98,7 @@
 				869916E824E37D06000F046D /* Workouts.swift */,
 				869916CE24E370BB000F046D /* AppDelegate.swift */,
 				869916D024E370BB000F046D /* SceneDelegate.swift */,
-				86CA867024EB5C24008B57E6 /* Table View */,
+				86CA867024EB5C24008B57E6 /* Workout Editor View */,
 				86CA866F24EB5C12008B57E6 /* Storyboards */,
 				869916D724E370BD000F046D /* Assets.xcassets */,
 				869916DC24E370BD000F046D /* Info.plist */,
@@ -134,6 +136,7 @@
 		86CA866D24EB59AA008B57E6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				86CB44C624ECE7AC00865BE9 /* settingsIcon.png */,
 				86CA866B24EB55AE008B57E6 /* workoutList.png */,
 				86CA866724EB5125008B57E6 /* musicButton.png */,
 				86CA866524EB4FE6008B57E6 /* menuIcon.png */,
@@ -159,13 +162,13 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		86CA867024EB5C24008B57E6 /* Table View */ = {
+		86CA867024EB5C24008B57E6 /* Workout Editor View */ = {
 			isa = PBXGroup;
 			children = (
 				86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */,
 				86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */,
 			);
-			path = "Table View";
+			path = "Workout Editor View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +240,7 @@
 				869916D824E370BD000F046D /* Assets.xcassets in Resources */,
 				86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */,
 				869916FD24E5D041000F046D /* BellDing.mp3 in Resources */,
+				86CB44C724ECE7AC00865BE9 /* settingsIcon.png in Resources */,
 				86CA866C24EB55AE008B57E6 /* workoutList.png in Resources */,
 				869916D624E370BB000F046D /* Main.storyboard in Resources */,
 				86CA866624EB4FE6008B57E6 /* menuIcon.png in Resources */,

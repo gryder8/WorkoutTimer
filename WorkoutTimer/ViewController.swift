@@ -52,9 +52,16 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private let toneSoundPath = Bundle.main.path(forResource: "Tone", ofType: "mp3")
 
     private var buttonState:ButtonMode = ButtonMode.start
+    private let restDurationKey = "REST_DUR_KEY"
+    private let defaults = UserDefaults.standard
     
     private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
-    let restDuration:Int = 5
+    var restDuration:Int = 10 {
+        didSet {
+            defaults.set(restDuration, forKey: restDurationKey)
+            print(String(defaults.integer(forKey: restDurationKey)))
+        }
+    }
     
     typealias AllWorkouts = [Workouts.Workout] //array of struct
         
@@ -93,13 +100,16 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var selectSongs: UIButton!
     @IBOutlet weak var workoutViewBtn: UIButton!
+    @IBOutlet weak var settingsBtn: UIButton!
     @IBOutlet weak var soundToggle: UISwitch!
     @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
     @IBOutlet weak var restTimerLabel: UILabel!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "swipeFromMain" || segue.identifier == "workoutBtnPressed") {
-            segue.destination.addChild(self)
+            (segue.destination as! WorkoutEditorControllerTableViewController).VCMaster = self
+        } else if (segue.identifier == "settingsSegue") {
+            (segue.destination as! SettingViewController).VCMaster = self
         }
     }
     
@@ -108,6 +118,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         selectSongs.isEnabled = enabled
         workoutViewBtn.isEnabled = enabled
         swipeToTableView.isEnabled = enabled
+        if (!isRestTimerActive) { //force disabled settings if rest timer running or on screen
+            settingsBtn.isEnabled = enabled
+        } else {
+            settingsBtn.isEnabled = false
+        }
     }
     
     
@@ -116,7 +131,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         if (buttonState == .start && !timerInitiallyStarted) { //first start
             timerInitiallyStarted = true
             startTimerIfWorkoutExists()
-            //buttonState = .pause
             changeToMode(mode: .pause)
             externalizingActionsEnabled(false)
             return
@@ -126,7 +140,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             } else {
                 restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
             }
-            //buttonState = .pause
             changeToMode(mode: .pause)
             externalizingActionsEnabled(false)
                 
@@ -136,6 +149,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
                 timerRing.pauseTimer()
             } else {
                 restTimer.invalidate()
+                settingsBtn.isEnabled = true
             }
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
@@ -145,10 +159,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             return
         } else if (buttonState == .restart){ //restart timer
             self.resetAll()
-//            enableButton(restartButton)
-//            disableButton(startButton)
-//            soundToggle.isEnabled = true
-//            selectSongs.isEnabled = true
             return
         }
     }
@@ -257,7 +267,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         disableButton(stopButton, isAnimated: false)
         enableButton(startButton, isAnimated: true)
         timerRing.shouldShowValueText = false
-
+        restTimerLabel.isHidden = true
         changeToMode(mode: .start)
         externalizingActionsEnabled(true)
     }
@@ -275,7 +285,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         timerRing.innerRingColor = UIColor.black
         timerRing.innerCapStyle = .round
         timerRing.innerRingWidth = 20.0
-        timerRing.tintColor = UIColor.orange //does this do anything?
+        restTimerLabel.isHidden = true
     }
     
     
@@ -339,6 +349,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         self.navigationController?.navigationBar.isHidden = true
         // Do any additional setup after loading the view.
         timerInitiallyStarted = false
+        if (defaults.integer(forKey: restDurationKey) != 0) {
+            self.restDuration = defaults.integer(forKey: restDurationKey)
+            print(self.restDuration)
+        } else {
+            defaults.set(restDuration, forKey: restDurationKey)
+        }
+        
         if (self.traitCollection.userInterfaceStyle == .dark){
             gradientView.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
             gradientView.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
@@ -348,15 +365,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
         
         roundAllButtons()
-        //selectSongs.applyGradient(colours: purpleGradientColors)
-        
         
         enableButton(startButton)
         disableButton(stopButton)
         disableButton(restartButton)
-        
-        restTimerLabel.isHidden = true
-        
+                
         workoutNameLabel.textColor = .black
         nextWorkoutNameLabel.textColor = .black
         
@@ -443,7 +456,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             count = duration
             workoutNameLabel.text = "Rest!"
             timerRing.shouldShowValueText = false
-            restTimerLabel.font = timerRing.font
+        restTimerLabel.font = UIFont (name: "Avenir Next", size: 50.0)!.italic()
             isRestTimerActive = true
             restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
     }

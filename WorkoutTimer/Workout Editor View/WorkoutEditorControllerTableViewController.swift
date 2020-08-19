@@ -28,7 +28,7 @@ extension UIFont {
 
 
 extension Double {
-    var removeDecimalAndZero: String {
+    var clean: String {
         return truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
@@ -39,7 +39,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     private var darkModeEnabled:Bool = false
     
     private let WorkoutsMaster: Workouts = Workouts.shared
-    private var VCMaster: ViewController = ViewController()
+    var VCMaster: ViewController = ViewController()
     private let tableGradient:GradientView = GradientView()
     var reorderTableView: LongPressReorderTableView!
     private var workoutList:[Workouts.Workout] = [] {
@@ -49,9 +49,8 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
             }
         }
     }
-    //array of Workout structs
     
-    
+    //MARK: - Properties
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     
@@ -191,7 +190,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         let num:Double = Double(duration ?? -1.0)
         var combinedText:String
         if (duration != nil) {
-            combinedText = "\(name) : \(String(num.removeDecimalAndZero)) secs"
+            combinedText = "\(name) : \(String(num.clean)) secs"
         } else {
             combinedText = "\(name)"
         }
@@ -220,7 +219,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
                 numberField.keyboardType = .numberPad
                 numberField.delegate = self //should restrict input to numeric only
                 let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
-                numberField.text = String(durationAsDouble.removeDecimalAndZero)
+                numberField.text = String(durationAsDouble.clean)
             })
             alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
                 self.workoutList[indexPath.row].name = alert.textFields!.first!.text!

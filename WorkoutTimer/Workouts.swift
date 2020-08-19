@@ -41,7 +41,7 @@ class Workouts {
     }
     
     private func loadData() {
-        defaults.removeObject(forKey: WORKOUTS_KEY)
+        //defaults.removeObject(forKey: WORKOUTS_KEY)
         if let data = defaults.data(forKey: WORKOUTS_KEY) {
             self.allWorkouts = try! PropertyListDecoder().decode(WorkoutList.self, from: data)
             print("Got data from cache")
