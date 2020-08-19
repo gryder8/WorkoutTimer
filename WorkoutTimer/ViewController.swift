@@ -54,12 +54,16 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private var buttonState:ButtonMode = ButtonMode.start
     
     private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
+    let restDuration:Int = 5
     
     typealias AllWorkouts = [Workouts.Workout] //array of struct
         
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     private var timerInitiallyStarted = false
+    
+    var isRestTimerActive = false
+    var restTimer:Timer!
     
     //MARK: - Workouts Singleton!
     private let workouts:Workouts = Workouts.shared
@@ -91,6 +95,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var workoutViewBtn: UIButton!
     @IBOutlet weak var soundToggle: UISwitch!
     @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
+    @IBOutlet weak var restTimerLabel: UILabel!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "swipeFromMain" || segue.identifier == "workoutBtnPressed") {
@@ -116,13 +121,22 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             externalizingActionsEnabled(false)
             return
         } else if (buttonState == .start) { //resuming from pause
-            timerRing.continueTimer()
+            if (!isRestTimerActive) {
+                timerRing.continueTimer()
+            } else {
+                restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
+            }
             //buttonState = .pause
             changeToMode(mode: .pause)
             externalizingActionsEnabled(false)
+                
             return
         } else if (buttonState == .pause){ //pause timer
-            timerRing.pauseTimer()
+            if (!isRestTimerActive) {
+                timerRing.pauseTimer()
+            } else {
+                restTimer.invalidate()
+            }
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
             swipeToTableView.isEnabled = false
@@ -341,10 +355,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         disableButton(stopButton)
         disableButton(restartButton)
         
+        restTimerLabel.isHidden = true
+        
         workoutNameLabel.textColor = .black
         nextWorkoutNameLabel.textColor = .black
         
         initializeTimerRing()
+    
         
         self.currentWorkout = workouts.getCurrentWorkout()
         self.nextWorkout = workouts.getNextWorkout()
@@ -373,6 +390,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
+//    func restBetweenWorkouts() {
+//        workoutNameLabel.text = "Rest!"
+//        timerRing.resetTimer()
+//        timerRing.startTimer(to: restDuration, handler: self.handleTimer) //using self as the handler here would introduce unreachable code when this method is called
+//
+//    }
+    
     
     private func audioSessionEnabled(enabled: Bool) {
         if (enabled) {
@@ -395,19 +419,52 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     private func handleTimer(state: UICircularTimerRing.State?) {
         if case .finished = state { //when the timer finishes, do this...
-            //TODO: Tweak from prefs pane?
             if (soundToggle.isOn) {
                 audioSessionEnabled(enabled: true) //enable audio play
                 audioPlayer.prepareToPlay()
                 audioPlayer.play()
             }
-            advanceWorkout()
             timerRing.resetTimer()
-            startTimerIfWorkoutExists()
-            updateLabels()
+            
+            if (workouts.getNextWorkout().duration != nil) {
+                restFor(restDuration)
+            } else {
+                startNextWorkout() //code that must be run regardless of whether there should be a rest
+            }
+            
         }
     }
     
+    private var count:Int = 0
+    private func restFor(_ duration: Int) {
+            restTimerLabel.isHidden = false
+            restTimerLabel.text = String(duration)
+            restTimerLabel.frame = timerRing.frame
+            count = duration
+            workoutNameLabel.text = "Rest!"
+            timerRing.shouldShowValueText = false
+            restTimerLabel.font = timerRing.font
+            isRestTimerActive = true
+            restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func updateLabelForCountdown() {
+        if (count > 0) {
+            count -= 1
+            restTimerLabel.text = String(count)
+        } else {
+            restTimerLabel.isHidden = true
+            isRestTimerActive = false
+            restTimer.invalidate()
+            startNextWorkout()
+        }
+    }
+    
+    private func startNextWorkout() {
+        advanceWorkout()
+        startTimerIfWorkoutExists()
+        updateLabels()
+    }
     
     
 

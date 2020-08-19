@@ -10,11 +10,18 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="_0MinWorkout" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GradientView" customModule="_0MinWorkout" customModuleProvider="target">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GradientView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgV-x6-3ob" userLabel="Rest Timer Label">
+                                <rect key="frame" x="162" y="234" width="90" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4RF-u0-MSf" customClass="UICircularTimerRing" customModule="UICircularProgressRing">
                                 <rect key="frame" x="28" y="99" width="358" height="275"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -146,6 +153,7 @@
                     <connections>
                         <outlet property="gradientView" destination="8bC-Xf-vdC" id="op7-oK-17U"/>
                         <outlet property="nextWorkoutNameLabel" destination="m2g-Fc-yOZ" id="HkR-wm-j9U"/>
+                        <outlet property="restTimerLabel" destination="JgV-x6-3ob" id="Zgl-YZ-UPh"/>
                         <outlet property="restartButton" destination="fsI-yh-1nd" id="6w4-jW-ZzM"/>
                         <outlet property="selectSongs" destination="om1-Xh-PtC" id="3Ou-Il-DLW"/>
                         <outlet property="soundToggle" destination="HLl-AR-Rhe" id="0Yx-sG-aeU"/>
@@ -171,7 +179,7 @@
         <scene sceneID="LfQ-Av-wxj">
             <objects>
                 <viewController title="Settings Page" id="1rn-6i-XgZ" customClass="SettingViewController" customModule="WorkoutTimer" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mJI-Qd-V7I" customClass="GradientView" customModule="_0MinWorkout" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="mJI-Qd-V7I" customClass="GradientView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -181,8 +189,11 @@
                                 <accessibility key="accessibilityConfiguration" label="Rest Interval Slider"/>
                                 <color key="minimumTrackTintColor" red="1" green="0.35294117650000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="0.90047089039999995" green="0.37013056509999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="valueChanged:" destination="1rn-6i-XgZ" eventType="valueChanged" id="mt6-zf-x85"/>
+                                </connections>
                             </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="15 seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paZ-G8-Vda">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="15 seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paZ-G8-Vda" userLabel="Slider Value Label">
                                 <rect key="frame" x="128" y="67" width="201" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -204,6 +215,10 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <connections>
+                        <outlet property="restDurationSlider" destination="Rsk-Or-8DV" id="cLe-v2-tGr"/>
+                        <outlet property="sliderValueLabel" destination="paZ-G8-Vda" id="oD3-ML-TiH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nA8-zZ-Z2O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -212,13 +227,13 @@
         <!--WorkoutsEditor-->
         <scene sceneID="JxR-Nq-KFp">
             <objects>
-                <tableViewController title="WorkoutsEditor" id="YWr-Pi-07R" customClass="WorkoutEditorControllerTableViewController" customModule="_0MinWorkout" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="WorkoutsEditor" id="YWr-Pi-07R" customClass="WorkoutEditorControllerTableViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fCs-rQ-Gf6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkoutCell" id="Yil-T6-lnc" customClass="WorkoutCellTableViewCell" customModule="_0MinWorkout" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkoutCell" id="Yil-T6-lnc" customClass="WorkoutCellTableViewCell" customModule="WorkoutTimer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yil-T6-lnc" id="46w-gl-7SD">

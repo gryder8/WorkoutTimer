@@ -55,7 +55,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     @IBOutlet weak var addButton: UIBarButtonItem!
     
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string:String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string:String) -> Bool { //restrict fields using this class as a delegate 
         
         let allowedChars = "1234567890"
         let allowedCharSet = CharacterSet(charactersIn: allowedChars)

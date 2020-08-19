@@ -25,7 +25,7 @@ class Workouts {
     var currentWorkoutIndex:Int = 0
     let defaults = UserDefaults.standard
     let WORKOUTS_KEY:String = "WORKOUTS"
-    
+        
     typealias WorkoutList = [Workout]
     
     static let shared = Workouts()
@@ -41,11 +41,12 @@ class Workouts {
     }
     
     private func loadData() {
+        defaults.removeObject(forKey: WORKOUTS_KEY)
         if let data = defaults.data(forKey: WORKOUTS_KEY) {
             self.allWorkouts = try! PropertyListDecoder().decode(WorkoutList.self, from: data)
             print("Got data from cache")
         } else {
-            let plistURL = Bundle.main.url(forResource: "FullWorkouts", withExtension: "plist")!
+            let plistURL = Bundle.main.url(forResource: "TestWorkouts", withExtension: "plist")!
             if let data = try? Data(contentsOf: plistURL) {
                 let decoder = PropertyListDecoder()
                 allWorkouts = try! decoder.decode(WorkoutList.self, from:data)

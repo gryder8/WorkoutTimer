@@ -9,7 +9,14 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-
+    
+    @IBOutlet weak var restDurationSlider: UISlider!
+    @IBOutlet weak var sliderValueLabel: UILabel!
+    
+    @IBAction func valueChanged(_ sender: Any) {
+        sliderValueLabel.text = "\(restDurationSlider.value) seconds"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
