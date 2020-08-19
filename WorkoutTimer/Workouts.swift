@@ -44,7 +44,7 @@ class Workouts {
             self.allWorkouts = try! PropertyListDecoder().decode(WorkoutList.self, from: data)
             print("Got data from cache")
         } else {
-            let plistURL = Bundle.main.url(forResource: "TestWorkouts", withExtension: "plist")!
+            let plistURL = Bundle.main.url(forResource: "FullWorkouts", withExtension: "plist")!
             if let data = try? Data(contentsOf: plistURL) {
                 let decoder = PropertyListDecoder()
                 allWorkouts = try! decoder.decode(WorkoutList.self, from:data)

@@ -61,16 +61,21 @@ class SettingViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = gradientView.firstColor
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.navigationBar.tintColor = .black
-        navigationItem.hidesBackButton = false
-        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done,target: self, action: #selector(backTapped))
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done,target: self, action: #selector(backTapped))
         let label = UILabel(frame: CGRect(x:0, y:0, width:350, height:30))
         label.backgroundColor = .clear
         label.numberOfLines = 1
-        label.font = UIFont (name: "Avenir Next", size: 14.0)!
+        label.font = UIFont (name: "Avenir Next", size: 18.0)!
         label.textAlignment = .center
         label.textColor = .black
+        label.sizeToFit()
         label.text = "Configure Settings"
         self.navigationItem.titleView = label
+    }
+    
+    @objc func backTapped(){
+        navigationController?.popToRootViewController(animated: true)
     }
     
 
