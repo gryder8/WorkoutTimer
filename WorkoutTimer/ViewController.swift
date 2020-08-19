@@ -12,7 +12,9 @@ import AVFoundation
 import MediaPlayer
 
 
+
 extension UIView { //courtesy StackOverflow lol
+    /*
     @discardableResult
     func applyGradient(colours: [UIColor]) -> CAGradientLayer {
         return self.applyGradient(colours: colours, locations: nil)
@@ -27,6 +29,7 @@ extension UIView { //courtesy StackOverflow lol
         self.layer.insertSublayer(gradient, at: 0)
         return gradient
     }
+    */
     
     func setIsHidden(_ hidden: Bool, animated: Bool) {
         if animated {
@@ -44,6 +47,7 @@ extension UIView { //courtesy StackOverflow lol
         }
     }
 }
+ 
 
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
     
@@ -226,7 +230,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     @objc func observeBackgroundEntry(notification: Notification) {
-        //print("Observer called!")
         if (self.buttonState != .start) {
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
@@ -272,12 +275,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
 
     
-    private func initializeTimerRing() {
+    private func setupTimerRing() {
         timerRing.font = UIFont (name: "Avenir Next", size: 38.0)!.italic()
         timerRing.shouldShowValueText = false
         timerRing.backgroundColor = UIColor.clear //no background
         timerRing.startAngle = 90
-        //timerRing.endAngle = 180 //endAngle broken?
         timerRing.outerRingColor = UIColor.clear //don't show
         timerRing.innerRingColor = UIColor.black
         timerRing.innerCapStyle = .round
@@ -295,7 +297,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         roundButton(button: startButton)
         roundButton(button: stopButton)
         roundButton(button: restartButton)
-        //roundButton(button: selectSongs)
     }
     
     private func setupAudio() {
@@ -369,7 +370,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         workoutNameLabel.textColor = .black
         nextWorkoutNameLabel.textColor = .black
         
-        initializeTimerRing()
+        setupTimerRing()
     
         
         self.currentWorkout = workouts.getCurrentWorkout()

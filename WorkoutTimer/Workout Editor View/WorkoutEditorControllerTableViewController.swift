@@ -108,24 +108,19 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         alert.addTextField(configurationHandler: { (numberField) in
             numberField.keyboardType = .numberPad
             numberField.delegate = self //should restrict to nums only
-//            let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
             numberField.placeholder = "Duration (sec)"
         })
         
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (updateAction) in
             let durationInput = alert.textFields![1].text!
             var newWorkout:Workouts.Workout
-//            if (!CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: durationInput))) {
-//                newWorkout = Workouts.Workout(duration: self.workoutList[], name: alert.textFields!.first!.text!)
-//            } else {
-                newWorkout = Workouts.Workout(duration: Double(durationInput), name: alert.textFields!.first!.text!)
-            //}
+            newWorkout = Workouts.Workout(duration: Double(durationInput), name: alert.textFields!.first!.text!) //input should be numeric only
             self.workoutList.append(newWorkout)
             self.VCMaster.resetAll()
             self.tableView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: false)
+        self.present(alert, animated: true)
     }
 
 //MARK: - View Did Load
@@ -156,9 +151,9 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     
     
     //MARK: - VC Hierarchy
-    override func addChild(_ childController: UIViewController) { //TODO: kinda hacky
-        VCMaster = childController as! ViewController
-    }
+//    override func addChild(_ childController: UIViewController) { //TODO: kinda hacky
+//        VCMaster = childController as! ViewController
+//    }
     
     
     // MARK: - Table view data sourcing
@@ -222,11 +217,11 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
                 numberField.text = String(durationAsDouble.clean)
             })
             alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
+                let durationInput = alert.textFields![1].text!
                 self.workoutList[indexPath.row].name = alert.textFields!.first!.text!
-                self.workoutList[indexPath.row].duration = Double(alert.textFields![1].text!) //cast the string into a double to be used as a time interval
-                //self.WorkoutsMaster.updateWorkoutList(index: indexPath.row, self.workoutList[indexPath.row].name, self.workoutList[indexPath.row].duration)
+                self.workoutList[indexPath.row].duration = Double(durationInput) //input should be numeric only via delegate
                 self.VCMaster.resetAll()
-                self.tableView.reloadRows(at: [indexPath], with: .right)
+                self.tableView.reloadRows(at: [indexPath], with: .bottom)
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: false)

@@ -9,8 +9,6 @@
 import Foundation
 
 
-//TODO: check exercise time input contains no numbers
-//TODO: add pause between exercise
 //TODO: more tones
 class Workouts {
     
