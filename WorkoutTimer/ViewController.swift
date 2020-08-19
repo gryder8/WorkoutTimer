@@ -11,7 +11,6 @@ import UICircularProgressRing
 import AVFoundation
 import MediaPlayer
 
-//TODO: Fix state issues!
 
 extension UIView { //courtesy StackOverflow lol
     @discardableResult
@@ -59,7 +58,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     var restDuration:Int = 10 {
         didSet {
             defaults.set(restDuration, forKey: restDurationKey)
-            print(String(defaults.integer(forKey: restDurationKey)))
         }
     }
     
@@ -118,11 +116,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         selectSongs.isEnabled = enabled
         workoutViewBtn.isEnabled = enabled
         swipeToTableView.isEnabled = enabled
-        if (!isRestTimerActive) { //force disabled settings if rest timer running or on screen
-            settingsBtn.isEnabled = enabled
-        } else {
-            settingsBtn.isEnabled = false
-        }
+        
     }
     
     
@@ -131,7 +125,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         if (buttonState == .start && !timerInitiallyStarted) { //first start
             timerInitiallyStarted = true
             startTimerIfWorkoutExists()
-            changeToMode(mode: .pause)
+            changeButtonToMode(mode: .pause)
+            self.settingsBtn.isEnabled = false
             externalizingActionsEnabled(false)
             return
         } else if (buttonState == .start) { //resuming from pause
@@ -140,22 +135,23 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             } else {
                 restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
             }
-            changeToMode(mode: .pause)
+            self.settingsBtn.isEnabled = false
+            changeButtonToMode(mode: .pause)
             externalizingActionsEnabled(false)
-                
             return
         } else if (buttonState == .pause){ //pause timer
             if (!isRestTimerActive) {
                 timerRing.pauseTimer()
+                settingsBtn.isEnabled = true
             } else {
                 restTimer.invalidate()
-                settingsBtn.isEnabled = true
             }
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
             swipeToTableView.isEnabled = false
+            workoutViewBtn.isEnabled = false
             //buttonState = .start
-            changeToMode(mode: .start)
+            changeButtonToMode(mode: .start)
             return
         } else if (buttonState == .restart){ //restart timer
             self.resetAll()
@@ -163,7 +159,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    private func changeToMode(mode: ButtonMode) {
+    private func changeButtonToMode(mode: ButtonMode) {
         startButton.isUserInteractionEnabled = true
         //set the state of the button according to the state passed in
         if (mode == .start && !timerInitiallyStarted) { //first start
@@ -180,13 +176,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         } else if (mode == .pause){ //pause
             startButton.setTitle("Pause", for: .normal)
             startButton.backgroundColor = UIColor.yellow
-            disableButton(stopButton)
+            disableAndHideButton(stopButton)
             self.buttonState = mode
             return
         } else if (mode == .restart) { //restart
             startButton.setTitle("Restart", for: .normal)
             startButton.backgroundColor = UIColor.systemBlue
-            disableButton(stopButton)
+            disableAndHideButton(stopButton)
             self.buttonState = mode
             return
         }
@@ -235,7 +231,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             timerRing.pauseTimer()
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
-            changeToMode(mode: .start)
+            changeButtonToMode(mode: .start)
         }
     }
     
@@ -247,7 +243,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         button.isUserInteractionEnabled = true
     }
     
-    func disableButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
+    func disableAndHideButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
         button.setIsHidden(true, animated: isAnimated!)
         button.isEnabled = false
         button.isUserInteractionEnabled = false
@@ -263,12 +259,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         currentWorkout = workouts.getCurrentWorkout()
         nextWorkout = workouts.getNextWorkout()
         updateLabels()
-        disableButton(restartButton, isAnimated: false)
-        disableButton(stopButton, isAnimated: false)
+        disableAndHideButton(restartButton, isAnimated: false)
+        disableAndHideButton(stopButton, isAnimated: false)
         enableButton(startButton, isAnimated: true)
         timerRing.shouldShowValueText = false
         restTimerLabel.isHidden = true
-        changeToMode(mode: .start)
+        changeButtonToMode(mode: .start)
+        self.settingsBtn.isEnabled = true
         externalizingActionsEnabled(true)
     }
     
@@ -351,7 +348,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         timerInitiallyStarted = false
         if (defaults.integer(forKey: restDurationKey) != 0) {
             self.restDuration = defaults.integer(forKey: restDurationKey)
-            print(self.restDuration)
         } else {
             defaults.set(restDuration, forKey: restDurationKey)
         }
@@ -367,8 +363,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         roundAllButtons()
         
         enableButton(startButton)
-        disableButton(stopButton)
-        disableButton(restartButton)
+        disableAndHideButton(stopButton)
+        disableAndHideButton(restartButton)
                 
         workoutNameLabel.textColor = .black
         nextWorkoutNameLabel.textColor = .black
@@ -396,19 +392,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         } else { // nil duration signifies being done with all exercises
             audioPlayer.numberOfLoops = 1
             timerRing.shouldShowValueText = false;
-            disableButton(startButton)
+            disableAndHideButton(startButton)
             enableButton(restartButton)
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
+            settingsBtn.isEnabled = true
+            workoutViewBtn.isEnabled = true
         }
     }
-    
-//    func restBetweenWorkouts() {
-//        workoutNameLabel.text = "Rest!"
-//        timerRing.resetTimer()
-//        timerRing.startTimer(to: restDuration, handler: self.handleTimer) //using self as the handler here would introduce unreachable code when this method is called
-//
-//    }
     
     
     private func audioSessionEnabled(enabled: Bool) {
@@ -456,7 +447,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             count = duration
             workoutNameLabel.text = "Rest!"
             timerRing.shouldShowValueText = false
-        restTimerLabel.font = UIFont (name: "Avenir Next", size: 50.0)!.italic()
+            restTimerLabel.font = UIFont (name: "Avenir Next", size: 60.0)!.italic()
             isRestTimerActive = true
             restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
     }
@@ -466,6 +457,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             count -= 1
             restTimerLabel.text = String(count)
         } else {
+            if (soundToggle.isOn) {
+                audioSessionEnabled(enabled: true) //enable audio play
+                audioPlayer.prepareToPlay()
+                audioPlayer.play()
+            }
             restTimerLabel.isHidden = true
             isRestTimerActive = false
             restTimer.invalidate()
