@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		865B6C4A24EBBE3300B167C1 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865B6C4924EBBE3300B167C1 /* SettingViewController.swift */; };
+		867843DE24EE47D400D31CE6 /* OptionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867843DD24EE47D400D31CE6 /* OptionsViewCell.swift */; };
+		867843E324EE6BE700D31CE6 /* Beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 867843E024EE6BE700D31CE6 /* Beep.mp3 */; };
+		867843E424EE6BE700D31CE6 /* Ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 867843E124EE6BE700D31CE6 /* Ding.mp3 */; };
+		867843E524EE6BE700D31CE6 /* Whistle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 867843E224EE6BE700D31CE6 /* Whistle.mp3 */; };
 		869916CF24E370BB000F046D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916CE24E370BB000F046D /* AppDelegate.swift */; };
 		869916D124E370BB000F046D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D024E370BB000F046D /* SceneDelegate.swift */; };
 		869916D324E370BB000F046D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D224E370BB000F046D /* ViewController.swift */; };
@@ -18,7 +22,6 @@
 		869916E924E37D06000F046D /* Workouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916E824E37D06000F046D /* Workouts.swift */; };
 		869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = 869916F224E3A6A1000F046D /* UICircularProgressRing */; };
 		869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869916F524E5CE8B000F046D /* AVFoundation.framework */; };
-		869916FD24E5D041000F046D /* BellDing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 869916FC24E5D041000F046D /* BellDing.mp3 */; };
 		8699170324E64A14000F046D /* TestWorkouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8699170224E64A14000F046D /* TestWorkouts.plist */; };
 		86C60F9B24EB307A00168D2E /* LongPressReorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C60F9A24EB307A00168D2E /* LongPressReorder.swift */; };
 		86CA866624EB4FE6008B57E6 /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CA866524EB4FE6008B57E6 /* menuIcon.png */; };
@@ -33,6 +36,10 @@
 
 /* Begin PBXFileReference section */
 		865B6C4924EBBE3300B167C1 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		867843DD24EE47D400D31CE6 /* OptionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewCell.swift; sourceTree = "<group>"; };
+		867843E024EE6BE700D31CE6 /* Beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Beep.mp3; sourceTree = "<group>"; };
+		867843E124EE6BE700D31CE6 /* Ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ding.mp3; sourceTree = "<group>"; };
+		867843E224EE6BE700D31CE6 /* Whistle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Whistle.mp3; sourceTree = "<group>"; };
 		869916CB24E370BB000F046D /* WorkoutTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869916CE24E370BB000F046D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		869916D024E370BB000F046D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +51,6 @@
 		869916E624E37761000F046D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		869916E824E37D06000F046D /* Workouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workouts.swift; sourceTree = "<group>"; };
 		869916F524E5CE8B000F046D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		869916FC24E5D041000F046D /* BellDing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BellDing.mp3; sourceTree = "<group>"; };
 		8699170224E64A14000F046D /* TestWorkouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestWorkouts.plist; sourceTree = "<group>"; };
 		86C60F9A24EB307A00168D2E /* LongPressReorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressReorder.swift; sourceTree = "<group>"; };
 		86CA866524EB4FE6008B57E6 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
@@ -70,6 +76,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		867843DF24EE47DF00D31CE6 /* Settings View */ = {
+			isa = PBXGroup;
+			children = (
+				865B6C4924EBBE3300B167C1 /* SettingViewController.swift */,
+				867843DD24EE47D400D31CE6 /* OptionsViewCell.swift */,
+			);
+			path = "Settings View";
+			sourceTree = "<group>";
+		};
 		869916C224E370BB000F046D = {
 			isa = PBXGroup;
 			children = (
@@ -94,10 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				869916D224E370BB000F046D /* ViewController.swift */,
-				865B6C4924EBBE3300B167C1 /* SettingViewController.swift */,
 				869916E824E37D06000F046D /* Workouts.swift */,
 				869916CE24E370BB000F046D /* AppDelegate.swift */,
 				869916D024E370BB000F046D /* SceneDelegate.swift */,
+				867843DF24EE47DF00D31CE6 /* Settings View */,
 				86CA867024EB5C24008B57E6 /* Workout Editor View */,
 				86CA866F24EB5C12008B57E6 /* Storyboards */,
 				869916D724E370BD000F046D /* Assets.xcassets */,
@@ -128,7 +143,9 @@
 			isa = PBXGroup;
 			children = (
 				86E1E48324E690DB005C98E9 /* Tone.mp3 */,
-				869916FC24E5D041000F046D /* BellDing.mp3 */,
+				867843E024EE6BE700D31CE6 /* Beep.mp3 */,
+				867843E124EE6BE700D31CE6 /* Ding.mp3 */,
+				867843E224EE6BE700D31CE6 /* Whistle.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -235,11 +252,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				867843E424EE6BE700D31CE6 /* Ding.mp3 in Resources */,
 				86CA866824EB5125008B57E6 /* musicButton.png in Resources */,
 				869916DB24E370BD000F046D /* LaunchScreen.storyboard in Resources */,
 				869916D824E370BD000F046D /* Assets.xcassets in Resources */,
 				86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */,
-				869916FD24E5D041000F046D /* BellDing.mp3 in Resources */,
+				867843E324EE6BE700D31CE6 /* Beep.mp3 in Resources */,
+				867843E524EE6BE700D31CE6 /* Whistle.mp3 in Resources */,
 				86CB44C724ECE7AC00865BE9 /* settingsIcon.png in Resources */,
 				86CA866C24EB55AE008B57E6 /* workoutList.png in Resources */,
 				869916D624E370BB000F046D /* Main.storyboard in Resources */,
@@ -265,6 +284,7 @@
 				86D7FBBE24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift in Sources */,
 				86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */,
 				869916D124E370BB000F046D /* SceneDelegate.swift in Sources */,
+				867843DE24EE47D400D31CE6 /* OptionsViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

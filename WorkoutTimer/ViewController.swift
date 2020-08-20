@@ -52,7 +52,16 @@ extension UIView { //courtesy StackOverflow lol
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
     
     private var audioPlayer = AVAudioPlayer()
-    private let toneSoundPath = Bundle.main.path(forResource: "Tone", ofType: "mp3")
+    
+    var currentSoundFileName = "Tone" {
+        didSet {
+            soundPath = Bundle.main.path(forResource: currentSoundFileName, ofType: ".mp3")!
+            UserDefaults.standard.set(soundPath, forKey: "SOUND_PATH_KEY")
+            setAudioPlayerWithCurrentAudioFile()
+        }
+    }
+    var soundPath = "";
+    
 
     private var buttonState:ButtonMode = ButtonMode.start
     private let restDurationKey = "REST_DUR_KEY"
@@ -299,14 +308,18 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         roundButton(button: restartButton)
     }
     
-    private func setupAudio() {
+    func setAudioPlayerWithCurrentAudioFile() {
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: toneSoundPath!))
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: soundPath))
             audioPlayer.delegate = self
             audioPlayer.volume = 1.0
         } catch {
             print(error)
         }
+    }
+    
+    private func setupAudio() {
+        setAudioPlayerWithCurrentAudioFile()
         /*
          ---------------------------------------------------------------------------------------------------
          */
@@ -351,6 +364,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             self.restDuration = defaults.integer(forKey: restDurationKey)
         } else {
             defaults.set(restDuration, forKey: restDurationKey)
+        }
+        
+        if (defaults.string(forKey: "SOUND_PATH_KEY") != nil) {
+            soundPath = defaults.string(forKey: "SOUND_PATH_KEY")! //can't be nil here
+        } else {
+            soundPath = Bundle.main.path(forResource: currentSoundFileName, ofType: "mp3")!
+            defaults.set(soundPath, forKey: "SOUND_PATH_KEY")
         }
         
         if (self.traitCollection.userInterfaceStyle == .dark){
