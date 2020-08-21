@@ -12,7 +12,7 @@ import AVFoundation
 import MediaPlayer
 
 
-
+//MARK: - UIView Animation Extension
 extension UIView { //courtesy StackOverflow lol
     /*
     @discardableResult
@@ -48,8 +48,10 @@ extension UIView { //courtesy StackOverflow lol
     }
 }
  
-
+//MARK: - Main VC Class
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
+    
+    //MARK: - Local Vars
     
 //    let soundURLs:[URL] = [
 //        Bundle.main.url(forResource: "Tone", withExtension: "mp3")!,
@@ -58,12 +60,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
 //        Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
 //    ]
     
-    var soundItemsDict:[String: URL] = [:] //initialize as empty
+    private var soundItemsDict:[String: URL] = [:] //initialize as empty
     
     private var mainPlayer: AVAudioPlayer!
     
-    let endWorkoutSoundKey = "ENDWORKOUT_SOUND_KEY"
-    let endRestSoundKey = "RESTEND_SOUND_KEY"
+    private let endWorkoutSoundKey = "ENDWORKOUT_SOUND_KEY"
+    private let endRestSoundKey = "RESTEND_SOUND_KEY"
     
     var workoutEndSoundName = "Tone" {
         didSet {
@@ -94,17 +96,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private var timerInitiallyStarted = false
     
     var isRestTimerActive = false
-    var restTimer:Timer!
+    private var restTimer:Timer!
     
     //MARK: - Workouts Singleton!
     private let workouts:Workouts = Workouts.shared
     
-    
-    //MARK: - VC Singleton
-    static let shared = ViewController()
-
-    
-    
+    //MARK: - Button Modes
     enum ButtonMode:Equatable { //button states
         case start
         case pause
@@ -129,6 +126,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
     @IBOutlet weak var restTimerLabel: UILabel!
     
+    
+    //MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "swipeFromMain" || segue.identifier == "workoutBtnPressed") {
             (segue.destination as! WorkoutEditorControllerTableViewController).VCMaster = self
@@ -319,6 +318,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     
     //MARK: - Local Helper and Initialization Functions
+    private func startNextWorkout() {
+        advanceWorkout()
+        startTimerIfWorkoutExists()
+        updateLabels()
+    }
+    
     func enableAndShowButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
         button.setIsHidden(false, animated: isAnimated!)
         button.isEnabled = true
@@ -330,9 +335,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         button.isEnabled = false
         button.isUserInteractionEnabled = false
     }
-    
-    
-    
     
     func resetAll() {
         timerRing.resetTimer()
@@ -351,9 +353,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         externalizingActionsEnabled(true)
     }
     
-    
-
-    
     private func setupTimerRing() {
         timerRing.font = UIFont (name: "Avenir Next", size: 38.0)!.italic()
         timerRing.shouldShowValueText = false
@@ -365,7 +364,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         timerRing.innerRingWidth = 20.0
         restTimerLabel.isHidden = true
     }
-    
     
     private func roundButton(button:UIButton) { //round the corners of the button passed in
         button.layer.cornerRadius = 10
@@ -379,10 +377,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     private func setupAudio() {
-        //setAudioPlayersWithCurrentAudioFiles()
-        /*
-         ---------------------------------------------------------------------------------------------------
-         */
         do {
             try AVAudioSession.sharedInstance().setCategory(
             AVAudioSession.Category.playback,
@@ -496,7 +490,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
+    //MARK: - Used for timer countdown
     private var count:Int = 0
+    
+    //MARK: - Rest Timer Stuff
     private func restFor(_ duration: Int) {
             restTimerLabel.isHidden = false
             restTimerLabel.text = String(duration)
@@ -527,11 +524,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    private func startNextWorkout() {
-        advanceWorkout()
-        startTimerIfWorkoutExists()
-        updateLabels()
-    }
     
     
 
