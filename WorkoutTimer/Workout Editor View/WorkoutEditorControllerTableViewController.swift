@@ -147,13 +147,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         self.isInitialized = true
     }
     
-    
-    //MARK: - VC Hierarchy
-//    override func addChild(_ childController: UIViewController) { //TODO: kinda hacky
-//        VCMaster = childController as! ViewController
-//    }
-    
-    
     // MARK: - Table view data sourcing
 
     override func numberOfSections(in tableView: UITableView) -> Int {

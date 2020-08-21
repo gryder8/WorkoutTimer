@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  10MinWorkout
+//  WorkoutTimer
 //
 //  Created by Gavin Ryder on 8/11/20.
 //  Copyright © 2020 Gavin Ryder. All rights reserved.
@@ -51,18 +51,31 @@ extension UIView { //courtesy StackOverflow lol
 
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
     
-    private var audioPlayer = AVAudioPlayer()
+//    let soundURLs:[URL] = [
+//        Bundle.main.url(forResource: "Tone", withExtension: "mp3")!,
+//        Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
+//        Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
+//        Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
+//    ]
     
-    var currentSoundFileName = "Tone" {
+    var soundItemsDict:[String: URL] = [:] //initialize as empty
+    
+    private var mainPlayer: AVAudioPlayer!
+    
+    let endWorkoutSoundKey = "ENDWORKOUT_SOUND_KEY"
+    let endRestSoundKey = "RESTEND_SOUND_KEY"
+    
+    var workoutEndSoundName = "Tone" {
         didSet {
-            soundPath = Bundle.main.path(forResource: currentSoundFileName, ofType: ".mp3")!
-            UserDefaults.standard.set(soundPath, forKey: "SOUND_PATH_KEY")
-            setAudioPlayerWithCurrentAudioFile()
+            defaults.set(workoutEndSoundName, forKey: endWorkoutSoundKey)
         }
     }
-    var soundPath = "";
+    var restEndSoundName = "Tone" {
+        didSet {
+            defaults.set(restEndSoundName, forKey: endRestSoundKey)
+        }
+    }
     
-
     private var buttonState:ButtonMode = ButtonMode.start
     private let restDurationKey = "REST_DUR_KEY"
     private let defaults = UserDefaults.standard
@@ -124,7 +137,64 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    func externalizingActionsEnabled(_ enabled: Bool) {
+    //MARK: - viewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
+        // Do any additional setup after loading the view.
+        timerInitiallyStarted = false
+        loadDataFromLocalStorage()
+        initAVItems()
+        if (self.traitCollection.userInterfaceStyle == .dark){
+            gradientView.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
+            gradientView.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
+        } else {
+            gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
+            gradientView.secondColor = #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
+        }
+        
+        roundAllButtons()
+        
+        enableAndShowButton(startButton)
+        disableAndHideButton(stopButton)
+        disableAndHideButton(restartButton)
+                
+        workoutNameLabel.textColor = .black
+        nextWorkoutNameLabel.textColor = .black
+        
+        setupTimerRing()
+    
+        
+        self.currentWorkout = workouts.getCurrentWorkout()
+        self.nextWorkout = workouts.getNextWorkout()
+        
+        updateLabels() //MUST come after current workout init
+        configMainPlayerToPlaySound(name: workoutEndSoundName)
+        setupAudio() //setup audio stuff
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
+    }
+    
+    func initAVItems() { //create the dictionary mapped each sound name to a playerItem
+            soundItemsDict = [
+                "Tone": URL(string: Bundle.main.path(forResource: "Tone", ofType: "mp3")!)!,
+                "Beep": Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
+                "Ding": Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
+                "Whistle": Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
+            ]
+    }
+    
+    func configMainPlayerToPlaySound(name:String) {
+        let path = Bundle.main.path(forResource: name, ofType: "mp3")!
+        let URLForSound = URL(string: path)!
+        do {
+            try mainPlayer = AVAudioPlayer(contentsOf: URLForSound)
+        } catch {
+            print("Failed to initialize player with error: \(error)")
+        }
+    }
+    
+    func externalizingActionsEnabled(_ enabled: Bool) { //determine if buttons are on or off on the home page
         soundToggle.isEnabled = enabled
         selectSongs.isEnabled = enabled
         workoutViewBtn.isEnabled = enabled
@@ -158,12 +228,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
                 settingsBtn.isEnabled = true
             } else {
                 restTimer.invalidate()
+                settingsBtn.isEnabled = true
             }
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
             swipeToTableView.isEnabled = false
             workoutViewBtn.isEnabled = false
-            //buttonState = .start
             changeButtonToMode(mode: .start)
             return
         } else if (buttonState == .restart){ //restart timer
@@ -183,7 +253,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         } else if (mode == .start && timerInitiallyStarted) { //resume
             startButton.setTitle("Resume", for: .normal)
             startButton.backgroundColor = UIColor.green
-            enableButton(stopButton)
+            enableAndShowButton(stopButton)
             self.buttonState = mode
             return
         } else if (mode == .pause){ //pause
@@ -249,7 +319,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     
     //MARK: - Local Helper and Initialization Functions
-    func enableButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
+    func enableAndShowButton(_ button: UIButton, isAnimated:Bool? = true) { //helper
         button.setIsHidden(false, animated: isAnimated!)
         button.isEnabled = true
         button.isUserInteractionEnabled = true
@@ -273,7 +343,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         updateLabels()
         disableAndHideButton(restartButton, isAnimated: false)
         disableAndHideButton(stopButton, isAnimated: false)
-        enableButton(startButton, isAnimated: true)
+        enableAndShowButton(startButton, isAnimated: true)
         timerRing.shouldShowValueText = false
         restTimerLabel.isHidden = true
         changeButtonToMode(mode: .start)
@@ -308,18 +378,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         roundButton(button: restartButton)
     }
     
-    func setAudioPlayerWithCurrentAudioFile() {
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: soundPath))
-            audioPlayer.delegate = self
-            audioPlayer.volume = 1.0
-        } catch {
-            print(error)
-        }
-    }
-    
     private func setupAudio() {
-        setAudioPlayerWithCurrentAudioFile()
+        //setAudioPlayersWithCurrentAudioFiles()
         /*
          ---------------------------------------------------------------------------------------------------
          */
@@ -332,7 +392,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             ]
         )
         } catch {
-            print(error)
+            print("Error occured on intializing: \(error)")
         }
     }
     
@@ -354,67 +414,42 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         self.nextWorkout = workouts.getNextWorkout()
     }
     
-    //MARK: - viewDidLoad
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
-        // Do any additional setup after loading the view.
-        timerInitiallyStarted = false
+    private func loadDataFromLocalStorage() {
         if (defaults.integer(forKey: restDurationKey) != 0) {
             self.restDuration = defaults.integer(forKey: restDurationKey)
         } else {
             defaults.set(restDuration, forKey: restDurationKey)
         }
         
-        if (defaults.string(forKey: "SOUND_PATH_KEY") != nil) {
-            soundPath = defaults.string(forKey: "SOUND_PATH_KEY")! //can't be nil here
+        if (defaults.string(forKey: endWorkoutSoundKey) != nil) {
+            workoutEndSoundName = defaults.string(forKey: endWorkoutSoundKey)! //can't be nil here
         } else {
-            soundPath = Bundle.main.path(forResource: currentSoundFileName, ofType: "mp3")!
-            defaults.set(soundPath, forKey: "SOUND_PATH_KEY")
+            //workoutEndSoundName = "Tone"
+            defaults.set(workoutEndSoundName, forKey: endWorkoutSoundKey)
         }
         
-        if (self.traitCollection.userInterfaceStyle == .dark){
-            gradientView.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
-            gradientView.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
+        if (defaults.string(forKey: endRestSoundKey) != nil) {
+            restEndSoundName = defaults.string(forKey: endRestSoundKey)! //can't be nil here
         } else {
-            gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
-            gradientView.secondColor = #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
+            //restEndSoundName = "Tone"
+            defaults.set(restEndSoundName, forKey: endRestSoundKey)
         }
-        
-        roundAllButtons()
-        
-        enableButton(startButton)
-        disableAndHideButton(stopButton)
-        disableAndHideButton(restartButton)
-                
-        workoutNameLabel.textColor = .black
-        nextWorkoutNameLabel.textColor = .black
-        
-        setupTimerRing()
-    
-        
-        self.currentWorkout = workouts.getCurrentWorkout()
-        self.nextWorkout = workouts.getNextWorkout()
-        
-        updateLabels() //MUST come after current workout init
-        
-        setupAudio() //setup audio stuff
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
     }
+    
+    
     
 
     //MARK: - Timer and Audio Control
     private func startTimerIfWorkoutExists() { //start the timer for the given duration or end the workout session if the current workout has no duration
         if (currentWorkout.duration != nil) {
-            audioPlayer.numberOfLoops = 0
+            mainPlayer.numberOfLoops = 0
             timerRing.shouldShowValueText = true
             timerRing.startTimer(to: currentWorkout.duration!, handler: self.handleTimer)
         } else { // nil duration signifies being done with all exercises
-            audioPlayer.numberOfLoops = 1
+            mainPlayer.numberOfLoops = 1
             timerRing.shouldShowValueText = false;
             disableAndHideButton(startButton)
-            enableButton(restartButton)
+            enableAndShowButton(restartButton)
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
             settingsBtn.isEnabled = true
@@ -429,14 +464,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
                 try AVAudioSession.sharedInstance().setActive(true, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
             } catch {
                 print("Session failed to activate!")
-                print(error)
+                print("Error occured: \(error)")
             }
         } else {
             do {
                 try AVAudioSession.sharedInstance().setActive(false, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)
             } catch {
                 print("Session failed to deactivate! (Session was busy?)")
-                print(error)
+                print("Error occured: \(error)")
             }
         }
     }
@@ -446,8 +481,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         if case .finished = state { //when the timer finishes, do this...
             if (soundToggle.isOn) {
                 audioSessionEnabled(enabled: true) //enable audio play
-                audioPlayer.prepareToPlay()
-                audioPlayer.play()
+                configMainPlayerToPlaySound(name: workoutEndSoundName)
+                mainPlayer.prepareToPlay()
+                mainPlayer.play()
             }
             timerRing.resetTimer()
             
@@ -480,8 +516,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         } else {
             if (soundToggle.isOn) {
                 audioSessionEnabled(enabled: true) //enable audio play
-                audioPlayer.prepareToPlay()
-                audioPlayer.play()
+                configMainPlayerToPlaySound(name: restEndSoundName)
+                mainPlayer.prepareToPlay()
+                mainPlayer.play()
             }
             restTimerLabel.isHidden = true
             isRestTimerActive = false

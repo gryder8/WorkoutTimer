@@ -25,20 +25,27 @@ class SettingViewController: UIViewController {
     
     @IBOutlet weak var dropdownBtn: UIButton!
     @IBOutlet weak var optionsTableView: UITableView!
+    @IBOutlet weak var restDropdownBtn: UIButton!
+    @IBOutlet weak var restOptionsTblView: UITableView!
     
-    var soundList = ["Tone", "Beep","Whistle", "Ding"]
+    var soundOptionsList = ["Tone", "Beep","Whistle", "Ding"]
     
-    let choiceKey = "CHOICE_KEY"
-    var choice = "Tone" {
+    let workoutEndKey = "WORKOUT_END_KEY"
+    let restEndKey = "REST_END_KEY"
+    var workoutEndChoice = "Tone" {
         didSet {
-            UserDefaults.standard.set(choice, forKey: "CHOICE_KEY")
+            UserDefaults.standard.set(workoutEndChoice, forKey: "WORKOUT_END_KEY")
+        }
+    }
+    
+    var restEndChoice = "Tone" {
+        didSet {
+            UserDefaults.standard.set(restEndChoice, forKey: "REST_END_KEY")
         }
     }
     
     var VCMaster:ViewController = ViewController()
     var darkModeEnabled:Bool = false
-    
-
     
     @IBAction func valueChanged(_ sender: UISlider) {
         let roundedValue = round(sender.value)
@@ -58,15 +65,39 @@ class SettingViewController: UIViewController {
         }
     }
     
+    @IBAction func restEndDropdownBtnPressed(_ sender: UIButton) {
+        if restOptionsTblView.isHidden {
+            restOptionsTblView.setIsHidden(false, animated: true)
+        } else {
+            restOptionsTblView.setIsHidden(true, animated: true)
+        }
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
         setUpTableViewHeader()
-        
+        self.restDurationSlider.isEnabled = !(VCMaster.isRestTimerActive)
+        self.sliderValueLabel.isEnabled = !(VCMaster.isRestTimerActive)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    private func loadSoundPathsFromLocalData() {
+        if (UserDefaults.standard.string(forKey: workoutEndKey) != nil) {
+            self.workoutEndChoice = UserDefaults.standard.string(forKey: workoutEndKey)!
+        } else {
+            workoutEndChoice = "Tone" //revert to default
+            UserDefaults.standard.set(workoutEndChoice, forKey: workoutEndKey)
+        }
+        
+        if (UserDefaults.standard.string(forKey: restEndKey) != nil) {
+            self.restEndChoice = UserDefaults.standard.string(forKey: restEndKey)!
+        } else {
+            restEndChoice = "Tone" //revert to default
+            UserDefaults.standard.set(restEndChoice, forKey: restEndKey)
+        }
     }
     
     override func viewDidLoad() {
@@ -75,17 +106,22 @@ class SettingViewController: UIViewController {
         optionsTableView.dataSource = self
         optionsTableView.delegate = self
         optionsTableView.backgroundColor = .lightGray
+
+        
+        //**************************************************
+        
+        restOptionsTblView.isHidden = true
+        restOptionsTblView.dataSource = self
+        restOptionsTblView.delegate = self
+        restOptionsTblView.backgroundColor = .lightGray
+        
         self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
         self.navigationController?.navigationBar.isHidden = false
         self.restDurationSlider.value = Float(VCMaster.restDuration) //initialize to the stored value
-        if (UserDefaults.standard.string(forKey: choiceKey) != nil) {
-            self.choice = UserDefaults.standard.string(forKey: choiceKey)!
-        } else {
-            choice = "Tone" //revert to default
-            UserDefaults.standard.set(choice, forKey: choiceKey)
-        }
+        loadSoundPathsFromLocalData()
         sliderValueLabel.text = "\(restDurationSlider.value.clean) seconds"
-        dropdownBtn.setTitle(choice, for: .normal)
+        dropdownBtn.setTitle(workoutEndChoice, for: .normal)
+        restDropdownBtn.setTitle(restEndChoice, for: .normal)
     }
     
     private func setUpTableViewHeader(){
@@ -112,23 +148,12 @@ class SettingViewController: UIViewController {
     @objc func backTapped(){
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return soundList.count
+       return soundOptionsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,20 +163,26 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? OptionsViewCell else {
             fatalError("Dequeued cell not an instance of OptionsViewCell")
         }
-        cell.isSelected = (choice == soundList[indexPath.row])
-        //cell.isHighlighted = (choice == soundList[indexPath.row])
+        cell.isSelected = (workoutEndChoice == soundOptionsList[indexPath.row])
         cell.optionLabel.textColor = .black
         cell.optionLabel.textAlignment = .left
         cell.backgroundColor = .clear
-        cell.optionLabel.text = soundList[indexPath.row]
+        cell.optionLabel.text = soundOptionsList[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        dropdownBtn.setTitle("\(soundList[indexPath.row])", for: .normal)
-        choice = soundList[indexPath.row]
-        VCMaster.currentSoundFileName = choice
-        self.optionsTableView.setIsHidden(true, animated: true)
+        if (tableView.restorationIdentifier == "workout") {
+            dropdownBtn.setTitle("\(soundOptionsList[indexPath.row])", for: .normal)
+            workoutEndChoice = soundOptionsList[indexPath.row]
+            VCMaster.workoutEndSoundName = workoutEndChoice
+            self.optionsTableView.setIsHidden(true, animated: true)
+        } else if (tableView.restorationIdentifier == "rest") {
+            restDropdownBtn.setTitle("\(soundOptionsList[indexPath.row])", for: .normal)
+            restEndChoice = soundOptionsList[indexPath.row]
+            VCMaster.restEndSoundName = restEndChoice
+            self.restOptionsTblView.setIsHidden(true, animated: true)
+        }
     }
     
     
