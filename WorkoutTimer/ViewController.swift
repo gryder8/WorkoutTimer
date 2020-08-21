@@ -409,20 +409,20 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     private func loadDataFromLocalStorage() {
-        if (defaults.integer(forKey: restDurationKey) != 0) {
+        if (defaults.integer(forKey: restDurationKey) != 0) { //load duration if it exists
             self.restDuration = defaults.integer(forKey: restDurationKey)
         } else {
             defaults.set(restDuration, forKey: restDurationKey)
         }
         
-        if (defaults.string(forKey: endWorkoutSoundKey) != nil) {
+        if (defaults.string(forKey: endWorkoutSoundKey) != nil) { //load sound name if it exists
             workoutEndSoundName = defaults.string(forKey: endWorkoutSoundKey)! //can't be nil here
         } else {
             //workoutEndSoundName = "Tone"
             defaults.set(workoutEndSoundName, forKey: endWorkoutSoundKey)
         }
         
-        if (defaults.string(forKey: endRestSoundKey) != nil) {
+        if (defaults.string(forKey: endRestSoundKey) != nil) { //load sound name if it exists
             restEndSoundName = defaults.string(forKey: endRestSoundKey)! //can't be nil here
         } else {
             //restEndSoundName = "Tone"

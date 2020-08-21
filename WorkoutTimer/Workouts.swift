@@ -11,33 +11,40 @@ import Foundation
 
 //TODO: more tones
 class Workouts {
-    
-    var allWorkouts:[Workout] = [] {
-        didSet {
-            if let dataToWrite = try? PropertyListEncoder().encode(allWorkouts) {
-                defaults.set(dataToWrite, forKey: WORKOUTS_KEY)
-                print("Wrote updated data to cache")
-            }
-        }
-    }
+    //MARK: - Local Vars
     var currentWorkoutIndex:Int = 0
     let defaults = UserDefaults.standard
     let WORKOUTS_KEY:String = "WORKOUTS"
+    
+    var allWorkouts:[Workout] = [] {
+        didSet { //write new data to cache on set
+            if let dataToWrite = try? PropertyListEncoder().encode(allWorkouts) {
+                defaults.set(dataToWrite, forKey: WORKOUTS_KEY)
+                //print("Wrote updated data to cache")
+            } else {
+                print("***Failed to encode/write workouts data to defaults!***")
+            }
+        }
+    }
         
     typealias WorkoutList = [Workout]
     
     static let shared = Workouts()
     
-    struct Workout: Codable {
+    
+    //MARK: - Workout Struct Definition
+    struct Workout: Codable { //can be encoded and decoded
         var duration:TimeInterval?
         var name:String
     }
     
-    
+    //MARK: - Initializes Applicatiom by loading data
     public init() {
         loadData()
     }
     
+    //MARK: - DATA LOADER
+    //Loads data from the cache if possible, otherwise if parses a plist and writes the data
     private func loadData() {
         //defaults.removeObject(forKey: WORKOUTS_KEY)
         if let data = defaults.data(forKey: WORKOUTS_KEY) {
@@ -54,10 +61,10 @@ class Workouts {
                 print("Wrote data to cache")
             }
         }
-        //print(workoutList.count)
     }
     
-    
+    //MARK: - Getters
+    //return the current workout, checking the bounds to see if the session is over
     func getCurrentWorkout() -> Workout {
         if (currentWorkoutIndex < allWorkouts.count) {
             return allWorkouts[currentWorkoutIndex]
@@ -65,7 +72,7 @@ class Workouts {
         return Workout(duration: nil, name: "You're done!")
     }
     
-    
+    //return the next workout, checking bounds to see if session is almost over
     func getNextWorkout() -> Workout {
         if (currentWorkoutIndex < allWorkouts.count-1) {
             return allWorkouts[currentWorkoutIndex+1]
@@ -73,17 +80,9 @@ class Workouts {
         return Workout(duration: nil, name: "Last one! Almost there!")
     }
     
+    //return the number of workouts in this instance
     func numWorkouts() -> Int { //helper
         return allWorkouts.count
-    }
-    
-    func updateWorkoutList(index: Int, _ newName:String?, _ newDuration:TimeInterval?) {
-        if (newName != nil) {
-            allWorkouts[index].name = newName!
-        }
-        if (newDuration != nil) {
-            allWorkouts[index].duration = newDuration!
-        }
     }
     
 }
