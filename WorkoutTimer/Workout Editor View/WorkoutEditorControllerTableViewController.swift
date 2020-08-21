@@ -14,7 +14,7 @@ extension UIFont {
         let descriptor = fontDescriptor.withSymbolicTraits(traits)
         return UIFont(descriptor: descriptor!, size: 0) //size 0 means keep the size as it is
     }
-
+    
     func bold() -> UIFont {
         return withTraits(traits: .traitBold)
     }
@@ -22,7 +22,7 @@ extension UIFont {
     func italic() -> UIFont {
         return withTraits(traits: .traitItalic)
     }
-
+    
 }
 
 extension Double {
@@ -120,11 +120,11 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true)
     }
-
-//MARK: - View Did Load
+    
+    //MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
         if (darkModeEnabled){
             tableGradient.firstColor =   #colorLiteral(red: 1, green: 0.3529411765, blue: 0, alpha: 1)
@@ -136,7 +136,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         self.tableView.backgroundView = tableGradient
         // Uncomment the following line to preserve selection between presentations
         //self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //self.navigationItem.rightBarButtonItem = self.addWorkoutButton
         
@@ -148,11 +148,11 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     }
     
     // MARK: - Table view data sourcing
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return WorkoutsMaster.numWorkouts()
     }
@@ -185,7 +185,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         return cell
     }
     
-
+    
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -228,7 +228,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         return swipeActions
     }
     
-
+    
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -238,40 +238,11 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-
-    
-    // Override to support rearranging the table view.
-//    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-//        let movedObject = self.workoutList[fromIndexPath.row]
-//        self.workoutList.remove(at: fromIndexPath.row)
-//        self.workoutList.insert(movedObject, at: to.row)
-//        VCMaster.resetAll()
-//    }
-    
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension WorkoutEditorControllerTableViewController {

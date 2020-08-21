@@ -15,21 +15,21 @@ import MediaPlayer
 //MARK: - UIView Animation Extension
 extension UIView { //courtesy StackOverflow lol
     /*
-    @discardableResult
-    func applyGradient(colours: [UIColor]) -> CAGradientLayer {
-        return self.applyGradient(colours: colours, locations: nil)
-    }
-
-    @discardableResult
-    func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.frame = self.bounds
-        gradient.colors = colours.map { $0.cgColor }
-        gradient.locations = locations
-        self.layer.insertSublayer(gradient, at: 0)
-        return gradient
-    }
-    */
+     @discardableResult
+     func applyGradient(colours: [UIColor]) -> CAGradientLayer {
+     return self.applyGradient(colours: colours, locations: nil)
+     }
+     
+     @discardableResult
+     func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
+     let gradient: CAGradientLayer = CAGradientLayer()
+     gradient.frame = self.bounds
+     gradient.colors = colours.map { $0.cgColor }
+     gradient.locations = locations
+     self.layer.insertSublayer(gradient, at: 0)
+     return gradient
+     }
+     */
     
     func setIsHidden(_ hidden: Bool, animated: Bool) {
         if animated {
@@ -47,18 +47,18 @@ extension UIView { //courtesy StackOverflow lol
         }
     }
 }
- 
+
 //MARK: - Main VC Class
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
     
     //MARK: - Local Vars
     
-//    let soundURLs:[URL] = [
-//        Bundle.main.url(forResource: "Tone", withExtension: "mp3")!,
-//        Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
-//        Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
-//        Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
-//    ]
+    //    let soundURLs:[URL] = [
+    //        Bundle.main.url(forResource: "Tone", withExtension: "mp3")!,
+    //        Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
+    //        Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
+    //        Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
+    //    ]
     
     private var soundItemsDict:[String: URL] = [:] //initialize as empty
     
@@ -90,7 +90,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     typealias AllWorkouts = [Workouts.Workout] //array of struct
-        
+    
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
     private var nextWorkout = Workouts.Workout(duration: 0, name: "")
     private var timerInitiallyStarted = false
@@ -157,12 +157,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         enableAndShowButton(startButton)
         disableAndHideButton(stopButton)
         disableAndHideButton(restartButton)
-                
+        
         workoutNameLabel.textColor = .black
         nextWorkoutNameLabel.textColor = .black
         
         setupTimerRing()
-    
+        
         
         self.currentWorkout = workouts.getCurrentWorkout()
         self.nextWorkout = workouts.getNextWorkout()
@@ -175,12 +175,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     func initAVItems() { //create the dictionary mapped each sound name to a playerItem
-            soundItemsDict = [
-                "Tone": URL(string: Bundle.main.path(forResource: "Tone", ofType: "mp3")!)!,
-                "Beep": Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
-                "Ding": Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
-                "Whistle": Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
-            ]
+        soundItemsDict = [
+            "Tone": URL(string: Bundle.main.path(forResource: "Tone", ofType: "mp3")!)!,
+            "Beep": Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
+            "Ding": Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
+            "Whistle": Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
+        ]
     }
     
     func configMainPlayerToPlaySound(name:String) {
@@ -287,7 +287,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         controller.delegate = self
         self.present(controller, animated: true)
     }
-     //MARK: - Delegates
+    //MARK: - Delegates
     func mediaPicker(_ mediaPicker: MPMediaPickerController,
                      didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         // Get the system music player.
@@ -298,7 +298,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         // Begin playback.
         musicPlayer.play()
     }
-
+    
     func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
         mediaPicker.dismiss(animated: true)
     }
@@ -379,12 +379,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private func setupAudio() {
         do {
             try AVAudioSession.sharedInstance().setCategory(
-            AVAudioSession.Category.playback,
-            mode: AVAudioSession.Mode.default,
-            options: [
-                AVAudioSession.CategoryOptions.duckOthers
-            ]
-        )
+                AVAudioSession.Category.playback,
+                mode: AVAudioSession.Mode.default,
+                options: [
+                    AVAudioSession.CategoryOptions.duckOthers
+                ]
+            )
         } catch {
             print("Error occured on intializing: \(error)")
         }
@@ -432,7 +432,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     
     
-
+    
     //MARK: - Timer and Audio Control
     private func startTimerIfWorkoutExists() { //start the timer for the given duration or end the workout session if the current workout has no duration
         if (currentWorkout.duration != nil) {
@@ -495,15 +495,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     //MARK: - Rest Timer Stuff
     private func restFor(_ duration: Int) {
-            restTimerLabel.isHidden = false
-            restTimerLabel.text = String(duration)
-            restTimerLabel.frame = timerRing.frame
-            count = duration
-            workoutNameLabel.text = "Rest!"
-            timerRing.shouldShowValueText = false
-            restTimerLabel.font = UIFont (name: "Avenir Next", size: 60.0)!.italic()
-            isRestTimerActive = true
-            restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
+        restTimerLabel.isHidden = false
+        restTimerLabel.text = String(duration)
+        restTimerLabel.frame = timerRing.frame
+        count = duration
+        workoutNameLabel.text = "Rest!"
+        timerRing.shouldShowValueText = false
+        restTimerLabel.font = UIFont (name: "Avenir Next", size: 60.0)!.italic()
+        isRestTimerActive = true
+        restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
     }
     
     @objc private func updateLabelForCountdown() {
@@ -526,7 +526,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     
     
-
-
+    
+    
 }
 

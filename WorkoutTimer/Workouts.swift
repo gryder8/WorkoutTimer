@@ -26,7 +26,7 @@ class Workouts {
             }
         }
     }
-        
+    
     typealias WorkoutList = [Workout]
     
     static let shared = Workouts()

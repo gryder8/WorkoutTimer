@@ -10,7 +10,7 @@ import UIKit
 
 extension Float {
     var clean: String {
-       return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
+        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
 
@@ -106,7 +106,7 @@ class SettingViewController: UIViewController {
         optionsTableView.dataSource = self
         optionsTableView.delegate = self
         optionsTableView.backgroundColor = .lightGray
-
+        
         
         //**************************************************
         
@@ -148,12 +148,12 @@ class SettingViewController: UIViewController {
     @objc func backTapped(){
         navigationController?.popToRootViewController(animated: true)
     }
-
+    
 }
 
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return soundOptionsList.count
+        return soundOptionsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
