@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9zS-ff-b7u">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,30 +12,33 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GradientView" customModule="WorkoutTimer" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgV-x6-3ob" userLabel="Rest Timer Label">
-                                <rect key="frame" x="162" y="234" width="90" height="21"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JgV-x6-3ob" userLabel="Rest Timer Label">
+                                <rect key="frame" x="142.66666666666666" y="234" width="90" height="21"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES" updatesFrequently="YES"/>
                                 </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="fzM-nE-GHt"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4RF-u0-MSf" customClass="UICircularTimerRing" customModule="UICircularProgressRing">
-                                <rect key="frame" x="28" y="99" width="358" height="275"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4RF-u0-MSf" customClass="UICircularTimerRing" customModule="UICircularProgressRing">
+                                <rect key="frame" x="28" y="128" width="319" height="275"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="275" id="gM2-PE-Cwp"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="414" translatesAutoresizingMaskIntoConstraints="NO" id="1ll-GI-7F3" userLabel="Current Workout Name">
-                                <rect key="frame" x="0.0" y="378" width="414" height="100"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="414" translatesAutoresizingMaskIntoConstraints="NO" id="1ll-GI-7F3" userLabel="Current Workout Name">
+                                <rect key="frame" x="0.0" y="407" width="375" height="44"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                 </accessibility>
@@ -49,9 +52,8 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Next: Workout" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="414" translatesAutoresizingMaskIntoConstraints="NO" id="m2g-Fc-yOZ" userLabel="Next Workout Name">
-                                <rect key="frame" x="0.0" y="464" width="414" height="93"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next: Workout" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="414" translatesAutoresizingMaskIntoConstraints="NO" id="m2g-Fc-yOZ" userLabel="Next Workout Name">
+                                <rect key="frame" x="0.0" y="493" width="375" height="37"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                 </accessibility>
@@ -59,10 +61,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6S-cP-Dvm">
-                                <rect key="frame" x="136" y="635" width="142" height="55"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6S-cP-Dvm">
+                                <rect key="frame" x="116.66666666666669" y="605" width="142" height="47"/>
                                 <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="142" id="9ZB-1r-UYq"/>
+                                    <constraint firstAttribute="height" constant="47" id="fXC-FS-bB6"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -71,10 +76,13 @@
                                     <action selector="stopButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="19O-ym-WPN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prZ-hj-SYw" userLabel="Start/Pause">
-                                <rect key="frame" x="107" y="563" width="200" height="50"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prZ-hj-SYw" userLabel="Start/Pause">
+                                <rect key="frame" x="87.666666666666686" y="536" width="200" height="47"/>
                                 <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="mKZ-HG-pc3"/>
+                                    <constraint firstAttribute="width" constant="200" id="xPF-wN-vVZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
                                 <state key="normal" title="Start">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -83,10 +91,13 @@
                                     <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="p95-aq-v1B"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="om1-Xh-PtC">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="om1-Xh-PtC">
                                 <rect key="frame" x="15" y="40" width="65" height="65"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="5E5-gs-WA3"/>
+                                    <constraint firstAttribute="height" constant="65" id="htb-de-Vo1"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="musicButton.png">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -95,28 +106,37 @@
                                     <action selector="selectSongs:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aYz-yJ-yO9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gZ-Of-6N4" userLabel="Workout View Button">
-                                <rect key="frame" x="340" y="36" width="65" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gZ-Of-6N4" userLabel="Workout View Button">
+                                <rect key="frame" x="301" y="36" width="65" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="20F-DJ-jGa"/>
+                                    <constraint firstAttribute="width" constant="65" id="7pI-XH-zQb"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="workoutList.png"/>
                                 <connections>
                                     <segue destination="YWr-Pi-07R" kind="show" identifier="workoutBtnPressed" id="Pb8-VB-7pQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEj-qM-5Fb" userLabel="Settings Button">
-                                <rect key="frame" x="280" y="38" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEj-qM-5Fb" userLabel="Settings Button">
+                                <rect key="frame" x="245" y="38" width="58" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="58" id="562-J2-Xlw"/>
+                                    <constraint firstAttribute="width" constant="58" id="5Cd-FU-rZa"/>
+                                </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="settingsIcon.png"/>
                                 <connections>
                                     <segue destination="1rn-6i-XgZ" kind="show" identifier="settingsSegue" id="3eV-DU-Fh1"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsI-yh-1nd">
-                                <rect key="frame" x="107" y="563" width="200" height="50"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsI-yh-1nd">
+                                <rect key="frame" x="87.666666666666686" y="536" width="200" height="47"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="DzT-Bm-bkE"/>
+                                    <constraint firstAttribute="height" constant="47" id="yDM-3u-m5o"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="25"/>
                                 <state key="normal" title="Restart">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -125,19 +145,20 @@
                                     <action selector="restartButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5KZ-1U-K3H"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Tone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCm-fr-41V">
-                                <rect key="frame" x="121" y="791" width="95" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Tone:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCm-fr-41V">
+                                <rect key="frame" x="122" y="711" width="92" height="27"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                 </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="92" id="Sd4-Ov-8jQ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-AR-Rhe" userLabel="Sound Toggle">
-                                <rect key="frame" x="219" y="791" width="49" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-AR-Rhe" userLabel="Sound Toggle">
+                                <rect key="frame" x="217" y="707" width="12" height="31"/>
                                 <color key="onTintColor" red="1" green="0.59024380450000002" blue="0.4333210045" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </switch>
                         </subviews>
@@ -146,6 +167,37 @@
                             <accessibilityTraits key="traits" notEnabled="YES"/>
                         </accessibility>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="1ll-GI-7F3" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="0PB-7M-5Oi"/>
+                            <constraint firstItem="prZ-hj-SYw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0gI-V7-iTc"/>
+                            <constraint firstItem="1ll-GI-7F3" firstAttribute="top" secondItem="4RF-u0-MSf" secondAttribute="bottom" constant="4" id="173-9I-dv0"/>
+                            <constraint firstItem="prZ-hj-SYw" firstAttribute="top" secondItem="1ll-GI-7F3" secondAttribute="bottom" constant="85" id="1jO-S0-L1D"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HLl-AR-Rhe" secondAttribute="trailing" constant="148" id="31f-wI-8Od"/>
+                            <constraint firstItem="4RF-u0-MSf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="28" id="5Iv-hu-CSE"/>
+                            <constraint firstItem="m2g-Fc-yOZ" firstAttribute="top" secondItem="4RF-u0-MSf" secondAttribute="bottom" constant="90" id="7IH-3i-4Fl"/>
+                            <constraint firstItem="p6S-cP-Dvm" firstAttribute="top" secondItem="fsI-yh-1nd" secondAttribute="bottom" constant="22" id="7vn-Dg-va9"/>
+                            <constraint firstItem="JgV-x6-3ob" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EFW-tw-dAb"/>
+                            <constraint firstItem="p6S-cP-Dvm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Edo-iY-8Kv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4gZ-Of-6N4" secondAttribute="trailing" constant="9" id="EuL-Zr-Hgy"/>
+                            <constraint firstItem="JgV-x6-3ob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="146" id="FIX-Q5-9oD"/>
+                            <constraint firstItem="om1-Xh-PtC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="HUR-TA-3p0"/>
+                            <constraint firstItem="m2g-Fc-yOZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Lud-8Z-dVb"/>
+                            <constraint firstItem="p6S-cP-Dvm" firstAttribute="top" secondItem="prZ-hj-SYw" secondAttribute="bottom" constant="22" id="M7J-aF-a6D"/>
+                            <constraint firstItem="1ll-GI-7F3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PD0-AB-fT1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GEj-qM-5Fb" secondAttribute="trailing" constant="72" id="S7f-5k-axT"/>
+                            <constraint firstItem="fsI-yh-1nd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sob-tP-5Yv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4RF-u0-MSf" secondAttribute="trailing" constant="28" id="XAE-vT-dqv"/>
+                            <constraint firstItem="prZ-hj-SYw" firstAttribute="top" secondItem="m2g-Fc-yOZ" secondAttribute="bottom" constant="6" id="Zzy-2E-smN"/>
+                            <constraint firstItem="HCm-fr-41V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="122" id="bso-Xp-KlL"/>
+                            <constraint firstItem="om1-Xh-PtC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="cgU-vN-VdA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HCm-fr-41V" secondAttribute="bottom" constant="40" id="d4z-IL-6U7"/>
+                            <constraint firstItem="m2g-Fc-yOZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="e7s-RV-btT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HLl-AR-Rhe" secondAttribute="bottom" constant="40" id="lEY-3r-Wym"/>
+                            <constraint firstItem="4RF-u0-MSf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="m9L-Wv-1Qx"/>
+                            <constraint firstItem="GEj-qM-5Fb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="38" id="noo-wl-uwh"/>
+                            <constraint firstItem="HLl-AR-Rhe" firstAttribute="leading" secondItem="HCm-fr-41V" secondAttribute="trailing" constant="3" id="ty3-7J-l9y"/>
+                            <constraint firstItem="4gZ-Of-6N4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="36" id="yDu-gL-ojv"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="NO"/>
@@ -193,11 +245,11 @@
             <objects>
                 <viewController title="Settings Page" id="1rn-6i-XgZ" customClass="SettingViewController" customModule="WorkoutTimer" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJI-Qd-V7I" customClass="GradientView" customModule="WorkoutTimer" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="15" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="Rsk-Or-8DV">
-                                <rect key="frame" x="140" y="152" width="270" height="31"/>
+                                <rect key="frame" x="140.33333333333337" y="152" width="230.66666666666663" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="Rest Interval Slider"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="RAo-aW-H4X"/>
@@ -210,7 +262,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paZ-G8-Vda" userLabel="Slider Value Label">
-                                <rect key="frame" x="128" y="133" width="201" height="23.5"/>
+                                <rect key="frame" x="128" y="133" width="162" height="23.333333333333343"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                 </accessibility>
@@ -219,7 +271,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest Duration:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA8-vr-eIm">
-                                <rect key="frame" x="13.5" y="155" width="109.5" height="24"/>
+                                <rect key="frame" x="13.666666666666664" y="155" width="109.66666666666669" height="24"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -228,10 +280,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xmg-Yv-txf">
-                                <rect key="frame" x="50" y="234" width="314" height="210"/>
+                                <rect key="frame" x="50" y="234" width="275" height="210"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="workoutEnd" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bzv-r2-M6n" userLabel="Dropdown Button">
-                                        <rect key="frame" x="0.0" y="0.0" width="314" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="40"/>
                                         <color key="backgroundColor" red="0.90047089039999995" green="0.37013056509999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Xri-Qa-zdU"/>
@@ -245,7 +297,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="workout" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5fi-qX-bMf" userLabel="Options Table">
-                                        <rect key="frame" x="0.0" y="40" width="314" height="170"/>
+                                        <rect key="frame" x="0.0" y="40" width="275" height="170"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="IZv-3F-HGH"/>
@@ -253,10 +305,10 @@
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="optionCell" id="gbO-bT-DEn" customClass="OptionsViewCell" customModule="WorkoutTimer" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="314" height="43.5"/>
+                                                <rect key="frame" x="0.0" y="28" width="275" height="43.666667938232422"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gbO-bT-DEn" id="vLM-NM-UgR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="314" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="275" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMN-Ij-D1s" userLabel="Option Label">
@@ -280,10 +332,10 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-1m-ybB">
-                                <rect key="frame" x="50" y="488" width="314" height="210"/>
+                                <rect key="frame" x="50" y="487.66666666666674" width="275" height="210"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="restEnd" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoR-Ie-cKz" userLabel="Dropdown Button">
-                                        <rect key="frame" x="0.0" y="0.0" width="314" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="40"/>
                                         <color key="backgroundColor" red="0.90047089039999995" green="0.37013056509999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="gWH-dz-9QO"/>
@@ -297,7 +349,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="rest" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ho-kc-UQm" userLabel="Options Table">
-                                        <rect key="frame" x="0.0" y="40" width="314" height="170"/>
+                                        <rect key="frame" x="0.0" y="39.999999999999943" width="275" height="170"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="170" id="2j4-gj-e3G"/>
@@ -305,10 +357,10 @@
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="optionCell" id="tej-2h-Opw" customClass="OptionsViewCell" customModule="WorkoutTimer" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="314" height="43.5"/>
+                                                <rect key="frame" x="0.0" y="28" width="275" height="43.666667938232422"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tej-2h-Opw" id="ERj-49-Cnh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="314" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="275" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kJ-V9-nZL" userLabel="Option Label">
@@ -331,14 +383,14 @@
                                     <constraint firstItem="0ho-kc-UQm" firstAttribute="top" secondItem="UoR-Ie-cKz" secondAttribute="bottom" id="Cpu-H6-qB5"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Workout End Sound" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="RVk-X4-hbr">
-                                <rect key="frame" x="50" y="117" width="314" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout End Sound" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="RVk-X4-hbr">
+                                <rect key="frame" x="131" y="205" width="113" height="21"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rest End Sound" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGy-wT-ZcO">
-                                <rect key="frame" x="51" y="400" width="314" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest End Sound" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGy-wT-ZcO">
+                                <rect key="frame" x="133.66666666666666" y="462" width="108" height="20.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -346,31 +398,28 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="7ZF-1m-ybB" firstAttribute="top" secondItem="gGy-wT-ZcO" secondAttribute="bottom" constant="5" id="033-s7-0KT"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="RVk-X4-hbr" secondAttribute="trailing" constant="131" id="0W8-8u-cKH"/>
                             <constraint firstItem="RVk-X4-hbr" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="131" id="18X-7l-7I2"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="ZA8-vr-eIm" secondAttribute="bottom" constant="55" id="20T-eg-qOG"/>
                             <constraint firstItem="RVk-X4-hbr" firstAttribute="top" secondItem="Rsk-Or-8DV" secondAttribute="bottom" constant="23" id="Crn-wp-35q"/>
-                            <constraint firstItem="gGy-wT-ZcO" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="70" id="Fqm-Ag-a5N"/>
                             <constraint firstItem="Rsk-Or-8DV" firstAttribute="top" secondItem="paZ-G8-Vda" secondAttribute="bottom" constant="-4.5" id="FyA-Jm-kef"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="Xmg-Yv-txf" secondAttribute="trailing" constant="50" id="GFf-nW-0N0"/>
-                            <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="RVk-X4-hbr" secondAttribute="bottom" constant="8" id="Jnv-MJ-dVn"/>
                             <constraint firstItem="Rsk-Or-8DV" firstAttribute="leading" secondItem="ZA8-vr-eIm" secondAttribute="trailing" constant="19" id="Kuy-eD-Qn2"/>
                             <constraint firstItem="paZ-G8-Vda" firstAttribute="top" secondItem="mc1-eG-f2v" secondAttribute="top" constant="45" id="LOC-OY-c7w"/>
                             <constraint firstItem="7ZF-1m-ybB" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="50" id="LeA-CK-iyz"/>
                             <constraint firstItem="ZA8-vr-eIm" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="13.5" id="N9v-Sz-8wS"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="50" id="PQ6-g1-fUR"/>
-                            <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="gGy-wT-ZcO" secondAttribute="trailing" constant="70" id="Q4p-XC-W7w"/>
-                            <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="gGy-wT-ZcO" secondAttribute="trailing" constant="70" id="QOh-3x-66v"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="paZ-G8-Vda" secondAttribute="trailing" constant="85" id="R7T-aE-zPE"/>
-                            <constraint firstItem="7ZF-1m-ybB" firstAttribute="top" secondItem="gGy-wT-ZcO" secondAttribute="bottom" constant="4.5" id="XO6-oG-VfM"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="Rsk-Or-8DV" secondAttribute="trailing" constant="6" id="cjW-g1-Ydh"/>
+                            <constraint firstItem="gGy-wT-ZcO" firstAttribute="centerX" secondItem="mJI-Qd-V7I" secondAttribute="centerX" id="et7-nS-7pT"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="Rsk-Or-8DV" secondAttribute="bottom" constant="52" id="flo-AU-p0h"/>
                             <constraint firstItem="ZA8-vr-eIm" firstAttribute="top" secondItem="mc1-eG-f2v" secondAttribute="top" constant="67" id="gWe-sJ-TcU"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="7ZF-1m-ybB" secondAttribute="trailing" constant="50" id="hWZ-t7-T1B"/>
-                            <constraint firstItem="gGy-wT-ZcO" firstAttribute="top" secondItem="Xmg-Yv-txf" secondAttribute="bottom" constant="19" id="j1m-aQ-Hcg"/>
                             <constraint firstItem="paZ-G8-Vda" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="128" id="jTC-sI-ute"/>
-                            <constraint firstItem="gGy-wT-ZcO" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="70" id="t2x-wi-GQ9"/>
+                            <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="RVk-X4-hbr" secondAttribute="bottom" constant="8" id="odG-zh-NNs"/>
                             <constraint firstItem="Rsk-Or-8DV" firstAttribute="leading" secondItem="ZA8-vr-eIm" secondAttribute="trailing" constant="19" id="v2R-aQ-GdT"/>
+                            <constraint firstItem="gGy-wT-ZcO" firstAttribute="top" secondItem="Xmg-Yv-txf" secondAttribute="bottom" constant="18" id="zoH-Dc-xmD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mc1-eG-f2v"/>
                         <userDefinedRuntimeAttributes>
@@ -402,15 +451,15 @@
             <objects>
                 <tableViewController title="WorkoutsEditor" id="YWr-Pi-07R" customClass="WorkoutEditorControllerTableViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fCs-rQ-Gf6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkoutCell" id="Yil-T6-lnc" customClass="WorkoutCellTableViewCell" customModule="WorkoutTimer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Yil-T6-lnc" id="46w-gl-7SD">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Workout Name: 30 sec" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nF-E9-tjC">
@@ -452,7 +501,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qNs-AY-Tp5">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

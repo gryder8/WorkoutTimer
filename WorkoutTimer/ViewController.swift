@@ -156,10 +156,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
         
         roundAllButtons()
-        
         enableAndShowButton(startButton)
         disableAndHideButton(stopButton)
         disableAndHideButton(restartButton)
+        self.soundToggle.isEnabled = true
+        self.soundToggle.isUserInteractionEnabled = true
         
         workoutNameLabel.textColor = .black
         nextWorkoutNameLabel.textColor = .black
