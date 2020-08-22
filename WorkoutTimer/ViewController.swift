@@ -354,6 +354,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         restTimerLabel.isHidden = true
         changeButtonToMode(mode: .start)
         self.settingsBtn.isEnabled = true
+        self.isRestTimerActive = false
         externalizingActionsEnabled(true)
     }
     
