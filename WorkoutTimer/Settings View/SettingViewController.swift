@@ -176,11 +176,21 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             dropdownBtn.setTitle("\(soundOptionsList[indexPath.row])", for: .normal)
             workoutEndChoice = soundOptionsList[indexPath.row]
             VCMaster.workoutEndSoundName = workoutEndChoice
+            
+            VCMaster.configMainPlayerToPlaySound(name: workoutEndChoice)
+            VCMaster.mainPlayer.prepareToPlay()
+            VCMaster.mainPlayer.play()
+            
             self.optionsTableView.setIsHidden(true, animated: true)
         } else if (tableView.restorationIdentifier == "rest") {
             restDropdownBtn.setTitle("\(soundOptionsList[indexPath.row])", for: .normal)
             restEndChoice = soundOptionsList[indexPath.row]
             VCMaster.restEndSoundName = restEndChoice
+            
+            VCMaster.configMainPlayerToPlaySound(name: restEndChoice)
+            VCMaster.mainPlayer.prepareToPlay()
+            VCMaster.mainPlayer.play()
+            
             self.restOptionsTblView.setIsHidden(true, animated: true)
         }
     }

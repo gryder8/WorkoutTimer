@@ -62,7 +62,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     private var soundItemsDict:[String: URL] = [:] //initialize as empty
     
-    private var mainPlayer: AVAudioPlayer!
+    var mainPlayer: AVAudioPlayer!
     
     private let endWorkoutSoundKey = "ENDWORKOUT_SOUND_KEY"
     private let endRestSoundKey = "RESTEND_SOUND_KEY"
@@ -83,7 +83,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private let defaults = UserDefaults.standard
     
     private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
-    var restDuration:Int = 10 {
+    var restDuration:Int = 30 {
         didSet {
             defaults.set(restDuration, forKey: restDurationKey)
         }
