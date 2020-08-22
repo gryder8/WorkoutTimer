@@ -72,23 +72,26 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             defaults.set(workoutEndSoundName, forKey: endWorkoutSoundKey)
         }
     }
+    
     var restEndSoundName = "Tone" {
         didSet {
             defaults.set(restEndSoundName, forKey: endRestSoundKey)
         }
     }
     
-    private var buttonState:ButtonMode = ButtonMode.start
-    private let restDurationKey = "REST_DUR_KEY"
-    private let defaults = UserDefaults.standard
-    
-    private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)]
     var restDuration:Int = 30 {
         didSet {
-            defaults.set(restDuration, forKey: restDurationKey)
+            defaults.set(restDuration, forKey: restDurationKey) //update local data on set
         }
     }
     
+    
+    private var buttonState:ButtonMode = ButtonMode.start //inital state
+    private let restDurationKey = "REST_DUR_KEY" //KEY
+    private let defaults = UserDefaults.standard
+    
+    private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)] //unused gradient (use with gradient extension)
+
     typealias AllWorkouts = [Workouts.Workout] //array of struct
     
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
