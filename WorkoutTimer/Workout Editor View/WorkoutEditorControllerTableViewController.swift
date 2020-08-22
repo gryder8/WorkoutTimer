@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 
+//MARK: - Font Extension for Italic and Bold
 extension UIFont {
     func withTraits(traits:UIFontDescriptor.SymbolicTraits) -> UIFont {
         let descriptor = fontDescriptor.withSymbolicTraits(traits)
@@ -25,12 +26,15 @@ extension UIFont {
     
 }
 
+//MARK: - Double Extension for No Decimals
 extension Double {
     var clean: String {
         return truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
 
+
+//MARK: - Class
 class WorkoutEditorControllerTableViewController: UITableViewController, UITextFieldDelegate {
     
     private var isInitialized = false
@@ -51,7 +55,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     //MARK: - Properties
     @IBOutlet weak var addButton: UIBarButtonItem!
     
-    
+    //MARK: - Text Input Input Restriction via Delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string:String) -> Bool { //restrict fields using this class as a delegate 
         
         let allowedChars = "1234567890"
@@ -60,65 +64,13 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         return allowedCharSet.isSuperset(of: typedCharSet)
     }
     
-    
+    //MARK: - View Overrides
     override func viewWillAppear(_ animated: Bool) {
         setUpTableViewHeader()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    //MARK: - View customization and UI Event handling
-    private func setUpTableViewHeader(){
-        self.navigationController?.navigationBar.isHidden = false
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = tableGradient.firstColor
-        self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.navigationBar.tintColor = .black
-        navigationItem.hidesBackButton = false
-        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done,target: self, action: #selector(backTapped))
-        let label = UILabel(frame: CGRect(x:0, y:0, width:350, height:30))
-        label.backgroundColor = .clear
-        label.numberOfLines = 1
-        label.font = UIFont (name: "Avenir Next", size: 14.0)!
-        label.textAlignment = .center
-        label.textColor = .black
-        label.numberOfLines = 2
-        label.text = "Swipe right to remove or edit a workout \n Long press to re-arrange"
-        self.navigationItem.titleView = label
-        addButton.action = #selector(self.addCellTapped)
-        addButton.target = self
-    }
-    
-    @objc func backTapped(){
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @objc func addCellTapped() {
-        let alert = UIAlertController(title: "", message: "Add Workout", preferredStyle: .alert)
-        alert.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Workout Name"
-        })
-        
-        alert.addTextField(configurationHandler: { (numberField) in
-            numberField.keyboardType = .numberPad
-            numberField.delegate = self //should restrict to nums only
-            numberField.placeholder = "Duration (sec)"
-        })
-        
-        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (updateAction) in
-            let durationInput = alert.textFields![1].text!
-            var newWorkout:Workouts.Workout
-            newWorkout = Workouts.Workout(duration: Double(durationInput), name: alert.textFields!.first!.text!) //input should be numeric only
-            self.workoutList.append(newWorkout)
-            self.VCMaster.resetAll()
-            self.tableView.reloadData()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true)
     }
     
     //MARK: - View Did Load
@@ -147,8 +99,63 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
         self.isInitialized = true
     }
     
-    // MARK: - Table view data sourcing
+    //MARK: - View customization and UI Event handling
+    private func setUpTableViewHeader(){
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = tableGradient.firstColor
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.tintColor = .black
+        navigationItem.hidesBackButton = false
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done,target: self, action: #selector(backTapped))
+        let label = UILabel(frame: CGRect(x:0, y:0, width:350, height:30))
+        label.backgroundColor = .clear
+        label.numberOfLines = 1
+        label.font = UIFont (name: "Avenir Next", size: 14.0)!
+        label.textAlignment = .center
+        label.textColor = .black
+        label.numberOfLines = 2
+        label.text = "Swipe right to remove or edit a workout \n Long press to re-arrange"
+        self.navigationItem.titleView = label
+        addButton.action = #selector(self.addCellTapped)
+        addButton.target = self
+    }
     
+    //MARK: - Unused, stored in case of need
+    @objc func backTapped(){
+        navigationController?.popToRootViewController(animated: true)
+    }
+    
+    //MARK - Add Cells
+    @objc func addCellTapped() {
+        let alert = UIAlertController(title: "", message: "Add Workout", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Workout Name"
+        })
+        
+        alert.addTextField(configurationHandler: { (numberField) in
+            numberField.keyboardType = .numberPad
+            numberField.delegate = self //should restrict to nums only
+            numberField.placeholder = "Duration (sec)"
+        })
+        
+        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (updateAction) in
+            let durationInput = alert.textFields![1].text!
+            var newWorkout:Workouts.Workout
+            newWorkout = Workouts.Workout(duration: Double(durationInput), name: alert.textFields!.first!.text!) //input should be numeric only
+            self.workoutList.append(newWorkout)
+            self.VCMaster.resetAll()
+            self.tableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    
+    
+    // MARK: - Table View Data Source Config
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -159,7 +166,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     
     
     
-    
+    //MARK: - Initialize Cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 40)
         tableView.separatorColor = UIColor(red:0.18, green:0.18, blue:0.18, alpha:0.5)
@@ -187,12 +194,12 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     
     
     
-    // Override to support conditional editing of the table view.
+    //MARK: - Enable Cell Editing
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    
+    //MARK: - Configure Edit and Delete Functionality
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //self.list = PeriodNames.getPeriodNames()
         let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, boolValue) in
@@ -229,7 +236,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     }
     
     
-    
+    //MARK: - Define Delete Behavior [UNUSED]
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
@@ -245,6 +252,9 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
     
 }
 
+//MARK: - Extension For Reorder Lib
+//allows the reordering of cells to change the backend data according to their placement
+//NOTE: Delegate of Reordering object must be set to self for this method to be called
 extension WorkoutEditorControllerTableViewController {
     
     override func reorderFinished(initialIndex: IndexPath, finalIndex: IndexPath) {

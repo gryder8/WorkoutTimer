@@ -8,45 +8,51 @@
 
 import UIKit
 
+
+//MARK: - Float Extension
 extension Float {
     var clean: String {
         return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }
 
-
+//MARK: - Class
 class SettingViewController: UIViewController {
-    
+    //MARK: - Properties
     @IBOutlet weak var restDurationSlider: UISlider!
     @IBOutlet weak var sliderValueLabel: UILabel!
     @IBOutlet weak var gradientView: GradientView!
-    
-    let defaults = UserDefaults.standard
-    
     @IBOutlet weak var dropdownBtn: UIButton!
     @IBOutlet weak var optionsTableView: UITableView!
     @IBOutlet weak var restDropdownBtn: UIButton!
     @IBOutlet weak var restOptionsTblView: UITableView!
     
+    
+    //MARK: - Local vars
+    let defaults = UserDefaults.standard
+    
     var soundOptionsList = ["Tone", "Beep","Whistle", "Ding"]
     
     let workoutEndKey = "WORKOUT_END_KEY"
     let restEndKey = "REST_END_KEY"
+    
     var workoutEndChoice = "Tone" {
         didSet {
-            UserDefaults.standard.set(workoutEndChoice, forKey: "WORKOUT_END_KEY")
+            UserDefaults.standard.set(workoutEndChoice, forKey: "WORKOUT_END_KEY") //write to local
         }
     }
     
     var restEndChoice = "Tone" {
         didSet {
-            UserDefaults.standard.set(restEndChoice, forKey: "REST_END_KEY")
+            UserDefaults.standard.set(restEndChoice, forKey: "REST_END_KEY") //write to local
         }
     }
     
     var VCMaster:ViewController = ViewController()
     var darkModeEnabled:Bool = false
     
+    
+    //MARK: - Action Handlers
     @IBAction func valueChanged(_ sender: UISlider) {
         let roundedValue = round(sender.value)
         sender.value = roundedValue
@@ -73,7 +79,7 @@ class SettingViewController: UIViewController {
         }
     }
     
-    
+    //MARK: - View Overrides
     override func viewWillAppear(_ animated: Bool) {
         setUpTableViewHeader()
         self.restDurationSlider.isEnabled = !(VCMaster.isRestTimerActive)
@@ -82,22 +88,6 @@ class SettingViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    private func loadSoundPathsFromLocalData() {
-        if (UserDefaults.standard.string(forKey: workoutEndKey) != nil) {
-            self.workoutEndChoice = UserDefaults.standard.string(forKey: workoutEndKey)!
-        } else {
-            workoutEndChoice = "Tone" //revert to default
-            UserDefaults.standard.set(workoutEndChoice, forKey: workoutEndKey)
-        }
-        
-        if (UserDefaults.standard.string(forKey: restEndKey) != nil) {
-            self.restEndChoice = UserDefaults.standard.string(forKey: restEndKey)!
-        } else {
-            restEndChoice = "Tone" //revert to default
-            UserDefaults.standard.set(restEndChoice, forKey: restEndKey)
-        }
     }
     
     override func viewDidLoad() {
@@ -123,6 +113,25 @@ class SettingViewController: UIViewController {
         dropdownBtn.setTitle(workoutEndChoice, for: .normal)
         restDropdownBtn.setTitle(restEndChoice, for: .normal)
     }
+    
+    
+    //MARK: Loader and Setup Functions
+    private func loadSoundPathsFromLocalData() {
+        if (UserDefaults.standard.string(forKey: workoutEndKey) != nil) {
+            self.workoutEndChoice = UserDefaults.standard.string(forKey: workoutEndKey)!
+        } else {
+            workoutEndChoice = "Tone" //revert to default
+            UserDefaults.standard.set(workoutEndChoice, forKey: workoutEndKey)
+        }
+        
+        if (UserDefaults.standard.string(forKey: restEndKey) != nil) {
+            self.restEndChoice = UserDefaults.standard.string(forKey: restEndKey)!
+        } else {
+            restEndChoice = "Tone" //revert to default
+            UserDefaults.standard.set(restEndChoice, forKey: restEndKey)
+        }
+    }
+    
     
     private func setUpTableViewHeader(){
         self.navigationController?.navigationBar.isHidden = false
@@ -151,6 +160,7 @@ class SettingViewController: UIViewController {
     
 }
 
+//MARK: - Table View Implementation!
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return soundOptionsList.count
