@@ -77,7 +77,7 @@ class SettingViewController: UIViewController {
         sender.value = roundedValue
         VCMaster.restDuration = Int(sender.value)
         timeStepper.value = Double(sender.value)
-        print(VCMaster.restDuration)
+//        print(VCMaster.restDuration)
     }
     
     @IBAction func volumeSliderReleased(_ sender: UISlider) {

@@ -53,13 +53,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     //MARK: - Local Vars
     
-    //    let soundURLs:[URL] = [
-    //        Bundle.main.url(forResource: "Tone", withExtension: "mp3")!,
-    //        Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
-    //        Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
-    //        Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
-    //    ]
-    
     private var soundItemsDict:[String: URL] = [:] //initialize as empty
     
     var mainPlayer: AVAudioPlayer!
@@ -80,7 +73,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    var restDuration:Int = 30 {
+    var restDuration:Int = 15 {
         didSet {
             defaults.set(restDuration, forKey: restDurationKey) //update local data on set
         }
