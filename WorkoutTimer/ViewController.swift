@@ -64,24 +64,34 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     var mainPlayer: AVAudioPlayer!
     
-    private let endWorkoutSoundKey = "ENDWORKOUT_SOUND_KEY"
-    private let endRestSoundKey = "RESTEND_SOUND_KEY"
+    private let END_WORKOUT_SOUND_KEY = "ENDWORKOUT_SOUND_KEY"
+    private let END_REST_SOUND_KEY = "RESTEND_SOUND_KEY"
+    private let TONE_VOLUME_KEY = "TONE_VOLUME_KEY"
     
     var workoutEndSoundName = "Tone" {
         didSet {
-            defaults.set(workoutEndSoundName, forKey: endWorkoutSoundKey)
+            defaults.set(workoutEndSoundName, forKey: END_WORKOUT_SOUND_KEY)
         }
     }
     
     var restEndSoundName = "Tone" {
         didSet {
-            defaults.set(restEndSoundName, forKey: endRestSoundKey)
+            defaults.set(restEndSoundName, forKey: END_REST_SOUND_KEY)
         }
     }
     
     var restDuration:Int = 30 {
         didSet {
             defaults.set(restDuration, forKey: restDurationKey) //update local data on set
+        }
+    }
+    
+    var toneVolume:Float = 1.0 {
+        didSet {
+            if (mainPlayer != nil) {
+                mainPlayer.volume = toneVolume
+            }
+            defaults.set(toneVolume, forKey: TONE_VOLUME_KEY)
         }
     }
     
@@ -187,6 +197,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         ]
     }
     
+    //MARK: - AVPlayer Config
     func configMainPlayerToPlaySound(name:String) {
         let path = Bundle.main.path(forResource: name, ofType: "mp3")!
         let URLForSound = URL(string: path)!
@@ -198,6 +209,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
+    
+    //MARK: - Enable and Disable Button
     func externalizingActionsEnabled(_ enabled: Bool) { //determine if buttons are on or off on the home page
         soundToggle.isEnabled = enabled
         selectSongs.isEnabled = enabled
@@ -421,18 +434,24 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             defaults.set(restDuration, forKey: restDurationKey)
         }
         
-        if (defaults.string(forKey: endWorkoutSoundKey) != nil) { //load sound name if it exists
-            workoutEndSoundName = defaults.string(forKey: endWorkoutSoundKey)! //can't be nil here
+        if (defaults.string(forKey: END_WORKOUT_SOUND_KEY) != nil) { //load sound name if it exists
+            workoutEndSoundName = defaults.string(forKey: END_WORKOUT_SOUND_KEY)! //can't be nil here
         } else {
             //workoutEndSoundName = "Tone"
-            defaults.set(workoutEndSoundName, forKey: endWorkoutSoundKey)
+            defaults.set(workoutEndSoundName, forKey: END_WORKOUT_SOUND_KEY)
         }
         
-        if (defaults.string(forKey: endRestSoundKey) != nil) { //load sound name if it exists
-            restEndSoundName = defaults.string(forKey: endRestSoundKey)! //can't be nil here
+        if (defaults.string(forKey: END_REST_SOUND_KEY) != nil) { //load sound name if it exists
+            restEndSoundName = defaults.string(forKey: END_REST_SOUND_KEY)! //can't be nil here
         } else {
             //restEndSoundName = "Tone"
-            defaults.set(restEndSoundName, forKey: endRestSoundKey)
+            defaults.set(restEndSoundName, forKey: END_REST_SOUND_KEY)
+        }
+        
+        if (defaults.float(forKey: TONE_VOLUME_KEY) != 0) {
+            toneVolume = defaults.float(forKey: TONE_VOLUME_KEY)
+        } else {
+            defaults.set(toneVolume, forKey: TONE_VOLUME_KEY)
         }
     }
     
@@ -483,6 +502,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
                 audioSessionEnabled(enabled: true) //enable audio play
                 configMainPlayerToPlaySound(name: workoutEndSoundName)
                 mainPlayer.prepareToPlay()
+                mainPlayer.volume = toneVolume
                 mainPlayer.play()
             }
             timerRing.resetTimer()
@@ -521,6 +541,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
                 audioSessionEnabled(enabled: true) //enable audio play
                 configMainPlayerToPlaySound(name: restEndSoundName)
                 mainPlayer.prepareToPlay()
+                mainPlayer.volume = toneVolume
                 mainPlayer.play()
             }
             restTimerLabel.isHidden = true

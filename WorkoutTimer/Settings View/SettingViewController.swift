@@ -16,6 +16,13 @@ extension Float {
     }
 }
 
+extension Double {
+    func roundTo(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
+
 //MARK: - Class
 class SettingViewController: UIViewController {
     //MARK: - Properties
@@ -28,6 +35,9 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var restOptionsTblView: UITableView!
     @IBOutlet weak var timeStepper: UIStepper!
     
+    @IBOutlet weak var volumeStepper: UIStepper!
+    @IBOutlet weak var volumeSlider: UISlider!
+    @IBOutlet weak var volumeSliderLabel: UILabel!
     
     
     //MARK: - Local vars
@@ -65,11 +75,39 @@ class SettingViewController: UIViewController {
     @IBAction func sliderReleased(_ sender: UISlider) {
         let roundedValue = round(sender.value)
         sender.value = roundedValue
-        print(Int(sender.value))
         VCMaster.restDuration = Int(sender.value)
         timeStepper.value = Double(sender.value)
         print(VCMaster.restDuration)
     }
+    
+    @IBAction func volumeSliderReleased(_ sender: UISlider) {
+        //volumeSliderValueChanged(sender)
+//        let step:Float = 0.05
+//        let roundedValue = roundf(sender.value / step) * step
+//        //print(roundedValue)
+        //sender.value = Float(roundedValue)
+        VCMaster.toneVolume = sender.value
+        //volumeStepper.value = Double(sender.value)
+    }
+    
+    @IBAction func volumeSliderValueChanged(_ sender: UISlider) {
+        let step:Float = 0.05
+        let roundedValue:Double = Double(round(sender.value / step) * step).roundTo(places: 2)
+        //print(roundedValue)
+        sender.value = Float(roundedValue)
+        volumeStepper.value = Double(sender.value)
+        volumeSliderLabel.text = "\(Int(sender.value * 100))%"
+    }
+    
+    @IBAction func volumeStepperValueChanged(_ sender: UIStepper) {
+        let step:Float = 0.05
+        let roundedValue = Double(round(Float(sender.value) / step) * step).roundTo(places: 2)
+        sender.value = roundedValue
+        volumeSlider.value = Float(sender.value)
+        VCMaster.toneVolume = volumeSlider.value
+        volumeSliderLabel.text = "\(Int(sender.value * 100))%"
+    }
+    
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
         let roundedValue = round(sender.value)
@@ -125,15 +163,27 @@ class SettingViewController: UIViewController {
         self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
         self.navigationController?.navigationBar.isHidden = false
         self.restDurationSlider.value = Float(VCMaster.restDuration) //initialize to the stored value
+        self.volumeSlider.value = VCMaster.toneVolume
+        self.volumeSliderLabel.text = "\(Int(volumeSlider.value * 100))%"
         loadSoundPathsFromLocalData()
         sliderValueLabel.text = "\(restDurationSlider.value.clean) seconds"
         dropdownBtn.setTitle(workoutEndChoice, for: .normal)
         restDropdownBtn.setTitle(restEndChoice, for: .normal)
-        
+                
+        setupSteppers()
+    }
+    
+    private func setupSteppers () {
         timeStepper.minimumValue = Double(restDurationSlider.minimumValue) //set bounds
         timeStepper.maximumValue = Double(restDurationSlider.maximumValue)
         timeStepper.value = Double(restDurationSlider.value) //init the value to ensure alignment
         timeStepper.layer.cornerRadius = 0.5
+        
+        volumeStepper.minimumValue = Double(volumeSlider.minimumValue)
+        volumeStepper.maximumValue = Double(volumeSlider.maximumValue)
+        volumeStepper.value = Double(volumeSlider.value)
+        volumeStepper.layer.cornerRadius = 0.5
+        volumeStepper.stepValue  = 0.05
     }
     
     

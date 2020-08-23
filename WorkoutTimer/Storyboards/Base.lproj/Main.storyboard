@@ -248,12 +248,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="5" maxValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="Rsk-Or-8DV">
-                                <rect key="frame" x="127.66666666666663" y="152" width="243.33333333333337" height="31"/>
+                                <rect key="frame" x="126.33333333333337" y="152" width="244.66666666666663" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="Rest Interval Slider"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="RAo-aW-H4X"/>
                                 </constraints>
-                                <color key="minimumTrackTintColor" red="1" green="0.35294117650000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="minimumTrackTintColor" red="0.92643475529999997" green="0.459373951" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="thumbTintColor" red="0.90047089039999995" green="0.37013056509999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="sliderReleased:" destination="1rn-6i-XgZ" eventType="touchUpInside" id="A3C-Ph-JoV"/>
@@ -269,8 +269,15 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="5" maximumValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="qu7-Sx-33O">
+                                <rect key="frame" x="15" y="118" width="101" height="32"/>
+                                <color key="tintColor" red="0.92643475529999997" green="0.459373951" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="stepperValueChanged:" destination="1rn-6i-XgZ" eventType="valueChanged" id="h19-L6-hb5"/>
+                                </connections>
+                            </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest Duration:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA8-vr-eIm">
-                                <rect key="frame" x="13.666666666666671" y="155" width="111" height="24"/>
+                                <rect key="frame" x="13.666666666666664" y="155" width="109.66666666666669" height="24"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -394,13 +401,50 @@
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="5" maximumValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="qu7-Sx-33O">
-                                <rect key="frame" x="22" y="118" width="94" height="32"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tone Volume:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pI-dg-zGc">
+                                <rect key="frame" x="14" y="755" width="118" height="23"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="118" id="GbO-QW-vz4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.80000000000000004" maximumValue="1" stepValue="0.050000000000000003" translatesAutoresizingMaskIntoConstraints="NO" id="vuE-kj-pR8">
+                                <rect key="frame" x="16" y="714" width="94" height="32"/>
                                 <color key="tintColor" red="0.92643475529999997" green="0.459373951" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
-                                    <action selector="stepperValueChanged:" destination="1rn-6i-XgZ" eventType="valueChanged" id="h19-L6-hb5"/>
+                                    <action selector="volumeStepperValueChanged:" destination="1rn-6i-XgZ" eventType="valueChanged" id="Wej-Ip-YbL"/>
                                 </connections>
                             </stepper>
+                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.80000000000000004" minValue="0.050000000000000003" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gaV-Sf-3n0" userLabel="Volume Slider">
+                                <rect key="frame" x="126" y="752" width="245" height="31"/>
+                                <accessibility key="accessibilityConfiguration" label="Rest Interval Slider"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="n1M-Pw-VdH"/>
+                                </constraints>
+                                <color key="minimumTrackTintColor" red="0.99607843139999996" green="0.84705882349999995" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="thumbTintColor" red="0.92643475529999997" green="0.459373951" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="volumeSliderReleased:" destination="1rn-6i-XgZ" eventType="touchUpInside" id="la9-Q0-ch5"/>
+                                    <action selector="volumeSliderValueChanged:" destination="1rn-6i-XgZ" eventType="valueChanged" id="xqx-Ix-8rT"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1B-KP-4Az" userLabel="Slider Value Label">
+                                <rect key="frame" x="222" y="730" width="60" height="23.333333333333371"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" updatesFrequently="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="eIp-yH-5hs"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -408,25 +452,35 @@
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="RVk-X4-hbr" secondAttribute="trailing" constant="131" id="0W8-8u-cKH"/>
                             <constraint firstItem="RVk-X4-hbr" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="131" id="18X-7l-7I2"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="ZA8-vr-eIm" secondAttribute="bottom" constant="55" id="20T-eg-qOG"/>
+                            <constraint firstItem="qu7-Sx-33O" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="15" id="2pb-A0-Ufk"/>
+                            <constraint firstItem="V1B-KP-4Az" firstAttribute="centerX" secondItem="gaV-Sf-3n0" secondAttribute="centerX" id="3np-mY-bd7"/>
                             <constraint firstItem="ZA8-vr-eIm" firstAttribute="top" secondItem="qu7-Sx-33O" secondAttribute="bottom" constant="5" id="45H-Vq-oXP"/>
                             <constraint firstItem="RVk-X4-hbr" firstAttribute="top" secondItem="Rsk-Or-8DV" secondAttribute="bottom" constant="23" id="Crn-wp-35q"/>
+                            <constraint firstItem="vuE-kj-pR8" firstAttribute="top" secondItem="7ZF-1m-ybB" secondAttribute="bottom" constant="16.333333333333258" id="EpA-8n-FVx"/>
                             <constraint firstItem="Rsk-Or-8DV" firstAttribute="top" secondItem="paZ-G8-Vda" secondAttribute="bottom" constant="-4.5" id="FyA-Jm-kef"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="Xmg-Yv-txf" secondAttribute="trailing" constant="50" id="GFf-nW-0N0"/>
                             <constraint firstItem="qu7-Sx-33O" firstAttribute="height" secondItem="paZ-G8-Vda" secondAttribute="height" multiplier="1.37143" id="H5i-02-14H"/>
+                            <constraint firstItem="4pI-dg-zGc" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="12" id="JbL-oi-a90"/>
                             <constraint firstItem="paZ-G8-Vda" firstAttribute="top" secondItem="mc1-eG-f2v" secondAttribute="top" constant="45" id="LOC-OY-c7w"/>
                             <constraint firstItem="7ZF-1m-ybB" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="50" id="LeA-CK-iyz"/>
                             <constraint firstItem="paZ-G8-Vda" firstAttribute="leading" secondItem="qu7-Sx-33O" secondAttribute="trailing" constant="12" id="MAw-Po-85X"/>
                             <constraint firstItem="ZA8-vr-eIm" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="13.5" id="N9v-Sz-8wS"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="50" id="PQ6-g1-fUR"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="paZ-G8-Vda" secondAttribute="trailing" constant="85" id="R7T-aE-zPE"/>
+                            <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="gaV-Sf-3n0" secondAttribute="trailing" constant="6" id="c9k-YH-1kF"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="Rsk-Or-8DV" secondAttribute="trailing" constant="6" id="cjW-g1-Ydh"/>
+                            <constraint firstItem="gaV-Sf-3n0" firstAttribute="leading" secondItem="4pI-dg-zGc" secondAttribute="trailing" constant="5" id="dWd-Te-3t5"/>
+                            <constraint firstItem="V1B-KP-4Az" firstAttribute="top" secondItem="7ZF-1m-ybB" secondAttribute="bottom" constant="32.333333333333258" id="e94-Tx-A9b"/>
                             <constraint firstItem="gGy-wT-ZcO" firstAttribute="centerX" secondItem="mJI-Qd-V7I" secondAttribute="centerX" id="et7-nS-7pT"/>
-                            <constraint firstItem="qu7-Sx-33O" firstAttribute="centerX" secondItem="ZA8-vr-eIm" secondAttribute="centerX" id="fAd-9c-lKL"/>
+                            <constraint firstItem="gaV-Sf-3n0" firstAttribute="top" secondItem="V1B-KP-4Az" secondAttribute="bottom" constant="-1.3333333333333712" id="fEK-uo-5zl"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="Rsk-Or-8DV" secondAttribute="bottom" constant="52" id="flo-AU-p0h"/>
                             <constraint firstItem="ZA8-vr-eIm" firstAttribute="top" secondItem="mc1-eG-f2v" secondAttribute="top" constant="67" id="gWe-sJ-TcU"/>
+                            <constraint firstItem="vuE-kj-pR8" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="15" id="hGe-i8-Vvi"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="7ZF-1m-ybB" secondAttribute="trailing" constant="50" id="hWZ-t7-T1B"/>
                             <constraint firstItem="paZ-G8-Vda" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="128" id="jTC-sI-ute"/>
+                            <constraint firstItem="V1B-KP-4Az" firstAttribute="leading" secondItem="vuE-kj-pR8" secondAttribute="trailing" constant="56" id="kS6-xH-s84"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="RVk-X4-hbr" secondAttribute="bottom" constant="8" id="odG-zh-NNs"/>
+                            <constraint firstItem="4pI-dg-zGc" firstAttribute="top" secondItem="vuE-kj-pR8" secondAttribute="bottom" constant="9.3333333333332575" id="scM-lR-yqC"/>
                             <constraint firstItem="Rsk-Or-8DV" firstAttribute="leading" secondItem="ZA8-vr-eIm" secondAttribute="trailing" constant="5" id="v2R-aQ-GdT"/>
                             <constraint firstItem="gGy-wT-ZcO" firstAttribute="top" secondItem="Xmg-Yv-txf" secondAttribute="bottom" constant="18" id="zoH-Dc-xmD"/>
                         </constraints>
@@ -450,11 +504,14 @@
                         <outlet property="restOptionsTblView" destination="0ho-kc-UQm" id="FTL-tI-gYz"/>
                         <outlet property="sliderValueLabel" destination="paZ-G8-Vda" id="oD3-ML-TiH"/>
                         <outlet property="timeStepper" destination="qu7-Sx-33O" id="A81-Oi-sMV"/>
+                        <outlet property="volumeSlider" destination="gaV-Sf-3n0" id="Yfs-uj-N3W"/>
+                        <outlet property="volumeSliderLabel" destination="V1B-KP-4Az" id="u4g-r5-yPA"/>
+                        <outlet property="volumeStepper" destination="vuE-kj-pR8" id="ygB-l6-Izd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nA8-zZ-Z2O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="885.26785714285711"/>
+            <point key="canvasLocation" x="1047.2" y="885.22167487684737"/>
         </scene>
         <!--WorkoutsEditor-->
         <scene sceneID="JxR-Nq-KFp">
