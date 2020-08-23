@@ -59,6 +59,7 @@ class SettingViewController: UIViewController {
         let roundedValue = round(sender.value)
         sender.value = roundedValue
         sliderValueLabel.text = "\(sender.value.clean) seconds"
+        timeStepper.value = Double(sender.value)
     }
     
     @IBAction func sliderReleased(_ sender: UISlider) {

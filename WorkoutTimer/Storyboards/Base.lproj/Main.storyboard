@@ -248,7 +248,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="5" maxValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="Rsk-Or-8DV">
-                                <rect key="frame" x="126.33333333333337" y="152" width="244.66666666666663" height="31"/>
+                                <rect key="frame" x="127.66666666666663" y="152" width="243.33333333333337" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="Rest Interval Slider"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="RAo-aW-H4X"/>
@@ -270,7 +270,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest Duration:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA8-vr-eIm">
-                                <rect key="frame" x="13.666666666666664" y="155" width="109.66666666666669" height="24"/>
+                                <rect key="frame" x="13.666666666666671" y="155" width="111" height="24"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -395,7 +395,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="5" maximumValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="qu7-Sx-33O">
-                                <rect key="frame" x="265" y="128" width="94" height="32"/>
+                                <rect key="frame" x="22" y="118" width="94" height="32"/>
                                 <color key="tintColor" red="0.92643475529999997" green="0.459373951" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="stepperValueChanged:" destination="1rn-6i-XgZ" eventType="valueChanged" id="h19-L6-hb5"/>
@@ -408,19 +408,20 @@
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="RVk-X4-hbr" secondAttribute="trailing" constant="131" id="0W8-8u-cKH"/>
                             <constraint firstItem="RVk-X4-hbr" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="131" id="18X-7l-7I2"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="ZA8-vr-eIm" secondAttribute="bottom" constant="55" id="20T-eg-qOG"/>
-                            <constraint firstItem="qu7-Sx-33O" firstAttribute="leading" secondItem="paZ-G8-Vda" secondAttribute="trailing" constant="-25" id="CTk-Vd-MTh"/>
+                            <constraint firstItem="ZA8-vr-eIm" firstAttribute="top" secondItem="qu7-Sx-33O" secondAttribute="bottom" constant="5" id="45H-Vq-oXP"/>
                             <constraint firstItem="RVk-X4-hbr" firstAttribute="top" secondItem="Rsk-Or-8DV" secondAttribute="bottom" constant="23" id="Crn-wp-35q"/>
                             <constraint firstItem="Rsk-Or-8DV" firstAttribute="top" secondItem="paZ-G8-Vda" secondAttribute="bottom" constant="-4.5" id="FyA-Jm-kef"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="Xmg-Yv-txf" secondAttribute="trailing" constant="50" id="GFf-nW-0N0"/>
+                            <constraint firstItem="qu7-Sx-33O" firstAttribute="height" secondItem="paZ-G8-Vda" secondAttribute="height" multiplier="1.37143" id="H5i-02-14H"/>
                             <constraint firstItem="paZ-G8-Vda" firstAttribute="top" secondItem="mc1-eG-f2v" secondAttribute="top" constant="45" id="LOC-OY-c7w"/>
                             <constraint firstItem="7ZF-1m-ybB" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="50" id="LeA-CK-iyz"/>
+                            <constraint firstItem="paZ-G8-Vda" firstAttribute="leading" secondItem="qu7-Sx-33O" secondAttribute="trailing" constant="12" id="MAw-Po-85X"/>
                             <constraint firstItem="ZA8-vr-eIm" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="13.5" id="N9v-Sz-8wS"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="leading" secondItem="mc1-eG-f2v" secondAttribute="leading" constant="50" id="PQ6-g1-fUR"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="paZ-G8-Vda" secondAttribute="trailing" constant="85" id="R7T-aE-zPE"/>
-                            <constraint firstItem="Rsk-Or-8DV" firstAttribute="top" secondItem="qu7-Sx-33O" secondAttribute="bottom" constant="-8" id="Rbb-Zl-gvm"/>
-                            <constraint firstItem="qu7-Sx-33O" firstAttribute="height" secondItem="paZ-G8-Vda" secondAttribute="height" multiplier="1.37143" id="XN4-f9-pOs"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="Rsk-Or-8DV" secondAttribute="trailing" constant="6" id="cjW-g1-Ydh"/>
                             <constraint firstItem="gGy-wT-ZcO" firstAttribute="centerX" secondItem="mJI-Qd-V7I" secondAttribute="centerX" id="et7-nS-7pT"/>
+                            <constraint firstItem="qu7-Sx-33O" firstAttribute="centerX" secondItem="ZA8-vr-eIm" secondAttribute="centerX" id="fAd-9c-lKL"/>
                             <constraint firstItem="Xmg-Yv-txf" firstAttribute="top" secondItem="Rsk-Or-8DV" secondAttribute="bottom" constant="52" id="flo-AU-p0h"/>
                             <constraint firstItem="ZA8-vr-eIm" firstAttribute="top" secondItem="mc1-eG-f2v" secondAttribute="top" constant="67" id="gWe-sJ-TcU"/>
                             <constraint firstItem="mc1-eG-f2v" firstAttribute="trailing" secondItem="7ZF-1m-ybB" secondAttribute="trailing" constant="50" id="hWZ-t7-T1B"/>
