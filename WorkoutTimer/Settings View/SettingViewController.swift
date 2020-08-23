@@ -26,15 +26,17 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var optionsTableView: UITableView!
     @IBOutlet weak var restDropdownBtn: UIButton!
     @IBOutlet weak var restOptionsTblView: UITableView!
+    @IBOutlet weak var timeStepper: UIStepper!
+    
     
     
     //MARK: - Local vars
     let defaults = UserDefaults.standard
     
-    var soundOptionsList = ["Tone", "Beep","Whistle", "Ding"]
+    var soundOptionsList = ["Tone","Beep","Whistle","Ding"]
     
-    let workoutEndKey = "WORKOUT_END_KEY"
-    let restEndKey = "REST_END_KEY"
+    private let workoutEndKey = "WORKOUT_END_KEY"
+    private let restEndKey = "REST_END_KEY"
     
     var workoutEndChoice = "Tone" {
         didSet {
@@ -49,7 +51,7 @@ class SettingViewController: UIViewController {
     }
     
     var VCMaster:ViewController = ViewController()
-    var darkModeEnabled:Bool = false
+    private var darkModeEnabled:Bool = false
     
     
     //MARK: - Action Handlers
@@ -60,7 +62,20 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func sliderReleased(_ sender: UISlider) {
+        let roundedValue = round(sender.value)
+        sender.value = roundedValue
+        print(Int(sender.value))
         VCMaster.restDuration = Int(sender.value)
+        timeStepper.value = Double(sender.value)
+        print(VCMaster.restDuration)
+    }
+    
+    @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        let roundedValue = round(sender.value)
+        sender.value = roundedValue
+        restDurationSlider.value = Float(sender.value)
+        VCMaster.restDuration = Int(sender.value)
+        sliderValueLabel.text = "\(sender.value.clean) seconds"
     }
     
     @IBAction func dropdownButtonPressed(_ sender: UIButton) {
@@ -84,6 +99,7 @@ class SettingViewController: UIViewController {
         setUpTableViewHeader()
         self.restDurationSlider.isEnabled = !(VCMaster.isRestTimerActive)
         self.sliderValueLabel.isEnabled = !(VCMaster.isRestTimerActive)
+        self.timeStepper.isEnabled = !(VCMaster.isRestTimerActive)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -112,6 +128,11 @@ class SettingViewController: UIViewController {
         sliderValueLabel.text = "\(restDurationSlider.value.clean) seconds"
         dropdownBtn.setTitle(workoutEndChoice, for: .normal)
         restDropdownBtn.setTitle(restEndChoice, for: .normal)
+        
+        timeStepper.minimumValue = Double(restDurationSlider.minimumValue) //set bounds
+        timeStepper.maximumValue = Double(restDurationSlider.maximumValue)
+        timeStepper.value = Double(restDurationSlider.value) //init the value to ensure alignment
+        timeStepper.layer.cornerRadius = 0.5
     }
     
     
