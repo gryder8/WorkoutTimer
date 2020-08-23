@@ -91,7 +91,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private let defaults = UserDefaults.standard
     
     private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)] //unused gradient (use with gradient extension)
-
+    
     typealias AllWorkouts = [Workouts.Workout] //array of struct
     
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
@@ -167,13 +167,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         
         setupTimerRing()
         
-        
         self.currentWorkout = workouts.getCurrentWorkout()
         self.nextWorkout = workouts.getNextWorkout()
         
         updateLabels() //MUST come after current workout init
         configMainPlayerToPlaySound(name: workoutEndSoundName)
         setupAudio() //setup audio stuff
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
     }
@@ -192,6 +192,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         let URLForSound = URL(string: path)!
         do {
             try mainPlayer = AVAudioPlayer(contentsOf: URLForSound)
+            mainPlayer.delegate = self
         } catch {
             print("Failed to initialize player with error: \(error)")
         }
@@ -457,7 +458,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     
-    private func audioSessionEnabled(enabled: Bool) {
+    func audioSessionEnabled(enabled: Bool) {
         if (enabled) {
             do {
                 try AVAudioSession.sharedInstance().setActive(true, options: AVAudioSession.SetActiveOptions.notifyOthersOnDeactivation)

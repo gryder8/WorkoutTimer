@@ -191,6 +191,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             VCMaster.mainPlayer.prepareToPlay()
             VCMaster.mainPlayer.play()
             
+            //VCMaster.audioSessionEnabled(enabled: false)
+            
             self.optionsTableView.setIsHidden(true, animated: true)
         } else if (tableView.restorationIdentifier == "rest") {
             restDropdownBtn.setTitle("\(soundOptionsList[indexPath.row])", for: .normal)
@@ -201,9 +203,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             VCMaster.mainPlayer.prepareToPlay()
             VCMaster.mainPlayer.play()
             
+            //VCMaster.audioSessionEnabled(enabled: false)
+            
             self.restOptionsTblView.setIsHidden(true, animated: true)
         }
     }
+    
+    
     
     
 }

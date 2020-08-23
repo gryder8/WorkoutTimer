@@ -247,7 +247,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="15" maxValue="180" translatesAutoresizingMaskIntoConstraints="NO" id="Rsk-Or-8DV">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="5" maxValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="Rsk-Or-8DV">
                                 <rect key="frame" x="140.33333333333337" y="152" width="230.66666666666663" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="Rest Interval Slider"/>
                                 <constraints>
