@@ -221,6 +221,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             changeButtonToMode(mode: .pause)
             self.settingsBtn.isEnabled = false
             externalizingActionsEnabled(false)
+            UIApplication.shared.isIdleTimerDisabled = true //once the user starts the workout, prevent the device from going to sleep
             return
         } else if (buttonState == .start) { //resuming from pause
             if (!isRestTimerActive) {
@@ -274,6 +275,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             return
         } else if (mode == .restart) { //restart
             startButton.setTitle("Restart", for: .normal)
+            UIApplication.shared.isIdleTimerDisabled = false //enable the screen to go to sleep once the workout is done
             startButton.backgroundColor = UIColor.systemBlue
             disableAndHideButton(stopButton)
             self.buttonState = mode
