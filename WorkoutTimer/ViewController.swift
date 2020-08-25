@@ -52,9 +52,6 @@ extension UIView { //courtesy StackOverflow lol
 class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerControllerDelegate {
     
     //MARK: - Local Vars
-    
-    private var soundItemsDict:[String: URL] = [:] //initialize as empty
-    
     var mainPlayer: AVAudioPlayer!
     
     private let END_WORKOUT_SOUND_KEY = "ENDWORKOUT_SOUND_KEY"
@@ -146,10 +143,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
-        // Do any additional setup after loading the view.
         timerInitiallyStarted = false
         loadDataFromLocalStorage()
-        initAVItems()
         if (self.traitCollection.userInterfaceStyle == .dark){
             gradientView.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
             gradientView.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
@@ -157,6 +152,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
             gradientView.secondColor = #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
         }
+        
+        //********************************************************
         
         roundAllButtons()
         enableAndShowButton(startButton)
@@ -181,14 +178,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
     }
     
-    func initAVItems() { //create the dictionary mapped each sound name to a playerItem
-        soundItemsDict = [
-            "Tone": URL(string: Bundle.main.path(forResource: "Tone", ofType: "mp3")!)!,
-            "Beep": Bundle.main.url(forResource: "Beep", withExtension: "mp3")!,
-            "Ding": Bundle.main.url(forResource: "Ding", withExtension: "mp3")!,
-            "Whistle": Bundle.main.url(forResource: "Whistle", withExtension: "mp3")!
-        ]
-    }
     
     //MARK: - AVPlayer Config
     func configMainPlayerToPlaySound(name:String) {
