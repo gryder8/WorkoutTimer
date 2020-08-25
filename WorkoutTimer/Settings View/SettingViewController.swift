@@ -63,12 +63,29 @@ class SettingViewController: UIViewController {
     var VCMaster:ViewController = ViewController()
     private var darkModeEnabled:Bool = false
     
+    //MARK: - Helpers
+    func secondsToMinutesSeconds(secondsInput: Int) -> String {
+        let seconds = secondsInput % 60
+        let minutes = secondsInput / 60
+        if (minutes <= 0) {
+            return "\(seconds) seconds"
+        } else if (seconds == 0) {
+            if (minutes == 1) {
+                return "\(minutes) minute"
+            } else {
+                return "\(minutes) minutes"
+            }
+        }
+        return "\(minutes) min, \(seconds) sec"
+    }
+    
     
     //MARK: - Action Handlers
     @IBAction func valueChanged(_ sender: UISlider) {
         let roundedValue = round(sender.value)
         sender.value = roundedValue
-        sliderValueLabel.text = "\(sender.value.clean) seconds"
+        sliderValueLabel.text = secondsToMinutesSeconds(secondsInput: Int(sender.value.clean)!)
+        //sliderValueLabel.text = "\(sender.value.clean) seconds"
         timeStepper.value = Double(sender.value)
     }
     
@@ -77,17 +94,10 @@ class SettingViewController: UIViewController {
         sender.value = roundedValue
         VCMaster.restDuration = Int(sender.value)
         timeStepper.value = Double(sender.value)
-//        print(VCMaster.restDuration)
     }
     
     @IBAction func volumeSliderReleased(_ sender: UISlider) {
-        //volumeSliderValueChanged(sender)
-//        let step:Float = 0.05
-//        let roundedValue = roundf(sender.value / step) * step
-//        //print(roundedValue)
-        //sender.value = Float(roundedValue)
         VCMaster.toneVolume = sender.value
-        //volumeStepper.value = Double(sender.value)
     }
     
     @IBAction func volumeSliderValueChanged(_ sender: UISlider) {
@@ -114,7 +124,8 @@ class SettingViewController: UIViewController {
         sender.value = roundedValue
         restDurationSlider.value = Float(sender.value)
         VCMaster.restDuration = Int(sender.value)
-        sliderValueLabel.text = "\(sender.value.clean) seconds"
+        sliderValueLabel.text = secondsToMinutesSeconds(secondsInput: Int(sender.value.clean)!)
+        //sliderValueLabel.text = "\(sender.value.clean) seconds"
     }
     
     @IBAction func dropdownButtonPressed(_ sender: UIButton) {
@@ -166,7 +177,7 @@ class SettingViewController: UIViewController {
         self.volumeSlider.value = VCMaster.toneVolume
         self.volumeSliderLabel.text = "\(Int(volumeSlider.value * 100))%"
         loadSoundPathsFromLocalData()
-        sliderValueLabel.text = "\(restDurationSlider.value.clean) seconds"
+        sliderValueLabel.text = secondsToMinutesSeconds(secondsInput: Int(restDurationSlider.value.clean)!)
         dropdownBtn.setTitle(workoutEndChoice, for: .normal)
         restDropdownBtn.setTitle(restEndChoice, for: .normal)
                 
