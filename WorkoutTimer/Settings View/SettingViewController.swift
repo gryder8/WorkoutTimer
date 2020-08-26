@@ -147,9 +147,9 @@ class SettingViewController: UIViewController {
     //MARK: - View Overrides
     override func viewWillAppear(_ animated: Bool) {
         setUpTableViewHeader()
-        self.restDurationSlider.isEnabled = !(VCMaster.isRestTimerActive)
-        self.sliderValueLabel.isEnabled = !(VCMaster.isRestTimerActive)
-        self.timeStepper.isEnabled = !(VCMaster.isRestTimerActive)
+//        self.restDurationSlider.isEnabled = !(VCMaster.isRestTimerActive)
+//        self.sliderValueLabel.isEnabled = !(VCMaster.isRestTimerActive)
+//        self.timeStepper.isEnabled = !(VCMaster.isRestTimerActive)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
