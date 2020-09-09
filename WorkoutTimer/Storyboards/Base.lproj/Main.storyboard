@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9zS-ff-b7u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9zS-ff-b7u">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -7,11 +7,77 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Appearance Editor Controller-->
+        <scene sceneID="wk0-Cb-pBS">
+            <objects>
+                <viewController id="0ra-Om-irX" customClass="AppearanceEditorController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ga4-Ob-oZy" customClass="StyledGradientView" customModule="WorkoutTimer" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHC-dp-FH6">
+                                <rect key="frame" x="16" y="94" width="343" height="124"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gradient Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBt-9U-ruX">
+                                        <rect key="frame" x="106.00000000000001" y="5.0000000000000018" width="131.33333333333337" height="24.666666666666671"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="491-QM-bUf">
+                                        <rect key="frame" x="147" y="38" width="50" height="68"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAG-w6-JCJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <state key="normal" title="Color 1"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-hm-7Tc">
+                                                <rect key="frame" x="0.0" y="38" width="50" height="30"/>
+                                                <state key="normal" title="Color 2"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="PBt-9U-ruX" firstAttribute="top" secondItem="aHC-dp-FH6" secondAttribute="top" constant="5" id="lCf-8Z-k0A"/>
+                                    <constraint firstItem="PBt-9U-ruX" firstAttribute="centerX" secondItem="aHC-dp-FH6" secondAttribute="centerX" id="x9l-y5-jR5"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="aHC-dp-FH6" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="50" id="Eoi-7D-CGW"/>
+                            <constraint firstItem="aHC-dp-FH6" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="16" id="Oew-Tr-WCr"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="trailing" secondItem="aHC-dp-FH6" secondAttribute="trailing" constant="16" id="bkP-y7-5IM"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="aHC-dp-FH6" secondAttribute="bottom" constant="560" id="ufP-c9-BTq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Egn-s5-Rba"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                <color key="value" red="1" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                <color key="value" red="1" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="color1Button" destination="WAG-w6-JCJ" id="F7C-cu-aze"/>
+                        <outlet property="color2Button" destination="Mdz-hm-7Tc" id="hHB-8H-Zgc"/>
+                        <outlet property="gradientView" destination="Ga4-Ob-oZy" id="yRd-e9-iE5"/>
+                        <outlet property="gradientViewButtonsParentView" destination="aHC-dp-FH6" id="f5Z-40-XMT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vl2-2D-V0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1045.5999999999999" y="-622.16748768472905"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GradientView" customModule="WorkoutTimer" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="StyledGradientView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -243,12 +309,12 @@
         <scene sceneID="LfQ-Av-wxj">
             <objects>
                 <viewController title="Settings Page" id="1rn-6i-XgZ" customClass="SettingViewController" customModule="WorkoutTimer" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mJI-Qd-V7I" customClass="GradientView" customModule="WorkoutTimer" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="mJI-Qd-V7I" customClass="StyledGradientView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="5" maxValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="Rsk-Or-8DV">
-                                <rect key="frame" x="126.33333333333337" y="152" width="244.66666666666663" height="31"/>
+                                <rect key="frame" x="126.33333333333337" y="108" width="244.66666666666663" height="31"/>
                                 <accessibility key="accessibilityConfiguration" label="Rest Interval Slider"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="RAo-aW-H4X"/>
@@ -261,7 +327,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30 seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paZ-G8-Vda" userLabel="Slider Value Label">
-                                <rect key="frame" x="128" y="133" width="162" height="23.333333333333343"/>
+                                <rect key="frame" x="128" y="89" width="162" height="23.333333333333329"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                 </accessibility>
@@ -270,14 +336,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="5" maximumValue="150" translatesAutoresizingMaskIntoConstraints="NO" id="qu7-Sx-33O">
-                                <rect key="frame" x="15" y="118" width="101" height="32"/>
+                                <rect key="frame" x="15" y="74" width="101" height="32"/>
                                 <color key="tintColor" red="0.92643475529999997" green="0.459373951" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
                                     <action selector="stepperValueChanged:" destination="1rn-6i-XgZ" eventType="valueChanged" id="h19-L6-hb5"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest Duration:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZA8-vr-eIm">
-                                <rect key="frame" x="13.666666666666664" y="155" width="109.66666666666669" height="24"/>
+                                <rect key="frame" x="13.666666666666664" y="111" width="109.66666666666669" height="24"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -286,7 +352,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xmg-Yv-txf">
-                                <rect key="frame" x="50" y="234" width="275" height="210"/>
+                                <rect key="frame" x="50" y="190" width="275" height="210"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="workoutEnd" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bzv-r2-M6n" userLabel="Dropdown Button">
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="40"/>
@@ -338,7 +404,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-1m-ybB">
-                                <rect key="frame" x="50" y="487.66666666666674" width="275" height="210"/>
+                                <rect key="frame" x="50" y="443.66666666666674" width="275" height="210"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="restEnd" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoR-Ie-cKz" userLabel="Dropdown Button">
                                         <rect key="frame" x="0.0" y="0.0" width="275" height="40"/>
@@ -355,7 +421,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="rest" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ho-kc-UQm" userLabel="Options Table">
-                                        <rect key="frame" x="0.0" y="39.999999999999943" width="275" height="170"/>
+                                        <rect key="frame" x="0.0" y="40" width="275" height="170"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="170" id="2j4-gj-e3G"/>
@@ -390,13 +456,13 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout End Sound" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="RVk-X4-hbr">
-                                <rect key="frame" x="131" y="205" width="113" height="21"/>
+                                <rect key="frame" x="131" y="161" width="113" height="21"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rest End Sound" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGy-wT-ZcO">
-                                <rect key="frame" x="133.66666666666666" y="462" width="108" height="20.666666666666686"/>
+                                <rect key="frame" x="133.66666666666666" y="418" width="108" height="20.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -434,7 +500,7 @@
                                 </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1B-KP-4Az" userLabel="Slider Value Label">
-                                <rect key="frame" x="222" y="730" width="60" height="23.333333333333371"/>
+                                <rect key="frame" x="222" y="686" width="60" height="23.333333333333371"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" updatesFrequently="YES"/>
                                 </accessibility>
@@ -565,8 +631,6 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9zS-ff-b7u" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qNs-AY-Tp5">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

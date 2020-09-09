@@ -42,7 +42,7 @@ class SettingViewController: UIViewController {
     
     //MARK: - Local vars
     let defaults = UserDefaults.standard
-    
+    let sharedView = StyledGradientView.shared
     var soundOptionsList = ["Tone","Beep","Whistle","Ding"]
     
     private let workoutEndKey = "WORKOUT_END_KEY"
@@ -158,6 +158,8 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        StyledGradientView.setup()
+        gradientView = sharedView
         optionsTableView.isHidden = true
         optionsTableView.dataSource = self
         optionsTableView.delegate = self
@@ -172,7 +174,7 @@ class SettingViewController: UIViewController {
         restOptionsTblView.backgroundColor = .lightGray
         
         self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.restDurationSlider.value = Float(VCMaster.restDuration) //initialize to the stored value
         self.volumeSlider.value = VCMaster.toneVolume
         self.volumeSliderLabel.text = "\(Int(volumeSlider.value * 100))%"
@@ -183,6 +185,11 @@ class SettingViewController: UIViewController {
                 
         setupSteppers()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        StyledGradientView.setColorsForGradientView(view: gradientView) //make sure the view has the most recent colors
+    }
+    
     
     private func setupSteppers () {
         timeStepper.minimumValue = Double(restDurationSlider.minimumValue) //set bounds
@@ -198,7 +205,7 @@ class SettingViewController: UIViewController {
     }
     
     
-    //MARK: Loader and Setup Functions
+    //MARK: - Loader and Setup Functions
     private func loadSoundPathsFromLocalData() {
         if (UserDefaults.standard.string(forKey: workoutEndKey) != nil) {
             self.workoutEndChoice = UserDefaults.standard.string(forKey: workoutEndKey)!
@@ -220,8 +227,8 @@ class SettingViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = gradientView.firstColor
+        self.navigationController?.navigationBar.isTranslucent = true //no content scrolling behind, so use translucency to "match" the color in the background
+        self.navigationController?.navigationBar.barTintColor = gradientView.secondColor
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.navigationBar.tintColor = .black
         navigationItem.hidesBackButton = true

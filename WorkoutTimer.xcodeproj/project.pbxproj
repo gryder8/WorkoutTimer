@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8627C3F92506F6BB008B2007 /* AppearanceEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8627C3F82506F6BB008B2007 /* AppearanceEditorController.swift */; };
 		865B6C4A24EBBE3300B167C1 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865B6C4924EBBE3300B167C1 /* SettingViewController.swift */; };
 		867843DE24EE47D400D31CE6 /* OptionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867843DD24EE47D400D31CE6 /* OptionsViewCell.swift */; };
 		867843E324EE6BE700D31CE6 /* Beep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 867843E024EE6BE700D31CE6 /* Beep.mp3 */; };
 		867843E424EE6BE700D31CE6 /* Ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 867843E124EE6BE700D31CE6 /* Ding.mp3 */; };
 		867843E524EE6BE700D31CE6 /* Whistle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 867843E224EE6BE700D31CE6 /* Whistle.mp3 */; };
+		8697B55025082472005155B3 /* StyledGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8697B54F25082472005155B3 /* StyledGradientView.swift */; };
 		869916CF24E370BB000F046D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916CE24E370BB000F046D /* AppDelegate.swift */; };
 		869916D124E370BB000F046D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D024E370BB000F046D /* SceneDelegate.swift */; };
 		869916D324E370BB000F046D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916D224E370BB000F046D /* ViewController.swift */; };
@@ -32,14 +34,17 @@
 		86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */; };
 		86E1E48424E690DB005C98E9 /* Tone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48324E690DB005C98E9 /* Tone.mp3 */; };
 		86E1E48624E7B573005C98E9 /* FullWorkouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86E1E48524E7B573005C98E9 /* FullWorkouts.plist */; };
+		9087CD45DCB94367756B69DA /* Pods_WorkoutTimer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95B6B263A69238D42F4BAC4 /* Pods_WorkoutTimer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8627C3F82506F6BB008B2007 /* AppearanceEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceEditorController.swift; sourceTree = "<group>"; };
 		865B6C4924EBBE3300B167C1 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		867843DD24EE47D400D31CE6 /* OptionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewCell.swift; sourceTree = "<group>"; };
 		867843E024EE6BE700D31CE6 /* Beep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Beep.mp3; sourceTree = "<group>"; };
 		867843E124EE6BE700D31CE6 /* Ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Ding.mp3; sourceTree = "<group>"; };
 		867843E224EE6BE700D31CE6 /* Whistle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Whistle.mp3; sourceTree = "<group>"; };
+		8697B54F25082472005155B3 /* StyledGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledGradientView.swift; sourceTree = "<group>"; };
 		869916CB24E370BB000F046D /* WorkoutTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		869916CE24E370BB000F046D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		869916D024E370BB000F046D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,10 +62,13 @@
 		86CA866724EB5125008B57E6 /* musicButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicButton.png; sourceTree = "<group>"; };
 		86CA866B24EB55AE008B57E6 /* workoutList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = workoutList.png; sourceTree = "<group>"; };
 		86CB44C624ECE7AC00865BE9 /* settingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsIcon.png; sourceTree = "<group>"; };
-		86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutEditorControllerTableViewController.swift; sourceTree = "<group>"; };
+		86D7FBBD24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutEditorControllerTableViewController.swift; sourceTree = "<group>"; usesTabs = 1; };
 		86D7FBBF24E9075200AF667D /* WorkoutCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCellTableViewCell.swift; sourceTree = "<group>"; };
 		86E1E48324E690DB005C98E9 /* Tone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tone.mp3; sourceTree = "<group>"; };
 		86E1E48524E7B573005C98E9 /* FullWorkouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FullWorkouts.plist; sourceTree = "<group>"; };
+		C131AEA31BE2E8EE9A8E0BB5 /* Pods-WorkoutTimer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutTimer.debug.xcconfig"; path = "Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer.debug.xcconfig"; sourceTree = "<group>"; };
+		CF0B2E486811ECFB29E49A49 /* Pods-WorkoutTimer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkoutTimer.release.xcconfig"; path = "Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer.release.xcconfig"; sourceTree = "<group>"; };
+		E95B6B263A69238D42F4BAC4 /* Pods_WorkoutTimer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WorkoutTimer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,12 +78,30 @@
 			files = (
 				869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */,
 				869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */,
+				9087CD45DCB94367756B69DA /* Pods_WorkoutTimer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A509DDED876350D253D6EBB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C131AEA31BE2E8EE9A8E0BB5 /* Pods-WorkoutTimer.debug.xcconfig */,
+				CF0B2E486811ECFB29E49A49 /* Pods-WorkoutTimer.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8627C3F72506F531008B2007 /* Appearance Editor View */ = {
+			isa = PBXGroup;
+			children = (
+				8627C3F82506F6BB008B2007 /* AppearanceEditorController.swift */,
+			);
+			path = "Appearance Editor View";
+			sourceTree = "<group>";
+		};
 		867843DF24EE47DF00D31CE6 /* Settings View */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +120,7 @@
 				869916CD24E370BB000F046D /* WorkoutTimer */,
 				869916CC24E370BB000F046D /* Products */,
 				869916F424E5CE8A000F046D /* Frameworks */,
+				3A509DDED876350D253D6EBB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,11 +136,13 @@
 			isa = PBXGroup;
 			children = (
 				869916D224E370BB000F046D /* ViewController.swift */,
+				8697B54F25082472005155B3 /* StyledGradientView.swift */,
 				869916E824E37D06000F046D /* Workouts.swift */,
 				869916CE24E370BB000F046D /* AppDelegate.swift */,
 				869916D024E370BB000F046D /* SceneDelegate.swift */,
 				867843DF24EE47DF00D31CE6 /* Settings View */,
 				86CA867024EB5C24008B57E6 /* Workout Editor View */,
+				8627C3F72506F531008B2007 /* Appearance Editor View */,
 				86CA866F24EB5C12008B57E6 /* Storyboards */,
 				869916D724E370BD000F046D /* Assets.xcassets */,
 				869916DC24E370BD000F046D /* Info.plist */,
@@ -135,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				869916F524E5CE8B000F046D /* AVFoundation.framework */,
+				E95B6B263A69238D42F4BAC4 /* Pods_WorkoutTimer.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -195,9 +225,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 869916DF24E370BD000F046D /* Build configuration list for PBXNativeTarget "WorkoutTimer" */;
 			buildPhases = (
+				6C590F54C29D12D75D882690 /* [CP] Check Pods Manifest.lock */,
 				869916C724E370BB000F046D /* Sources */,
 				869916C824E370BB000F046D /* Frameworks */,
 				869916C924E370BB000F046D /* Resources */,
+				26DA1F1882468F0360484A63 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -270,11 +302,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		26DA1F1882468F0360484A63 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WorkoutTimer/Pods-WorkoutTimer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6C590F54C29D12D75D882690 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WorkoutTimer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		869916C724E370BB000F046D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8627C3F92506F6BB008B2007 /* AppearanceEditorController.swift in Sources */,
 				869916D324E370BB000F046D /* ViewController.swift in Sources */,
 				86C60F9B24EB307A00168D2E /* LongPressReorder.swift in Sources */,
 				869916E924E37D06000F046D /* Workouts.swift in Sources */,
@@ -283,6 +358,7 @@
 				865B6C4A24EBBE3300B167C1 /* SettingViewController.swift in Sources */,
 				86D7FBBE24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift in Sources */,
 				86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */,
+				8697B55025082472005155B3 /* StyledGradientView.swift in Sources */,
 				869916D124E370BB000F046D /* SceneDelegate.swift in Sources */,
 				867843DE24EE47D400D31CE6 /* OptionsViewCell.swift in Sources */,
 			);
@@ -426,6 +502,7 @@
 		};
 		869916E024E370BD000F046D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C131AEA31BE2E8EE9A8E0BB5 /* Pods-WorkoutTimer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -445,6 +522,7 @@
 		};
 		869916E124E370BD000F046D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF0B2E486811ECFB29E49A49 /* Pods-WorkoutTimer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

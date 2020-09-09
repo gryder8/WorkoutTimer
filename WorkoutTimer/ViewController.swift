@@ -101,6 +101,18 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     var isRestTimerActive = false
     private var restTimer:Timer!
     
+    let sharedView:GradientView = StyledGradientView.shared
+    
+    public let COLORS_KEY = "COLORS"
+    var viewColors = StyledGradientView.viewColors {
+        didSet {
+            gradientView.firstColor = viewColors.first!
+            gradientView.secondColor = viewColors.last!
+            StyledGradientView.viewColors = self.viewColors
+            
+        }
+    }
+    
     //MARK: - Workouts Singleton!
     private let workouts:Workouts = Workouts.shared
     
@@ -144,14 +156,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         timerInitiallyStarted = false
+        StyledGradientView.setup() //setup the static class
+        gradientView = sharedView
         loadDataFromLocalStorage()
-        if (self.traitCollection.userInterfaceStyle == .dark){
-            gradientView.firstColor =   #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
-            gradientView.secondColor =  #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
-        } else {
-            gradientView.firstColor = #colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)
-            gradientView.secondColor = #colorLiteral(red: 1, green: 0.3515937998, blue: 0, alpha: 1)
-        }
+        
+        gradientView.firstColor = viewColors.first!
+        gradientView.secondColor = viewColors.last!
         
         //********************************************************
         
@@ -177,6 +187,35 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        StyledGradientView.setColorsForGradientView(view: gradientView) //make sure the view has the most recent colors
+    }
+    
+//    private func checkForLocalColors() {
+//        if let foundColorsObject = defaults.object(forKey: COLORS_KEY) {
+//            let foundColorsData = foundColorsObject as! Data
+//            var foundColors:[UIColor] = []
+//            do {
+//                try foundColors = (NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: foundColorsData)) as! [UIColor]
+//            } catch {
+//                print("***FAILED TO STORE UNARCHIVED DATA - Error: \(error)")
+//            }
+//            viewColors = foundColors
+//            setLocalColors(colors: viewColors, forKey: COLORS_KEY)
+//        } else {
+//            setLocalColors(colors: viewColors, forKey: COLORS_KEY)
+//        }
+//    }
+//
+//    private func setLocalColors(colors: [UIColor], forKey key: String) {
+//        do {
+//            let data:Data = try NSKeyedArchiver.archivedData(withRootObject: viewColors, requiringSecureCoding: false)
+//            defaults.set(data, forKey: key)
+//        } catch {
+//            print("***FAILED TO SAVE COLORS***")
+//        }
+//    }
     
     
     //MARK: - AVPlayer Config
