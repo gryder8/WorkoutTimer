@@ -154,14 +154,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
         timerInitiallyStarted = false
         StyledGradientView.setup() //setup the static class
         gradientView = sharedView
         loadDataFromLocalStorage()
         
-        gradientView.firstColor = viewColors.first!
-        gradientView.secondColor = viewColors.last!
+        //gradientView.firstColor = viewColors.first!
+        //gradientView.secondColor = viewColors.last!
         
         //********************************************************
         
@@ -188,8 +189,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        StyledGradientView.setColorsForGradientView(view: gradientView) //make sure the view has the most recent colors
+    override func viewWillAppear(_ animated: Bool) {
+         self.navigationController?.navigationBar.setIsHidden(true, animated: false)
+                self.navigationController?.isNavigationBarHidden = true
+                StyledGradientView.setColorsForGradientView(view: gradientView) //make sure the view has the most recent colors
+        //        self.navigationController?.view.backgroundColor = .clear
+        //        self.navigationController?.navigationBar.isTranslucent = true
+        //        self.navigationController?.navigationBar.backgroundColor = .clear
+        //        self.navigationController?.navigationBar.tintColor = viewColors.first
     }
     
 //    private func checkForLocalColors() {

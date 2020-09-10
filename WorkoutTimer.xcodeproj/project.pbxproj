@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		861AB04925099A170050FDE2 /* HSBColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861AB04825099A170050FDE2 /* HSBColorPicker.swift */; };
 		8627C3F92506F6BB008B2007 /* AppearanceEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8627C3F82506F6BB008B2007 /* AppearanceEditorController.swift */; };
 		865B6C4A24EBBE3300B167C1 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865B6C4924EBBE3300B167C1 /* SettingViewController.swift */; };
 		867843DE24EE47D400D31CE6 /* OptionsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867843DD24EE47D400D31CE6 /* OptionsViewCell.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		861AB04825099A170050FDE2 /* HSBColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSBColorPicker.swift; sourceTree = "<group>"; };
 		8627C3F82506F6BB008B2007 /* AppearanceEditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceEditorController.swift; sourceTree = "<group>"; };
 		865B6C4924EBBE3300B167C1 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		867843DD24EE47D400D31CE6 /* OptionsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewCell.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				869916E624E37761000F046D /* GradientView.swift */,
+				861AB04825099A170050FDE2 /* HSBColorPicker.swift */,
 				86C60F9A24EB307A00168D2E /* LongPressReorder.swift */,
 			);
 			path = "External UI Classes";
@@ -352,6 +355,7 @@
 				8627C3F92506F6BB008B2007 /* AppearanceEditorController.swift in Sources */,
 				869916D324E370BB000F046D /* ViewController.swift in Sources */,
 				86C60F9B24EB307A00168D2E /* LongPressReorder.swift in Sources */,
+				861AB04925099A170050FDE2 /* HSBColorPicker.swift in Sources */,
 				869916E924E37D06000F046D /* Workouts.swift in Sources */,
 				869916CF24E370BB000F046D /* AppDelegate.swift in Sources */,
 				869916E724E37761000F046D /* GradientView.swift in Sources */,

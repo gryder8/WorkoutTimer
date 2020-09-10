@@ -29,14 +29,18 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAG-w6-JCJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
-                                                <state key="normal" title="Color 1"/>
+                                                <state key="normal" title="Color 1">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="color1ButtonTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="W3S-z4-gJ4"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-hm-7Tc">
                                                 <rect key="frame" x="0.0" y="38" width="50" height="30"/>
-                                                <state key="normal" title="Color 2"/>
+                                                <state key="normal" title="Color 2">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="color2ButtonTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="JxP-d4-8Ea"/>
                                                 </connections>
@@ -56,12 +60,20 @@
                                     <constraint firstItem="PBt-9U-ruX" firstAttribute="centerX" secondItem="aHC-dp-FH6" secondAttribute="centerX" id="x9l-y5-jR5"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-3Q-1E2" customClass="HSBColorPicker" customModule="WorkoutTimer" customModuleProvider="target">
+                                <rect key="frame" x="31" y="298" width="313" height="216"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="top" secondItem="aHC-dp-FH6" secondAttribute="bottom" constant="80" id="Bux-kF-ReL"/>
                             <constraint firstItem="aHC-dp-FH6" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="50" id="Eoi-7D-CGW"/>
                             <constraint firstItem="aHC-dp-FH6" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="16" id="Oew-Tr-WCr"/>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="31" id="VPn-ze-h8o"/>
                             <constraint firstItem="Egn-s5-Rba" firstAttribute="trailing" secondItem="aHC-dp-FH6" secondAttribute="trailing" constant="16" id="bkP-y7-5IM"/>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="bna-hi-ddF"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="264" id="dY3-Ul-ARK"/>
                             <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="aHC-dp-FH6" secondAttribute="bottom" constant="560" id="ufP-c9-BTq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Egn-s5-Rba"/>
@@ -78,18 +90,19 @@
                     <connections>
                         <outlet property="color1Button" destination="WAG-w6-JCJ" id="F7C-cu-aze"/>
                         <outlet property="color2Button" destination="Mdz-hm-7Tc" id="hHB-8H-Zgc"/>
+                        <outlet property="colorPicker" destination="KRV-3Q-1E2" id="FHC-ea-tvU"/>
                         <outlet property="gradientView" destination="Ga4-Ob-oZy" id="yRd-e9-iE5"/>
                         <outlet property="gradientViewButtonsParentView" destination="aHC-dp-FH6" id="f5Z-40-XMT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vl2-2D-V0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2041" y="940"/>
+            <point key="canvasLocation" x="2040.8" y="939.90147783251234"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="StyledGradientView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -660,7 +673,7 @@
         <!--Navigation Controller-->
         <scene sceneID="kIa-Y5-zrv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9zS-ff-b7u" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="9zS-ff-b7u" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qNs-AY-Tp5">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>

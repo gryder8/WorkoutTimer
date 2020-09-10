@@ -10,41 +10,67 @@ import UIKit
 import ChromaColorPicker
 
 
-class AppearanceEditorController: UIViewController {
+class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
+    
+    
 
     @IBOutlet var gradientView: GradientView!
     @IBOutlet weak var gradientViewButtonsParentView: UIView!
     @IBOutlet weak var color1Button: UIButton!
     @IBOutlet weak var color2Button: UIButton!
+    @IBOutlet weak var colorPicker: HSBColorPicker!
     
     @IBAction func color1ButtonTapped(_ sender: UIButton) {
-        gradientViewButtonsParentView.bringSubviewToFront(colorPicker)
-        colorPicker.isHidden = false
-        brightnessSlider.isHidden = false
+        currentColorIndex = 0
+        colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
     }
     
     @IBAction func color2ButtonTapped(_ sender: UIButton) {
-        
+        currentColorIndex = 1
+        colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
+//        colorPicker.setIsHidden(true, animated: true)
+//        brightnessSlider.setIsHidden(true, animated: true)
     }
     
+    func updateView() {
+        DispatchQueue.main.async {
+            self.gradientView.firstColor = StyledGradientView.viewColors[0]
+            self.gradientView.secondColor = StyledGradientView.viewColors[1]
+        }
+    }
     
+    func HSBColorColorPickerTouched(sender: HSBColorPicker, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {
+        let prevColor = StyledGradientView.viewColors[currentColorIndex]
+        StyledGradientView.viewColors[currentColorIndex] = color
+        
+        print("Colors are equal before and after: \(StyledGradientView.viewColors[currentColorIndex] == prevColor)")
+        updateView()
+        
+        colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
+
+    }
+    
+    var currentColorIndex = 0
     var darkModeEnabled = false
     var usingDefaultColors = true
     
     var lastUsedHandle:ChromaColorHandle = ChromaColorHandle()
     
+    
     var handleIDMap:[Int:Int] = [:]
     
     let sharedView:GradientView = StyledGradientView.shared
     
+    //let colorPicker:HSBColorPicker = HSBColorPicker()
     
     
-    let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+    //let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     let brightnessSlider = ChromaBrightnessSlider(frame: CGRect(x: 0, y: 0, width: 280, height: 32))
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
         StyledGradientView.setup()
         gradientView = sharedView
         setupColorPicker()
@@ -56,11 +82,19 @@ class AppearanceEditorController: UIViewController {
     }
     
     private func refreshButtons() {
-        color1Button.titleLabel?.isHidden = true
-        color2Button.titleLabel?.isHidden = true
+        let buttonTitleFont = UIFont(name: "Avenir Next", size: 14.0)
         
-        color1Button.backgroundColor = StyledGradientView.viewColors[0]
-        color2Button.backgroundColor = StyledGradientView.viewColors[1]
+        color1Button.titleLabel?.isHidden = false
+        color2Button.titleLabel?.isHidden = false
+        
+        color1Button.titleLabel?.font = buttonTitleFont
+        color2Button.titleLabel?.font = buttonTitleFont
+        
+        color1Button.titleLabel?.textColor = .black
+        color1Button.titleLabel?.textColor = .black
+        
+        color1Button.backgroundColor = .blue
+        color2Button.backgroundColor = .blue
     }
     
     private func configNavBar() {
@@ -79,30 +113,35 @@ class AppearanceEditorController: UIViewController {
     }
     
     private func setupColorPicker() {
-        gradientViewButtonsParentView.addSubview(colorPicker)
-
-        gradientViewButtonsParentView.addSubview(brightnessSlider)
-        brightnessSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-        colorPicker.connect(brightnessSlider)
+//        gradientViewButtonsParentView.addSubview(colorPicker)
+//
+//        gradientViewButtonsParentView.addSubview(brightnessSlider)
+//        brightnessSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+//        colorPicker.connect(brightnessSlider)
+//
+//        let handle1:ChromaColorHandle = ChromaColorHandle(color: StyledGradientView.viewColors[0])
+//        handleIDMap[handle1.hashValue] = 0 //map to the index of the viewColor array we want this handle to modify
+//        colorPicker.addTarget(self, action: #selector(handleReleased(_:)), for: .touchUpInside)
+//        colorPicker.addHandle(handle1)
+//
+//        let handle2:ChromaColorHandle = ChromaColorHandle(color: StyledGradientView.viewColors[1])
+//        handleIDMap[handle2.hashValue] = 1 //map to the index of the viewColor array we want this handle to modify
+//        handle2.isUserInteractionEnabled = true
+//        colorPicker.addHandle(handle2)
+//
+//        colorPicker.setIsHidden(true, animated: false)
+//        brightnessSlider.setIsHidden(true, animated: false)
+//
+//        //let midX = gradientViewButtonsParentView.frame.midX
+//        let minY = gradientViewButtonsParentView.frame.midY
+//        let minX = gradientViewButtonsParentView.frame.minX
+//        //let maxX = gradientViewButtonsParentView.frame.maxX
+//        colorPicker.frame = CGRect(x: minX, y: minY, width: gradientViewButtonsParentView.frame.width / 1.3, height: gradientViewButtonsParentView.frame.width / 1.25)
+//        brightnessSlider.frame = CGRect(x: minX, y: colorPicker.frame.maxY + 5, width: colorPicker.frame.width / 1.5, height: 20)
         
-        let handle1:ChromaColorHandle = ChromaColorHandle(color: StyledGradientView.viewColors[0])
-        handleIDMap[handle1.hashValue] = 0 //map to the index of the viewColor array we want this handle to modify
-        colorPicker.addTarget(self, action: #selector(handleReleased(_:)), for: .touchUpInside)
-        colorPicker.addHandle(handle1)
         
-        let handle2:ChromaColorHandle = ChromaColorHandle(color: StyledGradientView.viewColors[1])
-        handleIDMap[handle2.hashValue] = 1 //map to the index of the viewColor array we want this handle to modify
-        colorPicker.addHandle(handle2)
-        
-        colorPicker.isHidden = true
-        brightnessSlider.isHidden = true
-        
-        //let midX = gradientViewButtonsParentView.frame.midX
-        let minY = gradientViewButtonsParentView.frame.midY
-        let minX = gradientViewButtonsParentView.frame.minX
-        //let maxX = gradientViewButtonsParentView.frame.maxX
-        colorPicker.frame = CGRect(x: minX, y: minY, width: gradientViewButtonsParentView.frame.width / 1.3, height: gradientViewButtonsParentView.frame.width / 1.25)
-        brightnessSlider.frame = CGRect(x: minX, y: colorPicker.frame.maxY + 5, width: colorPicker.frame.width / 1.5, height: 20)
+        colorPicker.delegate = self
+        colorPicker.setIsHidden(true, animated: false)
     }
     
     
