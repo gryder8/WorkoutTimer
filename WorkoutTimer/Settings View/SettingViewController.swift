@@ -28,7 +28,7 @@ class SettingViewController: UIViewController {
     //MARK: - Properties
     @IBOutlet weak var restDurationSlider: UISlider!
     @IBOutlet weak var sliderValueLabel: UILabel!
-    @IBOutlet weak var gradientView: GradientView!
+    @IBOutlet weak var gradientView: GradientBackgroundView!
     @IBOutlet weak var dropdownBtn: UIButton!
     @IBOutlet weak var optionsTableView: UITableView!
     @IBOutlet weak var restDropdownBtn: UIButton!
@@ -42,7 +42,7 @@ class SettingViewController: UIViewController {
     
     //MARK: - Local vars
     let defaults = UserDefaults.standard
-    let sharedView = StyledGradientView.shared
+    //let sharedView = StyledGradientView.shared
     var soundOptionsList = ["Tone","Beep","Whistle","Ding"]
     
     private let workoutEndKey = "WORKOUT_END_KEY"
@@ -159,7 +159,7 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         StyledGradientView.setup()
-        gradientView = sharedView
+        //gradientView = sharedView
         optionsTableView.isHidden = true
         optionsTableView.dataSource = self
         optionsTableView.delegate = self
@@ -228,7 +228,7 @@ class SettingViewController: UIViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true //no content scrolling behind, so use translucency to "match" the color in the background
-        self.navigationController?.navigationBar.barTintColor = gradientView.secondColor
+        self.navigationController?.navigationBar.barTintColor = gradientView.endColor
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.navigationBar.tintColor = .black
         navigationItem.hidesBackButton = true

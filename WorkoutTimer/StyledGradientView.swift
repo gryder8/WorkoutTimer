@@ -39,8 +39,8 @@ extension UserDefaults {
 }
 
 //this class is static and handles changing the app's gradient view across VCs
-class StyledGradientView: GradientView {
-    public static let shared:GradientView = GradientView()
+class StyledGradientView: GradientBackgroundView {
+    public static let shared:GradientBackgroundView = GradientBackgroundView()
     public static var viewColors:[UIColor] = [#colorLiteral(red: 1, green: 0.3529411765, blue: 0, alpha: 1),#colorLiteral(red: 1, green: 0.8361050487, blue: 0.6631416678, alpha: 1)] {
         didSet {
             setColors(colors: viewColors)
@@ -76,6 +76,9 @@ class StyledGradientView: GradientView {
             setColors(colors: viewColors)
             initialized = true
         }
+        
+        print(viewColors.first!.toHex)
+        print(viewColors.last!.toHex)
     }
     
     static private func areColorsStoredLocally() -> Bool {
@@ -94,8 +97,8 @@ class StyledGradientView: GradientView {
         //    }
     }
     
-    static func setColorsForGradientView(view: GradientView) {
-        view.firstColor = viewColors[0]
-        view.secondColor = viewColors[1]
+    static func setColorsForGradientView(view: GradientBackgroundView) {
+        view.startColor = viewColors[0]
+        view.endColor = viewColors[1]
     }
 }

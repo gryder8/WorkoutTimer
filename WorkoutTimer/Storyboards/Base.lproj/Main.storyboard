@@ -11,88 +11,71 @@
         <scene sceneID="wk0-Cb-pBS">
             <objects>
                 <viewController id="0ra-Om-irX" customClass="AppearanceEditorController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ga4-Ob-oZy" customClass="StyledGradientView" customModule="WorkoutTimer" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="Ga4-Ob-oZy" customClass="GradientBackgroundView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHC-dp-FH6">
-                                <rect key="frame" x="16" y="138" width="343" height="80"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gradient Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBt-9U-ruX">
-                                        <rect key="frame" x="106.00000000000001" y="5.0000000000000018" width="131.33333333333337" height="24.666666666666671"/>
-                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="491-QM-bUf">
-                                        <rect key="frame" x="146.66666666666666" y="38" width="50" height="68"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WAG-w6-JCJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
-                                                <state key="normal" title="Color 1">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="color1ButtonTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="W3S-z4-gJ4"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mdz-hm-7Tc">
-                                                <rect key="frame" x="0.0" y="38" width="50" height="30"/>
-                                                <state key="normal" title="Color 2">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="color2ButtonTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="JxP-d4-8Ea"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="Mdz-hm-7Tc" firstAttribute="centerX" secondItem="491-QM-bUf" secondAttribute="centerX" id="At2-c4-bLj"/>
-                                            <constraint firstItem="WAG-w6-JCJ" firstAttribute="centerX" secondItem="491-QM-bUf" secondAttribute="centerX" id="M3O-0r-5Aa"/>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="491-QM-bUf" firstAttribute="top" secondItem="PBt-9U-ruX" secondAttribute="bottom" constant="8.3333333333333286" id="Ym4-k9-h5d"/>
-                                    <constraint firstItem="491-QM-bUf" firstAttribute="centerX" secondItem="aHC-dp-FH6" secondAttribute="centerX" id="dub-VQ-xAV"/>
-                                    <constraint firstItem="PBt-9U-ruX" firstAttribute="top" secondItem="aHC-dp-FH6" secondAttribute="top" constant="5" id="lCf-8Z-k0A"/>
-                                    <constraint firstItem="PBt-9U-ruX" firstAttribute="centerX" secondItem="aHC-dp-FH6" secondAttribute="centerX" id="x9l-y5-jR5"/>
-                                </constraints>
-                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gradient Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBt-9U-ruX">
+                                <rect key="frame" x="122.00000000000001" y="140" width="131.33333333333337" height="25"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-3Q-1E2" customClass="HSBColorPicker" customModule="WorkoutTimer" customModuleProvider="target">
                                 <rect key="frame" x="31" y="298" width="313" height="216"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qC-9I-gIA">
+                                <rect key="frame" x="141" y="170" width="93" height="38"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Start Color">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="color1BtnTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="rG9-A2-sM8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-G9-0bL">
+                                <rect key="frame" x="141" y="216" width="93" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="End Color">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="color2BtnTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="K42-DC-2jQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="top" secondItem="aHC-dp-FH6" secondAttribute="bottom" constant="80" id="Bux-kF-ReL"/>
-                            <constraint firstItem="aHC-dp-FH6" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="50" id="Eoi-7D-CGW"/>
-                            <constraint firstItem="aHC-dp-FH6" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="16" id="Oew-Tr-WCr"/>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="top" secondItem="JqQ-G9-0bL" secondAttribute="bottom" constant="41" id="8gn-SM-Pcv"/>
+                            <constraint firstItem="0qC-9I-gIA" firstAttribute="top" secondItem="PBt-9U-ruX" secondAttribute="bottom" constant="24" id="9Pc-J0-ZIH"/>
+                            <constraint firstItem="PBt-9U-ruX" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="52" id="BkI-YR-jwG"/>
+                            <constraint firstItem="JqQ-G9-0bL" firstAttribute="top" secondItem="0qC-9I-gIA" secondAttribute="bottom" constant="8" id="Dqb-gk-hqZ"/>
+                            <constraint firstItem="PBt-9U-ruX" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="Hck-JJ-3f7"/>
+                            <constraint firstItem="JqQ-G9-0bL" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="JOn-ao-7MY"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="31" id="VPn-ze-h8o"/>
-                            <constraint firstItem="Egn-s5-Rba" firstAttribute="trailing" secondItem="aHC-dp-FH6" secondAttribute="trailing" constant="16" id="bkP-y7-5IM"/>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="WoI-pC-wTA"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="bna-hi-ddF"/>
                             <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="264" id="dY3-Ul-ARK"/>
-                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="aHC-dp-FH6" secondAttribute="bottom" constant="560" id="ufP-c9-BTq"/>
+                            <constraint firstItem="0qC-9I-gIA" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="s0q-fD-q1u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Egn-s5-Rba"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                 <color key="value" red="1" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
                                 <color key="value" red="1" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" id="P9W-p6-Oka"/>
                     <connections>
-                        <outlet property="color1Button" destination="WAG-w6-JCJ" id="F7C-cu-aze"/>
-                        <outlet property="color2Button" destination="Mdz-hm-7Tc" id="hHB-8H-Zgc"/>
+                        <outlet property="color1Button" destination="0qC-9I-gIA" id="16C-zW-FA2"/>
+                        <outlet property="color2Button" destination="JqQ-G9-0bL" id="iZg-h6-qH1"/>
                         <outlet property="colorPicker" destination="KRV-3Q-1E2" id="FHC-ea-tvU"/>
                         <outlet property="gradientView" destination="Ga4-Ob-oZy" id="yRd-e9-iE5"/>
-                        <outlet property="gradientViewButtonsParentView" destination="aHC-dp-FH6" id="f5Z-40-XMT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vl2-2D-V0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -103,7 +86,7 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="WorkoutTimer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="StyledGradientView" customModule="WorkoutTimer" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GradientBackgroundView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -265,7 +248,6 @@
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="selectSongs:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B8V-74-TUI"/>
                                     <segue destination="0ra-Om-irX" kind="show" identifier="appearanceSettingBtn" id="F2V-um-mdO"/>
                                 </connections>
                             </button>
@@ -309,11 +291,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="NO"/>
-                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
                                 <color key="value" red="1" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
                                 <color key="value" red="1" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
@@ -353,7 +334,7 @@
         <scene sceneID="LfQ-Av-wxj">
             <objects>
                 <viewController title="Settings Page" id="1rn-6i-XgZ" customClass="SettingViewController" customModule="WorkoutTimer" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="mJI-Qd-V7I" customClass="StyledGradientView" customModule="WorkoutTimer" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="mJI-Qd-V7I" customClass="GradientBackgroundView" customModule="WorkoutTimer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -596,11 +577,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mc1-eG-f2v"/>
                         <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                <color key="value" red="0.99607843139999996" green="0.84705882349999995" blue="0.69411764710000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                <color key="value" red="1" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                <color key="value" red="1" green="0.35294117650000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                <color key="value" red="1" green="0.20000000000000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>

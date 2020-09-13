@@ -43,7 +43,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	let gradientView = StyledGradientView.shared
 	private let WorkoutsMaster: Workouts = Workouts.shared
 	var VCMaster: ViewController = ViewController()
-	private let tableGradient:GradientView = StyledGradientView.shared
+	private let tableGradient:GradientBackgroundView = StyledGradientView.shared
 	var reorderTableView: LongPressReorderTableView!
 	
 	private var workoutList:[Workouts.Workout] = [] {
@@ -54,13 +54,13 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		}
 	}
 	
-	var viewColors = StyledGradientView.viewColors {
-		didSet {
-			tableGradient.firstColor = viewColors.first!
-			tableGradient.secondColor = viewColors.last!
-			StyledGradientView.viewColors = self.viewColors
-		}
-	}
+//	var viewColors = StyledGradientView.viewColors {
+//		didSet {
+//			tableGradient.startColor = viewColors.first!
+//			tableGradient.endColor = viewColors.last!
+//			StyledGradientView.viewColors = self.viewColors
+//		}
+//	}
 	
 	//MARK: - Properties
 	@IBOutlet weak var addButton: UIBarButtonItem!
@@ -77,20 +77,25 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	//MARK: - View Overrides
 	override func viewWillAppear(_ animated: Bool) {
 		setUpTableViewHeader()
+		self.navigationController?.setNavigationBarHidden(false, animated: false)
+		self.tableView.backgroundView = StyledGradientView.shared
+		self.navigationController?.navigationBar.barTintColor = StyledGradientView.viewColors.first!
+		self.navigationController?.navigationBar.tintColor = StyledGradientView.viewColors.last!
 	}
 	
+	
 	override func viewWillDisappear(_ animated: Bool) {
-		self.navigationController?.navigationBar.isHidden = true
+		//self.navigationController?.navigationBar.setIsHidden(true, animated: false)
 	}
 	
 	//MARK: - View Did Load
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
+		//self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
 		StyledGradientView.setup()
 		
-		self.tableView.backgroundView = tableGradient
+		//self.tableView.backgroundView = StyledGradientView.shared
 		// Uncomment the following line to preserve selection between presentations
 		//self.clearsSelectionOnViewWillAppear = false
 		
@@ -102,6 +107,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		reorderTableView.enableLongPressReorder()
 		reorderTableView.delegate = self
 		self.isInitialized = true
+		self.navigationController?.setNavigationBarHidden(false, animated: false)
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -115,7 +121,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 		self.navigationController?.navigationBar.shadowImage = UIImage()
 		self.navigationController?.navigationBar.isTranslucent = false
-		self.navigationController?.navigationBar.barTintColor = tableGradient.firstColor
+		self.navigationController?.navigationBar.barTintColor = tableGradient.startColor
 		self.navigationController?.view.backgroundColor = .clear
 		self.navigationController?.navigationBar.tintColor = .black
 		navigationItem.hidesBackButton = false

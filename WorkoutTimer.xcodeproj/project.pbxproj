@@ -21,12 +21,12 @@
 		869916D624E370BB000F046D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869916D424E370BB000F046D /* Main.storyboard */; };
 		869916D824E370BD000F046D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 869916D724E370BD000F046D /* Assets.xcassets */; };
 		869916DB24E370BD000F046D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 869916D924E370BD000F046D /* LaunchScreen.storyboard */; };
-		869916E724E37761000F046D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916E624E37761000F046D /* GradientView.swift */; };
 		869916E924E37D06000F046D /* Workouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869916E824E37D06000F046D /* Workouts.swift */; };
 		869916F324E3A6A1000F046D /* UICircularProgressRing in Frameworks */ = {isa = PBXBuildFile; productRef = 869916F224E3A6A1000F046D /* UICircularProgressRing */; };
 		869916F724E5CED8000F046D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 869916F524E5CE8B000F046D /* AVFoundation.framework */; };
 		8699170324E64A14000F046D /* TestWorkouts.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8699170224E64A14000F046D /* TestWorkouts.plist */; };
 		86C60F9B24EB307A00168D2E /* LongPressReorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C60F9A24EB307A00168D2E /* LongPressReorder.swift */; };
+		86C9EAF5250D741600B948A8 /* GradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C9EAF4250D741600B948A8 /* GradientBackgroundView.swift */; };
 		86CA866624EB4FE6008B57E6 /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CA866524EB4FE6008B57E6 /* menuIcon.png */; };
 		86CA866824EB5125008B57E6 /* musicButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CA866724EB5125008B57E6 /* musicButton.png */; };
 		86CA866C24EB55AE008B57E6 /* workoutList.png in Resources */ = {isa = PBXBuildFile; fileRef = 86CA866B24EB55AE008B57E6 /* workoutList.png */; };
@@ -55,11 +55,11 @@
 		869916D724E370BD000F046D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		869916DA24E370BD000F046D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		869916DC24E370BD000F046D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		869916E624E37761000F046D /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		869916E824E37D06000F046D /* Workouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workouts.swift; sourceTree = "<group>"; };
 		869916F524E5CE8B000F046D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8699170224E64A14000F046D /* TestWorkouts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestWorkouts.plist; sourceTree = "<group>"; };
 		86C60F9A24EB307A00168D2E /* LongPressReorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressReorder.swift; sourceTree = "<group>"; };
+		86C9EAF4250D741600B948A8 /* GradientBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgroundView.swift; sourceTree = "<group>"; };
 		86CA866524EB4FE6008B57E6 /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
 		86CA866724EB5125008B57E6 /* musicButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicButton.png; sourceTree = "<group>"; };
 		86CA866B24EB55AE008B57E6 /* workoutList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = workoutList.png; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			children = (
 				86E1E48524E7B573005C98E9 /* FullWorkouts.plist */,
 				8699170224E64A14000F046D /* TestWorkouts.plist */,
-				86CA866E24EB5BE7008B57E6 /* External UI Classes */,
+				86CA866E24EB5BE7008B57E6 /* UI Classes */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -193,14 +193,14 @@
 			path = Icons;
 			sourceTree = "<group>";
 		};
-		86CA866E24EB5BE7008B57E6 /* External UI Classes */ = {
+		86CA866E24EB5BE7008B57E6 /* UI Classes */ = {
 			isa = PBXGroup;
 			children = (
-				869916E624E37761000F046D /* GradientView.swift */,
+				86C9EAF4250D741600B948A8 /* GradientBackgroundView.swift */,
 				861AB04825099A170050FDE2 /* HSBColorPicker.swift */,
 				86C60F9A24EB307A00168D2E /* LongPressReorder.swift */,
 			);
-			path = "External UI Classes";
+			path = "UI Classes";
 			sourceTree = "<group>";
 		};
 		86CA866F24EB5C12008B57E6 /* Storyboards */ = {
@@ -358,10 +358,10 @@
 				861AB04925099A170050FDE2 /* HSBColorPicker.swift in Sources */,
 				869916E924E37D06000F046D /* Workouts.swift in Sources */,
 				869916CF24E370BB000F046D /* AppDelegate.swift in Sources */,
-				869916E724E37761000F046D /* GradientView.swift in Sources */,
 				865B6C4A24EBBE3300B167C1 /* SettingViewController.swift in Sources */,
 				86D7FBBE24E9056400AF667D /* WorkoutEditorControllerTableViewController.swift in Sources */,
 				86D7FBC024E9075300AF667D /* WorkoutCellTableViewCell.swift in Sources */,
+				86C9EAF5250D741600B948A8 /* GradientBackgroundView.swift in Sources */,
 				8697B55025082472005155B3 /* StyledGradientView.swift in Sources */,
 				869916D124E370BB000F046D /* SceneDelegate.swift in Sources */,
 				867843DE24EE47D400D31CE6 /* OptionsViewCell.swift in Sources */,

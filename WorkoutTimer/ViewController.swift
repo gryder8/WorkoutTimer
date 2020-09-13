@@ -101,13 +101,13 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     var isRestTimerActive = false
     private var restTimer:Timer!
     
-    let sharedView:GradientView = StyledGradientView.shared
+    let sharedView:GradientBackgroundView = StyledGradientView.shared
     
     public let COLORS_KEY = "COLORS"
     var viewColors = StyledGradientView.viewColors {
         didSet {
-            gradientView.firstColor = viewColors.first!
-            gradientView.secondColor = viewColors.last!
+            gradientView.startColor = viewColors.first!
+            gradientView.endColor = viewColors.last!
             StyledGradientView.viewColors = self.viewColors
             
         }
@@ -127,7 +127,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     
     //MARK:  - Properties
-    @IBOutlet weak var gradientView: GradientView!
+    @IBOutlet weak var gradientView: GradientBackgroundView!
     @IBOutlet weak var timerRing: UICircularTimerRing!
     @IBOutlet weak var workoutNameLabel: UILabel!
     @IBOutlet weak var nextWorkoutNameLabel: UILabel!
@@ -158,7 +158,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         self.navigationController?.navigationBar.isHidden = true
         timerInitiallyStarted = false
         StyledGradientView.setup() //setup the static class
-        gradientView = sharedView
+        //gradientView = sharedView
         loadDataFromLocalStorage()
         
         //gradientView.firstColor = viewColors.first!
@@ -187,12 +187,20 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
+        
+        print("Actual First: \(gradientView.startColor?.toHex!)")
+        print("Actual Second: \(gradientView.endColor?.toHex!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-         self.navigationController?.navigationBar.setIsHidden(true, animated: false)
-                self.navigationController?.isNavigationBarHidden = true
-                StyledGradientView.setColorsForGradientView(view: gradientView) //make sure the view has the most recent colors
+        self.navigationController?.navigationBar.setIsHidden(true, animated: false)
+        self.navigationController?.isNavigationBarHidden = true
+        print("First: \(StyledGradientView.viewColors[0].toHex!)")
+        print("Second: \(StyledGradientView.viewColors[1].toHex!)")
+        gradientView.startColor = StyledGradientView.viewColors[0]
+        gradientView.endColor = StyledGradientView.viewColors[1]
+        gradientView.setNeedsDisplay()
+//        StyledGradientView.setColorsForGradientView(view: gradientView)//make sure the view has the most recent colors
         //        self.navigationController?.view.backgroundColor = .clear
         //        self.navigationController?.navigationBar.isTranslucent = true
         //        self.navigationController?.navigationBar.backgroundColor = .clear
