@@ -76,14 +76,11 @@ class StyledGradientView: GradientBackgroundView {
             setColors(colors: viewColors)
             initialized = true
         }
-        
-        print(viewColors.first!.toHex)
-        print(viewColors.last!.toHex)
     }
     
     static private func areColorsStoredLocally() -> Bool {
         let stored:Bool = (defaults.colorForKey(key: FIRST_COLOR_KEY) != nil || defaults.colorForKey(key: SECOND_COLOR_KEY) != nil)
-        print("Stored: \(stored)")
+        print("Colors Stored: \(stored)")
         return stored
     }
     

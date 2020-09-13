@@ -20,7 +20,7 @@ class Workouts {
         didSet { //write new data to cache on set
             if let dataToWrite = try? PropertyListEncoder().encode(allWorkouts) {
                 defaults.set(dataToWrite, forKey: WORKOUTS_KEY)
-                //print("Wrote updated data to cache")
+                print("Wrote updated data to cache")
             } else {
                 print("***Failed to encode/write workouts data to defaults!***")
             }

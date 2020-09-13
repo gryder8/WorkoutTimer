@@ -73,6 +73,48 @@ extension UIColor {
             return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
         }
     }
+    
+    func isLight() -> Bool
+    {
+        // algorithm from: http://www.w3.org/WAI/ER/WD-AERT/#color-contrast
+        let components = self.cgColor.components
+        let temp = ((components![0] * 299) + (components![1] * 587) + (components![2] * 114))
+        let brightness =  temp / 1000
+
+        if brightness < 0.5
+        {
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
+    
+    func add(_ overlay: UIColor) -> UIColor {
+        var bgR: CGFloat = 0
+        var bgG: CGFloat = 0
+        var bgB: CGFloat = 0
+        var bgA: CGFloat = 0
+        
+        var fgR: CGFloat = 0
+        var fgG: CGFloat = 0
+        var fgB: CGFloat = 0
+        var fgA: CGFloat = 0
+        
+        self.getRed(&bgR, green: &bgG, blue: &bgB, alpha: &bgA)
+        overlay.getRed(&fgR, green: &fgG, blue: &fgB, alpha: &fgA)
+        
+        let r = fgA * fgR + (1 - fgA) * bgR
+        let g = fgA * fgG + (1 - fgA) * bgG
+        let b = fgA * fgB + (1 - fgA) * bgB
+        
+        return UIColor(red: r, green: g, blue: b, alpha: 1.0)
+    }
+    
+    static func +(lhs: UIColor, rhs: UIColor) -> UIColor {
+        return lhs.add(rhs)
+    }
 
 }
 
@@ -81,6 +123,7 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     
     
 
+    @IBOutlet weak var gradientColorsLabel: UILabel!
     @IBOutlet var gradientView: GradientBackgroundView!
     @IBOutlet weak var color1Button: UIButton!
     @IBOutlet weak var color2Button: UIButton!
@@ -89,33 +132,20 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     @IBAction func color1BtnTapped(_ sender: UIButton) {
         currentColorIndex = 0
         colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
+        color2Button.isEnabled = colorPicker.isHidden
     }
     
     @IBAction func color2BtnTapped(_ sender: UIButton) {
         currentColorIndex = 1
         colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
+        color1Button.isEnabled = colorPicker.isHidden
     }
 
     
     func updateViewColors() {
-        //DispatchQueue.main.async {
-//            let newView = GradientBackgroundView()
-//            newView.startColor = StyledGradientView.viewColors[0]
-//            newView.endColor = StyledGradientView.viewColors[1]
-//
-//            self.gradientView = newView
             self.gradientView.startColor = StyledGradientView.viewColors[0]
             self.gradientView.endColor = StyledGradientView.viewColors[1]
             self.gradientView.setNeedsDisplay()
-            //let mRect = CGRect(x: 0, y: 0, width: 100, height: 100)
-            //self.gradientView.draw(mRect)
-            
-            
-            //print(String(self.gradientView.startColor?.toHex ?? "no hex color"))
-           // print(String(self.gradientView.endColor?.toHex ?? "no hex color"))
-           // print("***COMPLETED COLOR CHANGE***")
-        //}
-        
     }
     
     func HSBColorColorPickerTouched(sender: HSBColorPicker, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {
@@ -124,8 +154,11 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
         
         //print("Colors are equal before and after: \(StyledGradientView.viewColors[currentColorIndex] == prevColor)")
         updateViewColors()
+        refreshUIElements()
         
         colorPicker.setIsHidden(true, animated: true)
+        color1Button.isEnabled = true
+        color2Button.isEnabled = true
 
     }
     
@@ -147,41 +180,61 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
-        color1Button.isEnabled = true
-        color2Button.isEnabled = true
-        if #available(iOS 13.4, *) {
-            color1Button.isPointerInteractionEnabled = true
-            color2Button.isPointerInteractionEnabled = true
-        }
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         color1Button.isUserInteractionEnabled = true
         color2Button.isUserInteractionEnabled = true
-        gradientView.bringSubviewToFront(color1Button)
-        gradientView.bringSubviewToFront(color2Button)
+        //gradientView.bringSubviewToFront(color1Button)
+        //gradientView.bringSubviewToFront(color2Button)
         StyledGradientView.setup()
         //gradientView = sharedView
         setupColorPicker()
         configNavBar()
-        refreshButtons()
+        refreshUIElements()
         
+        roundButton(color1Button)
+        roundButton(color2Button)
         //self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
         
     }
     
-    private func refreshButtons() {
-        let buttonTitleFont = UIFont(name: "Avenir Next", size: 14.0)
+    private func roundButton(_ button:UIButton) { //round the corners of the button passed in
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+    }
+    
+    private func refreshUIElements() {
+        let buttonTitleFont = UIFont(name: "Avenir Next", size: 15.0)
         
-        color1Button.titleLabel?.isHidden = false
-        color2Button.titleLabel?.isHidden = false
+        color1Button.backgroundColor = StyledGradientView.viewColors.last!
+        color2Button.backgroundColor = StyledGradientView.viewColors.last!
+        
+        //color1Button.titleLabel?.isHidden = false
+        //color2Button.titleLabel?.isHidden = false
         
         color1Button.titleLabel?.font = buttonTitleFont
         color2Button.titleLabel?.font = buttonTitleFont
         
-        color1Button.titleLabel?.textColor = .black
-        color1Button.titleLabel?.textColor = .black
+        if (color1Button.backgroundColor!.isLight()) {
+            color1Button.setTitleColor(.black, for: .normal)
+            color2Button.setTitleColor(.black, for: .normal)
+        } else {
+            color1Button.setTitleColor(.white, for: .normal)
+            color2Button.setTitleColor(.white, for: .normal)
+        }
         
-        //color1Button.backgroundColor = .blue
-        //color2Button.backgroundColor = .blue
+        if (StyledGradientView.viewColors.first!.isLight()) {
+            gradientColorsLabel.textColor = .black
+        } else {
+            gradientColorsLabel.textColor = .white
+        }
+        
+        self.navigationController?.navigationBar.tintColor = StyledGradientView.viewColors.last!
+
+        
+        
+        //print("Button Color: \(color1Button.titleLabel?.textColor.toHex)")
+        
+        
     }
     
     private func configNavBar() {
@@ -207,7 +260,7 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     private func setupColorPicker() {
         colorPicker.delegate = self
         colorPicker.setIsHidden(true, animated: false)
-        colorPicker.elementSize = 5
+        colorPicker.elementSize = 10
     }
     
     

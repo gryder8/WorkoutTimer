@@ -89,9 +89,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     private var buttonState:ButtonMode = ButtonMode.start //inital state
     private let restDurationKey = "REST_DUR_KEY" //KEY
     private let defaults = UserDefaults.standard
-    
-    private let purpleGradientColors:[UIColor] = [#colorLiteral(red: 0.6, green: 0.5019607843, blue: 0.9803921569, alpha: 1), #colorLiteral(red: 0.8813742278, green: 0.4322636525, blue: 0.9803921569, alpha: 1)] //unused gradient (use with gradient extension)
-    
+        
     typealias AllWorkouts = [Workouts.Workout] //array of struct
     
     private var currentWorkout = Workouts.Workout(duration: 0, name: "")
@@ -137,6 +135,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var selectSongs: UIButton!
     @IBOutlet weak var workoutViewBtn: UIButton!
     @IBOutlet weak var settingsBtn: UIButton!
+    @IBOutlet weak var soundToggleLabel: UILabel!
     @IBOutlet weak var soundToggle: UISwitch!
     @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
     @IBOutlet weak var restTimerLabel: UILabel!
@@ -157,12 +156,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationBar.isHidden = true
         timerInitiallyStarted = false
-        StyledGradientView.setup() //setup the static class
-        //gradientView = sharedView
+        StyledGradientView.setup() //setup the static class (should only be done here!)
         loadDataFromLocalStorage()
-        
-        //gradientView.firstColor = viewColors.first!
-        //gradientView.secondColor = viewColors.last!
         
         //********************************************************
         
@@ -172,6 +167,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         disableAndHideButton(restartButton)
         self.soundToggle.isEnabled = true
         self.soundToggle.isUserInteractionEnabled = true
+        soundToggle.addTarget(self, action: #selector(switchToggled), for: .valueChanged)
+        
+        //********************************************************
         
         workoutNameLabel.textColor = .black
         nextWorkoutNameLabel.textColor = .black
@@ -181,56 +179,40 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         self.currentWorkout = workouts.getCurrentWorkout()
         self.nextWorkout = workouts.getNextWorkout()
         
+        //********************************************************
+        
         updateLabels() //MUST come after current workout init
         configMainPlayerToPlaySound(name: workoutEndSoundName)
         setupAudio() //setup audio stuff
         
+        //********************************************************
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
-        
-        print("Actual First: \(gradientView.startColor?.toHex!)")
-        print("Actual Second: \(gradientView.endColor?.toHex!)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.setIsHidden(true, animated: false)
-        self.navigationController?.isNavigationBarHidden = true
-        print("First: \(StyledGradientView.viewColors[0].toHex!)")
-        print("Second: \(StyledGradientView.viewColors[1].toHex!)")
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
         gradientView.startColor = StyledGradientView.viewColors[0]
         gradientView.endColor = StyledGradientView.viewColors[1]
-        gradientView.setNeedsDisplay()
-//        StyledGradientView.setColorsForGradientView(view: gradientView)//make sure the view has the most recent colors
-        //        self.navigationController?.view.backgroundColor = .clear
-        //        self.navigationController?.navigationBar.isTranslucent = true
-        //        self.navigationController?.navigationBar.backgroundColor = .clear
-        //        self.navigationController?.navigationBar.tintColor = viewColors.first
+        
+        soundToggle.onTintColor = gradientView.startColor
+        soundToggle.thumbTintColor = gradientView.endColor
+        
+        if (gradientView.endColor!.isLight()) {
+            soundToggleLabel.textColor = .black
+        } else {
+            soundToggleLabel.textColor = .white
+        }
     }
     
-//    private func checkForLocalColors() {
-//        if let foundColorsObject = defaults.object(forKey: COLORS_KEY) {
-//            let foundColorsData = foundColorsObject as! Data
-//            var foundColors:[UIColor] = []
-//            do {
-//                try foundColors = (NSKeyedUnarchiver.unarchivedObject(ofClass: NSArray.self, from: foundColorsData)) as! [UIColor]
-//            } catch {
-//                print("***FAILED TO STORE UNARCHIVED DATA - Error: \(error)")
-//            }
-//            viewColors = foundColors
-//            setLocalColors(colors: viewColors, forKey: COLORS_KEY)
-//        } else {
-//            setLocalColors(colors: viewColors, forKey: COLORS_KEY)
-//        }
-//    }
-//
-//    private func setLocalColors(colors: [UIColor], forKey key: String) {
-//        do {
-//            let data:Data = try NSKeyedArchiver.archivedData(withRootObject: viewColors, requiringSecureCoding: false)
-//            defaults.set(data, forKey: key)
-//        } catch {
-//            print("***FAILED TO SAVE COLORS***")
-//        }
-//    }
+    @objc func switchToggled() {
+        if (soundToggle.isOn) {
+            soundToggle.thumbTintColor = gradientView.endColor!
+        } else {
+            soundToggle.thumbTintColor = gradientView.startColor!
+        }
+    }
     
     
     //MARK: - AVPlayer Config

@@ -22,12 +22,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-3Q-1E2" customClass="HSBColorPicker" customModule="WorkoutTimer" customModuleProvider="target">
-                                <rect key="frame" x="31" y="298" width="313" height="216"/>
+                                <rect key="frame" x="31" y="307" width="313" height="207"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qC-9I-gIA">
-                                <rect key="frame" x="141" y="170" width="93" height="38"/>
+                                <rect key="frame" x="137.66666666666666" y="170" width="100" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="ddz-0V-Xj5"/>
+                                    <constraint firstAttribute="height" constant="40" id="gvL-6F-oe7"/>
+                                </constraints>
                                 <state key="normal" title="Start Color">
                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
@@ -36,8 +40,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-G9-0bL">
-                                <rect key="frame" x="141" y="216" width="93" height="40"/>
+                                <rect key="frame" x="137.66666666666666" y="220" width="100" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="PyD-4l-OJu"/>
+                                    <constraint firstAttribute="height" constant="40" id="RJY-jA-aRl"/>
+                                </constraints>
                                 <state key="normal" title="End Color">
                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
@@ -48,7 +56,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="top" secondItem="JqQ-G9-0bL" secondAttribute="bottom" constant="41" id="8gn-SM-Pcv"/>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="top" secondItem="JqQ-G9-0bL" secondAttribute="bottom" constant="30" id="8gn-SM-Pcv"/>
                             <constraint firstItem="0qC-9I-gIA" firstAttribute="top" secondItem="PBt-9U-ruX" secondAttribute="bottom" constant="24" id="9Pc-J0-ZIH"/>
                             <constraint firstItem="PBt-9U-ruX" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="52" id="BkI-YR-jwG"/>
                             <constraint firstItem="JqQ-G9-0bL" firstAttribute="top" secondItem="0qC-9I-gIA" secondAttribute="bottom" constant="8" id="Dqb-gk-hqZ"/>
@@ -75,6 +83,7 @@
                         <outlet property="color1Button" destination="0qC-9I-gIA" id="16C-zW-FA2"/>
                         <outlet property="color2Button" destination="JqQ-G9-0bL" id="iZg-h6-qH1"/>
                         <outlet property="colorPicker" destination="KRV-3Q-1E2" id="FHC-ea-tvU"/>
+                        <outlet property="gradientColorsLabel" destination="PBt-9U-ruX" id="UXH-ly-RwW"/>
                         <outlet property="gradientView" destination="Ga4-Ob-oZy" id="yRd-e9-iE5"/>
                     </connections>
                 </viewController>
@@ -312,6 +321,7 @@
                         <outlet property="selectSongs" destination="om1-Xh-PtC" id="3Ou-Il-DLW"/>
                         <outlet property="settingsBtn" destination="GEj-qM-5Fb" id="pdW-MJ-EGd"/>
                         <outlet property="soundToggle" destination="HLl-AR-Rhe" id="0Yx-sG-aeU"/>
+                        <outlet property="soundToggleLabel" destination="HCm-fr-41V" id="0jg-8H-gf1"/>
                         <outlet property="startButton" destination="prZ-hj-SYw" id="ZkM-FC-u3W"/>
                         <outlet property="stopButton" destination="p6S-cP-Dvm" id="fuU-fs-RnI"/>
                         <outlet property="swipeToTableView" destination="laL-KP-eQx" id="Sak-4L-1Va"/>

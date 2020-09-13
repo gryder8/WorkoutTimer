@@ -145,11 +145,38 @@ class SettingViewController: UIViewController {
     }
     
     //MARK: - View Overrides
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) { //sets up the UI for the current gradient colors
+        let firstColor:UIColor = StyledGradientView.viewColors.first!
+        let secondColor:UIColor = StyledGradientView.viewColors.last!
+        
         setUpTableViewHeader()
-//        self.restDurationSlider.isEnabled = !(VCMaster.isRestTimerActive)
-//        self.sliderValueLabel.isEnabled = !(VCMaster.isRestTimerActive)
-//        self.timeStepper.isEnabled = !(VCMaster.isRestTimerActive)
+        gradientView.startColor = firstColor
+        gradientView.endColor = secondColor
+        //gradientView.setNeedsDisplay()
+        
+        dropdownBtn.backgroundColor = firstColor
+        restDropdownBtn.backgroundColor = firstColor
+        
+        if (dropdownBtn.backgroundColor!.isLight()) {
+            dropdownBtn.setTitleColor(.black, for: .normal)
+            restDropdownBtn.setTitleColor(.black, for: .normal)
+        } else {
+            dropdownBtn.setTitleColor(.white, for: .normal)
+            restDropdownBtn.setTitleColor(.white, for: .normal)
+        }
+        
+        volumeSlider.thumbTintColor = firstColor
+        restDurationSlider.thumbTintColor = firstColor
+        volumeSlider.minimumTrackTintColor = secondColor
+        restDurationSlider.minimumTrackTintColor = secondColor
+        
+        if (firstColor.isLight()) {
+            sliderValueLabel.textColor = .black
+            volumeSliderLabel.textColor = .black
+        } else {
+            sliderValueLabel.textColor = .lightGray
+            volumeSliderLabel.textColor = .lightGray
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,13 +184,26 @@ class SettingViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        let firstColor:UIColor = StyledGradientView.viewColors.first!
+        let secondColor:UIColor = StyledGradientView.viewColors.last!
+        let lighten = UIColor(white: 1, alpha: 0.2)
+        let darken  = UIColor(white: 0.1, alpha: 0.05)
+        
+        var mixed = UIColor()
+        if (firstColor.isLight()) {
+            mixed = firstColor+darken
+        } else {
+            mixed = firstColor+lighten
+        }
+        print("Mixed: \(String(describing: mixed.toHex))")
+        
         super.viewDidLoad()
-        StyledGradientView.setup()
+        //StyledGradientView.setup()
         //gradientView = sharedView
         optionsTableView.isHidden = true
         optionsTableView.dataSource = self
         optionsTableView.delegate = self
-        optionsTableView.backgroundColor = .lightGray
+        optionsTableView.backgroundColor = mixed
         
         
         //**************************************************
@@ -171,7 +211,7 @@ class SettingViewController: UIViewController {
         restOptionsTblView.isHidden = true
         restOptionsTblView.dataSource = self
         restOptionsTblView.delegate = self
-        restOptionsTblView.backgroundColor = .lightGray
+        restOptionsTblView.backgroundColor = mixed
         
         self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -191,7 +231,7 @@ class SettingViewController: UIViewController {
     }
     
     
-    private func setupSteppers () {
+    private func setupSteppers() {
         timeStepper.minimumValue = Double(restDurationSlider.minimumValue) //set bounds
         timeStepper.maximumValue = Double(restDurationSlider.maximumValue)
         timeStepper.value = Double(restDurationSlider.value) //init the value to ensure alignment
@@ -258,7 +298,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 40)
-        tableView.separatorColor = UIColor(red:0, green:0, blue:0, alpha:0.7) //shoud be black insets
+        tableView.separatorColor = StyledGradientView.viewColors.last!
         let cellIdentifier = "optionCell"
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? OptionsViewCell else {
             fatalError("Dequeued cell not an instance of OptionsViewCell")

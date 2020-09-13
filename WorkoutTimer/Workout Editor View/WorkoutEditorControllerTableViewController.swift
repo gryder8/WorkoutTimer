@@ -54,21 +54,13 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		}
 	}
 	
-//	var viewColors = StyledGradientView.viewColors {
-//		didSet {
-//			tableGradient.startColor = viewColors.first!
-//			tableGradient.endColor = viewColors.last!
-//			StyledGradientView.viewColors = self.viewColors
-//		}
-//	}
-	
 	//MARK: - Properties
 	@IBOutlet weak var addButton: UIBarButtonItem!
 	
 	//MARK: - Text Input Input Restriction via Delegate
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range:NSRange, replacementString string:String) -> Bool { //restrict fields using this class as a delegate
 		
-		let allowedChars = "1234567890"
+		let allowedChars = "1234567890" //only numerical digits
 		let allowedCharSet = CharacterSet(charactersIn: allowedChars)
 		let typedCharSet = CharacterSet(charactersIn: string)
 		return allowedCharSet.isSuperset(of: typedCharSet)
@@ -78,7 +70,8 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	override func viewWillAppear(_ animated: Bool) {
 		setUpTableViewHeader()
 		self.navigationController?.setNavigationBarHidden(false, animated: false)
-		self.tableView.backgroundView = StyledGradientView.shared
+		StyledGradientView.setColorsForGradientView(view: gradientView)
+		self.tableView.backgroundView = gradientView
 		self.navigationController?.navigationBar.barTintColor = StyledGradientView.viewColors.first!
 		self.navigationController?.navigationBar.tintColor = StyledGradientView.viewColors.last!
 	}
@@ -91,11 +84,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	//MARK: - View Did Load
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		//self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
-		StyledGradientView.setup()
-		
-		//self.tableView.backgroundView = StyledGradientView.shared
+				
 		// Uncomment the following line to preserve selection between presentations
 		//self.clearsSelectionOnViewWillAppear = false
 		
@@ -108,10 +97,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		reorderTableView.delegate = self
 		self.isInitialized = true
 		self.navigationController?.setNavigationBarHidden(false, animated: false)
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		StyledGradientView.setColorsForGradientView(view: gradientView)
 	}
 	
 	//MARK: - View customization and UI Event handling
@@ -134,6 +119,9 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		label.textColor = .black
 		label.numberOfLines = 2
 		label.text = "Swipe right to remove or edit a workout \n Long press to re-arrange"
+		
+		label.textColor = StyledGradientView.viewColors.last!
+		
 		self.navigationItem.titleView = label
 		addButton.action = #selector(self.addCellTapped)
 		addButton.target = self
