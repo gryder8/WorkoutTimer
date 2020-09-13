@@ -22,7 +22,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-3Q-1E2" customClass="HSBColorPicker" customModule="WorkoutTimer" customModuleProvider="target">
-                                <rect key="frame" x="31" y="307" width="313" height="207"/>
+                                <rect key="frame" x="10" y="307" width="355" height="241"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qC-9I-gIA">
@@ -62,10 +62,11 @@
                             <constraint firstItem="JqQ-G9-0bL" firstAttribute="top" secondItem="0qC-9I-gIA" secondAttribute="bottom" constant="8" id="Dqb-gk-hqZ"/>
                             <constraint firstItem="PBt-9U-ruX" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="Hck-JJ-3f7"/>
                             <constraint firstItem="JqQ-G9-0bL" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="JOn-ao-7MY"/>
-                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="31" id="VPn-ze-h8o"/>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="10" id="VPn-ze-h8o"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="WoI-pC-wTA"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="bna-hi-ddF"/>
-                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="264" id="dY3-Ul-ARK"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="230" id="dY3-Ul-ARK"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="trailing" secondItem="KRV-3Q-1E2" secondAttribute="trailing" constant="10" id="hGF-Q1-BvQ"/>
                             <constraint firstItem="0qC-9I-gIA" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="s0q-fD-q1u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Egn-s5-Rba"/>

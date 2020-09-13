@@ -132,13 +132,13 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     @IBAction func color1BtnTapped(_ sender: UIButton) {
         currentColorIndex = 0
         colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
-        color2Button.isEnabled = colorPicker.isHidden
+        color2Button.isEnabled = !color2Button.isEnabled
     }
     
     @IBAction func color2BtnTapped(_ sender: UIButton) {
         currentColorIndex = 1
         colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
-        color1Button.isEnabled = colorPicker.isHidden
+        color1Button.isEnabled = !color1Button.isEnabled
     }
 
     
