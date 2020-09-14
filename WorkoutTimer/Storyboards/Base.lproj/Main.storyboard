@@ -22,14 +22,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-3Q-1E2" customClass="HSBColorPicker" customModule="WorkoutTimer" customModuleProvider="target">
-                                <rect key="frame" x="3" y="307" width="369" height="266"/>
+                                <rect key="frame" x="3" y="297" width="369" height="276"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qC-9I-gIA">
-                                <rect key="frame" x="137.66666666666666" y="170" width="100" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qC-9I-gIA">
+                                <rect key="frame" x="137.66666666666666" y="175" width="100" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="ddz-0V-Xj5"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="ddz-0V-Xj5"/>
                                     <constraint firstAttribute="height" constant="40" id="gvL-6F-oe7"/>
                                 </constraints>
                                 <state key="normal" title="Start Color">
@@ -39,11 +39,11 @@
                                     <action selector="color1BtnTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="rG9-A2-sM8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-G9-0bL">
-                                <rect key="frame" x="137.66666666666666" y="220" width="100" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-G9-0bL">
+                                <rect key="frame" x="137.66666666666666" y="227" width="100" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="PyD-4l-OJu"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="PyD-4l-OJu"/>
                                     <constraint firstAttribute="height" constant="40" id="RJY-jA-aRl"/>
                                 </constraints>
                                 <state key="normal" title="End Color">
@@ -54,9 +54,9 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="1" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="ks9-xb-qOQ">
-                                <rect key="frame" x="77" y="636" width="284" height="31"/>
+                                <rect key="frame" x="77" y="636" width="299" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="yB0-Cn-SBv"/>
+                                    <constraint firstAttribute="width" constant="295" id="yB0-Cn-SBv"/>
                                 </constraints>
                                 <connections>
                                     <action selector="elementSizeValChanged:" destination="0ra-Om-irX" eventType="valueChanged" id="fY8-dG-isD"/>
@@ -75,9 +75,9 @@
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQt-Rf-pbd">
-                                <rect key="frame" x="199" y="608" width="40" height="21"/>
+                                <rect key="frame" x="206.66666666666666" y="608" width="40" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="SrR-HZ-5Tp"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="SrR-HZ-5Tp"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -89,9 +89,9 @@
                             <constraint firstItem="ks9-xb-qOQ" firstAttribute="leading" secondItem="acL-6M-Ylp" secondAttribute="trailing" constant="7" id="1D7-li-5x6"/>
                             <constraint firstItem="acL-6M-Ylp" firstAttribute="centerY" secondItem="ks9-xb-qOQ" secondAttribute="centerY" id="3UL-MK-PQV"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="top" secondItem="JqQ-G9-0bL" secondAttribute="bottom" constant="30" id="8gn-SM-Pcv"/>
-                            <constraint firstItem="0qC-9I-gIA" firstAttribute="top" secondItem="PBt-9U-ruX" secondAttribute="bottom" constant="24" id="9Pc-J0-ZIH"/>
+                            <constraint firstItem="0qC-9I-gIA" firstAttribute="top" secondItem="PBt-9U-ruX" secondAttribute="bottom" constant="10" id="9Pc-J0-ZIH"/>
                             <constraint firstItem="PBt-9U-ruX" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="52" id="BkI-YR-jwG"/>
-                            <constraint firstItem="JqQ-G9-0bL" firstAttribute="top" secondItem="0qC-9I-gIA" secondAttribute="bottom" constant="8" id="Dqb-gk-hqZ"/>
+                            <constraint firstItem="JqQ-G9-0bL" firstAttribute="top" secondItem="0qC-9I-gIA" secondAttribute="bottom" constant="12" id="Dqb-gk-hqZ"/>
                             <constraint firstItem="PBt-9U-ruX" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="Hck-JJ-3f7"/>
                             <constraint firstItem="ks9-xb-qOQ" firstAttribute="top" secondItem="hQt-Rf-pbd" secondAttribute="bottom" constant="7" id="HkR-7P-sJd"/>
                             <constraint firstItem="acL-6M-Ylp" firstAttribute="top" secondItem="JBb-em-g92" secondAttribute="bottom" constant="3" id="I8z-gL-Y1f"/>

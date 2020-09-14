@@ -185,7 +185,7 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         let firstColor:UIColor = StyledGradientView.viewColors.first!
-        let secondColor:UIColor = StyledGradientView.viewColors.last!
+
         let lighten = UIColor(white: 1, alpha: 0.2)
         let darken  = UIColor(white: 0.1, alpha: 0.05)
         
