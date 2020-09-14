@@ -22,7 +22,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRV-3Q-1E2" customClass="HSBColorPicker" customModule="WorkoutTimer" customModuleProvider="target">
-                                <rect key="frame" x="10" y="307" width="355" height="241"/>
+                                <rect key="frame" x="3" y="307" width="369" height="266"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qC-9I-gIA">
@@ -53,20 +53,59 @@
                                     <action selector="color2BtnTapped:" destination="0ra-Om-irX" eventType="touchUpInside" id="K42-DC-2jQ"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="1" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="ks9-xb-qOQ">
+                                <rect key="frame" x="77" y="636" width="284" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="yB0-Cn-SBv"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="elementSizeValChanged:" destination="0ra-Om-irX" eventType="valueChanged" id="fY8-dG-isD"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tile Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acL-6M-Ylp">
+                                <rect key="frame" x="3" y="640" width="69" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="1" maximumValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="JBb-em-g92">
+                                <rect key="frame" x="3" y="605" width="94" height="32"/>
+                                <connections>
+                                    <action selector="tileSizeStepperChanged:" destination="0ra-Om-irX" eventType="valueChanged" id="adT-Fl-hwi"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQt-Rf-pbd">
+                                <rect key="frame" x="199" y="608" width="40" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="SrR-HZ-5Tp"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="ks9-xb-qOQ" firstAttribute="leading" secondItem="acL-6M-Ylp" secondAttribute="trailing" constant="7" id="1D7-li-5x6"/>
+                            <constraint firstItem="acL-6M-Ylp" firstAttribute="centerY" secondItem="ks9-xb-qOQ" secondAttribute="centerY" id="3UL-MK-PQV"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="top" secondItem="JqQ-G9-0bL" secondAttribute="bottom" constant="30" id="8gn-SM-Pcv"/>
                             <constraint firstItem="0qC-9I-gIA" firstAttribute="top" secondItem="PBt-9U-ruX" secondAttribute="bottom" constant="24" id="9Pc-J0-ZIH"/>
                             <constraint firstItem="PBt-9U-ruX" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="52" id="BkI-YR-jwG"/>
                             <constraint firstItem="JqQ-G9-0bL" firstAttribute="top" secondItem="0qC-9I-gIA" secondAttribute="bottom" constant="8" id="Dqb-gk-hqZ"/>
                             <constraint firstItem="PBt-9U-ruX" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="Hck-JJ-3f7"/>
+                            <constraint firstItem="ks9-xb-qOQ" firstAttribute="top" secondItem="hQt-Rf-pbd" secondAttribute="bottom" constant="7" id="HkR-7P-sJd"/>
+                            <constraint firstItem="acL-6M-Ylp" firstAttribute="top" secondItem="JBb-em-g92" secondAttribute="bottom" constant="3" id="I8z-gL-Y1f"/>
                             <constraint firstItem="JqQ-G9-0bL" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="JOn-ao-7MY"/>
-                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="10" id="VPn-ze-h8o"/>
+                            <constraint firstItem="hQt-Rf-pbd" firstAttribute="centerX" secondItem="ks9-xb-qOQ" secondAttribute="centerX" id="UqO-UN-ZcP"/>
+                            <constraint firstItem="KRV-3Q-1E2" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="3" id="VPn-ze-h8o"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="WoI-pC-wTA"/>
+                            <constraint firstItem="JBb-em-g92" firstAttribute="top" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="32" id="Zyq-1w-qmm"/>
                             <constraint firstItem="KRV-3Q-1E2" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="bna-hi-ddF"/>
-                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="230" id="dY3-Ul-ARK"/>
-                            <constraint firstItem="Egn-s5-Rba" firstAttribute="trailing" secondItem="KRV-3Q-1E2" secondAttribute="trailing" constant="10" id="hGF-Q1-BvQ"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="205" id="dY3-Ul-ARK"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="trailing" secondItem="KRV-3Q-1E2" secondAttribute="trailing" constant="3" id="hGF-Q1-BvQ"/>
+                            <constraint firstItem="acL-6M-Ylp" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="3" id="iA9-10-eZF"/>
+                            <constraint firstItem="hQt-Rf-pbd" firstAttribute="top" secondItem="KRV-3Q-1E2" secondAttribute="bottom" constant="35" id="mtn-IP-mO2"/>
+                            <constraint firstItem="JBb-em-g92" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="3" id="rUD-WZ-yxY"/>
                             <constraint firstItem="0qC-9I-gIA" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="s0q-fD-q1u"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Egn-s5-Rba"/>
@@ -86,6 +125,10 @@
                         <outlet property="colorPicker" destination="KRV-3Q-1E2" id="FHC-ea-tvU"/>
                         <outlet property="gradientColorsLabel" destination="PBt-9U-ruX" id="UXH-ly-RwW"/>
                         <outlet property="gradientView" destination="Ga4-Ob-oZy" id="yRd-e9-iE5"/>
+                        <outlet property="tileSizeElementLabel" destination="acL-6M-Ylp" id="uAl-hd-0wH"/>
+                        <outlet property="tileSizeLabel" destination="hQt-Rf-pbd" id="HHp-0N-cPh"/>
+                        <outlet property="tileSizeSlider" destination="ks9-xb-qOQ" id="2Pe-wt-aOo"/>
+                        <outlet property="tileSizeStepper" destination="JBb-em-g92" id="L0R-0u-f41"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vl2-2D-V0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

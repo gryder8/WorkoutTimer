@@ -118,68 +118,100 @@ extension UIColor {
 
 }
 
+extension Float {
+    func asStringWithNoDecimal() -> String {
+        return String("\(self)").components(separatedBy: ".")[0]
+    }
+}
+
+extension Double {
+    func asStringWithNoDecimal() -> String {
+        return String("\(self)").components(separatedBy: ".")[0]
+    }
+}
+
+
 
 class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     
+    let ELEMENT_SIZE_KEY = "ELEMENT_SIZE"
     
-
     @IBOutlet weak var gradientColorsLabel: UILabel!
     @IBOutlet var gradientView: GradientBackgroundView!
     @IBOutlet weak var color1Button: UIButton!
     @IBOutlet weak var color2Button: UIButton!
     @IBOutlet weak var colorPicker: HSBColorPicker!
+    @IBOutlet weak var tileSizeLabel: UILabel!
+    @IBOutlet weak var tileSizeStepper: UIStepper!
+    @IBOutlet weak var tileSizeSlider: UISlider!
+    @IBOutlet weak var tileSizeElementLabel: UILabel!
+    
     
     @IBAction func color1BtnTapped(_ sender: UIButton) {
         currentColorIndex = 0
         colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
         color2Button.isEnabled = !color2Button.isEnabled
+        hideSliderElements(!tileSizeSlider.isHidden)
     }
     
     @IBAction func color2BtnTapped(_ sender: UIButton) {
         currentColorIndex = 1
         colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
         color1Button.isEnabled = !color1Button.isEnabled
+        hideSliderElements(!tileSizeSlider.isHidden)
     }
 
+    @IBAction func elementSizeValChanged(_ sender: UISlider) {
+        let roundedValue = round(sender.value)
+        sender.value = roundedValue
+        self.pickerElementSize = CGFloat(sender.value)
+        colorPicker.elementSize = self.pickerElementSize
+        tileSizeStepper.value = Double(sender.value)
+        tileSizeLabel.text = sender.value.asStringWithNoDecimal()
+    }
+    
+    @IBAction func tileSizeStepperChanged(_ sender: UIStepper) {
+        let roundedValue = round(sender.value)
+        sender.value = roundedValue
+        tileSizeSlider.value = Float(sender.value)
+        self.pickerElementSize = CGFloat(sender.value)
+        colorPicker.elementSize = self.pickerElementSize
+        tileSizeLabel.text = sender.value.asStringWithNoDecimal()
+    }
     
     func updateViewColors() {
-            self.gradientView.startColor = StyledGradientView.viewColors[0]
-            self.gradientView.endColor = StyledGradientView.viewColors[1]
+        self.gradientView.startColor = StyledGradientView.viewColors.first!
+        self.gradientView.endColor = StyledGradientView.viewColors.last!
             self.gradientView.setNeedsDisplay()
     }
     
     func HSBColorColorPickerTouched(sender: HSBColorPicker, color: UIColor, point: CGPoint, state: UIGestureRecognizer.State) {
-//        let prevColor = StyledGradientView.viewColors[currentColorIndex]
         StyledGradientView.viewColors[currentColorIndex] = color
         
-        //print("Colors are equal before and after: \(StyledGradientView.viewColors[currentColorIndex] == prevColor)")
         updateViewColors()
         refreshUIElements()
-        
         colorPicker.setIsHidden(true, animated: true)
+        hideSliderElements(true)
         color1Button.isEnabled = true
         color2Button.isEnabled = true
 
     }
     
     var currentColorIndex = 0
-    var darkModeEnabled = false
-    var usingDefaultColors = true
-    
-    
-    
-    var handleIDMap:[Int:Int] = [:]
     
     let sharedView:GradientBackgroundView = StyledGradientView.shared
     
-    //let colorPicker:HSBColorPicker = HSBColorPicker()
-    
-    
-    //let colorPicker = ChromaColorPicker(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     let defaults = UserDefaults.standard
+    
+    var pickerElementSize:CGFloat = 10 {
+        didSet {
+            defaults.set(Float(pickerElementSize), forKey: ELEMENT_SIZE_KEY)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadLocalElementSize()
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         color1Button.isUserInteractionEnabled = true
         color2Button.isUserInteractionEnabled = true
@@ -193,8 +225,24 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
         
         roundButton(color1Button)
         roundButton(color2Button)
+        hideSliderElements(true)
         //self.darkModeEnabled = (self.traitCollection.userInterfaceStyle == .dark)
         
+    }
+    
+    private func loadLocalElementSize() {
+        if (defaults.float(forKey: ELEMENT_SIZE_KEY) != 0) {
+            self.pickerElementSize = CGFloat(defaults.float(forKey: ELEMENT_SIZE_KEY))
+        } else {
+            defaults.set(Float(self.pickerElementSize), forKey: ELEMENT_SIZE_KEY)
+        }
+    }
+    
+    private func hideSliderElements(_ hidden:Bool) {
+        tileSizeSlider.setIsHidden(hidden, animated: true)
+        tileSizeLabel.setIsHidden(hidden, animated: true)
+        tileSizeStepper.setIsHidden(hidden, animated: true)
+        tileSizeElementLabel.setIsHidden(hidden, animated: true)
     }
     
     private func roundButton(_ button:UIButton) { //round the corners of the button passed in
@@ -204,6 +252,11 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     
     private func refreshUIElements() {
         let buttonTitleFont = UIFont(name: "Avenir Next", size: 15.0)
+        let tileSliderLabelFont = UIFont(name: "Avenir Next", size: 20.0)
+        
+        tileSizeSlider.value = Float(self.pickerElementSize)
+        tileSizeStepper.value = Double(tileSizeSlider.value)
+        tileSizeLabel.text = tileSizeSlider.value.asStringWithNoDecimal()
         
         color1Button.backgroundColor = StyledGradientView.viewColors.last!
         color2Button.backgroundColor = StyledGradientView.viewColors.last!
@@ -213,6 +266,9 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
         
         color1Button.titleLabel?.font = buttonTitleFont
         color2Button.titleLabel?.font = buttonTitleFont
+        
+        tileSizeSlider.minimumTrackTintColor = StyledGradientView.viewColors.first!
+        tileSizeSlider.thumbTintColor = StyledGradientView.viewColors.last!
         
         if (color1Button.backgroundColor!.isLight()) {
             color1Button.setTitleColor(.black, for: .normal)
@@ -226,6 +282,16 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
             gradientColorsLabel.textColor = .black
         } else {
             gradientColorsLabel.textColor = .white
+        }
+        
+        
+        tileSizeLabel.font = tileSliderLabelFont
+        if (StyledGradientView.viewColors.last!.isLight()) {
+            tileSizeElementLabel.textColor = .black
+            tileSizeLabel.textColor = .darkGray
+        } else {
+            tileSizeElementLabel.textColor = .white
+            tileSizeLabel.textColor = .lightGray
         }
         
         self.navigationController?.navigationBar.tintColor = StyledGradientView.viewColors.last!
@@ -260,7 +326,7 @@ class AppearanceEditorController: UIViewController, HSBColorPickerDelegate {
     private func setupColorPicker() {
         colorPicker.delegate = self
         colorPicker.setIsHidden(true, animated: false)
-        colorPicker.elementSize = 10
+        colorPicker.elementSize = self.pickerElementSize
     }
     
     
