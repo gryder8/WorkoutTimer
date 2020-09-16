@@ -263,7 +263,16 @@ extension WorkoutEditorControllerTableViewController {
 	
 	override func reorderFinished(initialIndex: IndexPath, finalIndex: IndexPath) {
 		self.workoutList.swapAt(initialIndex.row, finalIndex.row) //swap the rows in the underlying data model
-		VCMaster.resetAll()
+		//VCMaster.resetAll()
+		VCMaster.currentWorkout = WorkoutsMaster.getCurrentWorkout()
+		VCMaster.nextWorkout = WorkoutsMaster.getNextWorkout()
+		if (initialIndex.row == WorkoutsMaster.currentWorkoutIndex || finalIndex.row == WorkoutsMaster.currentWorkoutIndex) {
+			VCMaster.timerRing.resetTimer()
+			VCMaster.timerRing.shouldShowValueText = false
+			VCMaster.timerInitiallyStarted = false
+			VCMaster.changeButtonToMode(mode: .start)
+		}
+		VCMaster.updateLabels()
 	}
 	
 	

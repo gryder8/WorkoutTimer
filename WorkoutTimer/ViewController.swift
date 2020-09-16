@@ -76,9 +76,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         
     typealias AllWorkouts = [Workouts.Workout] //array of struct
     
-    private var currentWorkout = Workouts.Workout(duration: 0, name: "")
-    private var nextWorkout = Workouts.Workout(duration: 0, name: "")
-    private var timerInitiallyStarted = false
+    var currentWorkout = Workouts.Workout(duration: 0, name: "")
+    var nextWorkout = Workouts.Workout(duration: 0, name: "")
+    var timerInitiallyStarted = false
     
     var isRestTimerActive = false
     private var restTimer:Timer!
@@ -256,7 +256,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             swipeToTableView.isEnabled = false
             
             //TODO: Let user modify the list, warning them that changing the order of workouts including and prior to their current one will reset progress. Allow them to modify future workouts without resetting.
-            workoutViewBtn.isEnabled = false
+            workoutViewBtn.isEnabled = true
             appearanceButton.isEnabled = true
             changeButtonToMode(mode: .start)
             return
@@ -266,7 +266,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    private func changeButtonToMode(mode: ButtonMode) {
+    func changeButtonToMode(mode: ButtonMode) {
         startButton.isUserInteractionEnabled = true
         //set the state of the button according to the state passed in
         if (mode == .start && !timerInitiallyStarted) { //first start
@@ -417,7 +417,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    private func updateLabels() { //set the label text to be the same as the name of the current workout
+    func updateLabels() { //set the label text to be the same as the name of the current workout
         self.workoutNameLabel.text = currentWorkout.name
         
         if (currentWorkout.duration == nil) {
