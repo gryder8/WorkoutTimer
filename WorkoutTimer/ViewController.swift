@@ -119,6 +119,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var selectSongs: UIButton!
     @IBOutlet weak var workoutViewBtn: UIButton!
     @IBOutlet weak var settingsBtn: UIButton!
+    @IBOutlet weak var appearanceButton: UIButton!
     @IBOutlet weak var soundToggleLabel: UILabel!
     @IBOutlet weak var soundToggle: UISwitch!
     @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
@@ -218,7 +219,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         selectSongs.isEnabled = enabled
         workoutViewBtn.isEnabled = enabled
         swipeToTableView.isEnabled = enabled
-        
+        appearanceButton.isEnabled = enabled
     }
     
     
@@ -253,7 +254,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             soundToggle.isEnabled = true
             selectSongs.isEnabled = true
             swipeToTableView.isEnabled = false
+            
+            //TODO: Let user modify the list, warning them that changing the order of workouts including and prior to their current one will reset progress. Allow them to modify future workouts without resetting.
             workoutViewBtn.isEnabled = false
+            appearanceButton.isEnabled = true
             changeButtonToMode(mode: .start)
             return
         } else if (buttonState == .restart){ //restart timer

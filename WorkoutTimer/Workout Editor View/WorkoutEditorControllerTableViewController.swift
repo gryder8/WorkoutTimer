@@ -38,7 +38,6 @@ extension Double {
 class WorkoutEditorControllerTableViewController: UITableViewController, UITextFieldDelegate {
 	
 	private var isInitialized = false
-	private var darkModeEnabled:Bool = false
 	
 	let gradientView = StyledGradientView.shared
 	private let WorkoutsMaster: Workouts = Workouts.shared

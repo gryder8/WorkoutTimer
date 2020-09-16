@@ -325,6 +325,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="W3y-4c-OvB"/>
                     <connections>
+                        <outlet property="appearanceButton" destination="gXC-lX-GMk" id="DJV-lr-9ve"/>
                         <outlet property="gradientView" destination="8bC-Xf-vdC" id="op7-oK-17U"/>
                         <outlet property="nextWorkoutNameLabel" destination="m2g-Fc-yOZ" id="HkR-wm-j9U"/>
                         <outlet property="restTimerLabel" destination="JgV-x6-3ob" id="Zgl-YZ-UPh"/>
