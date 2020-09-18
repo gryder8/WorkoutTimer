@@ -251,13 +251,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
                 restTimer.invalidate()
                 settingsBtn.isEnabled = true
             }
-            soundToggle.isEnabled = true
-            selectSongs.isEnabled = true
-            swipeToTableView.isEnabled = false
-            
-            //TODO: Let user modify the list, warning them that changing the order of workouts including and prior to their current one will reset progress. Allow them to modify future workouts without resetting.
-            workoutViewBtn.isEnabled = true
-            appearanceButton.isEnabled = true
+            externalizingActionsEnabled(true)
             changeButtonToMode(mode: .start)
             return
         } else if (buttonState == .restart){ //restart timer
@@ -360,12 +354,16 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     @objc func observeBackgroundEntry(notification: Notification) {
-        if (self.buttonState != .start) {
+        if (!isRestTimerActive) {
             timerRing.pauseTimer()
-            soundToggle.isEnabled = true
-            selectSongs.isEnabled = true
-            changeButtonToMode(mode: .start)
+            settingsBtn.isEnabled = true
+        } else {
+            restTimer.invalidate()
+            settingsBtn.isEnabled = true
         }
+        externalizingActionsEnabled(true)
+        changeButtonToMode(mode: .start)
+        return
     }
     
     
