@@ -214,7 +214,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     
     //MARK: - Enable and Disable Button
-    func externalizingActionsEnabled(_ enabled: Bool) { //determine if buttons are on or off on the home page
+    func transitioningActionsEnabled(_ enabled: Bool) { //determine if buttons are on or off on the home page
         soundToggle.isEnabled = enabled
         selectSongs.isEnabled = enabled
         workoutViewBtn.isEnabled = enabled
@@ -230,7 +230,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             startTimerIfWorkoutExists()
             changeButtonToMode(mode: .pause)
             self.settingsBtn.isEnabled = false
-            externalizingActionsEnabled(false)
+            transitioningActionsEnabled(false)
             UIApplication.shared.isIdleTimerDisabled = true //once the user starts the workout, prevent the device from going to sleep
             return
         } else if (buttonState == .start) { //resuming from pause
@@ -241,7 +241,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             }
             self.settingsBtn.isEnabled = false
             changeButtonToMode(mode: .pause)
-            externalizingActionsEnabled(false)
+            transitioningActionsEnabled(false)
             return
         } else if (buttonState == .pause){ //pause timer
             if (!isRestTimerActive) {
@@ -251,7 +251,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
                 restTimer.invalidate()
                 settingsBtn.isEnabled = true
             }
-            externalizingActionsEnabled(true)
+            transitioningActionsEnabled(true)
             changeButtonToMode(mode: .start)
             return
         } else if (buttonState == .restart){ //restart timer
@@ -307,32 +307,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         controller.delegate = self
         self.present(controller, animated: true)
     }
-    
-    var shouldAlert = true
-    
-//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-//        if (identifier == "workoutBtnPressed") {
-//            if (timerInitiallyStarted && shouldAlert) {
-//                var decision = false
-//                let alert = UIAlertController(title: "Warning", message: "If you re-arrange the current workout, the timer will be reset", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (continueAction) in
-//                    self.shouldAlert = false
-//                    self.performSegue(withIdentifier: identifier, sender: sender)
-//                }))
-//
-//                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (cancelAction) in
-//                    decision = false
-//                }))
-//                self.present(alert, animated: true)
-//                return decision
-//            } else {
-//                return true
-//            }
-//        } else {
-//            return true //allow segues for any other identifiers with no conditions
-//        }
-//    }
-    
+            
     //MARK: - Delegates
     func mediaPicker(_ mediaPicker: MPMediaPickerController,
                      didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
@@ -354,15 +329,17 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     @objc func observeBackgroundEntry(notification: Notification) {
-        if (!isRestTimerActive) {
-            timerRing.pauseTimer()
-            settingsBtn.isEnabled = true
-        } else {
-            restTimer.invalidate()
-            settingsBtn.isEnabled = true
+        if (timerInitiallyStarted) {
+            if (!isRestTimerActive) {
+                timerRing.pauseTimer()
+                settingsBtn.isEnabled = true
+            } else {
+                restTimer.invalidate()
+                settingsBtn.isEnabled = true
+            }
+            transitioningActionsEnabled(true)
+            changeButtonToMode(mode: .start)
         }
-        externalizingActionsEnabled(true)
-        changeButtonToMode(mode: .start)
         return
     }
     
@@ -401,7 +378,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         changeButtonToMode(mode: .start)
         self.settingsBtn.isEnabled = true
         self.isRestTimerActive = false
-        externalizingActionsEnabled(true)
+        transitioningActionsEnabled(true)
     }
     
     private func setupTimerRing() {
