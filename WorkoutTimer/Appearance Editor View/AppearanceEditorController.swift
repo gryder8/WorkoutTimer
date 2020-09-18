@@ -276,12 +276,8 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
             color2Button.setTitleColor(.white, for: .normal)
         }
         
-        if (StyledGradientView.viewColors.first!.isLight()){
-            gradientColorsLabel.textColor = .black
-        } else {
-            gradientColorsLabel.textColor = .white
-        }
-        
+        gradientColorsLabel.textColor = .black
+  
         self.navigationController?.navigationBar.tintColor = StyledGradientView.viewColors.last!
     }
     
