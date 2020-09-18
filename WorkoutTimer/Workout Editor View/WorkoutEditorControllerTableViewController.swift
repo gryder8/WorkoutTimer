@@ -33,11 +33,22 @@ extension Double {
 	}
 }
 
+extension UITableViewCell {
+	func appearsEnabled(_ enabled: Bool) {
+		for view in contentView.subviews {
+			view.isUserInteractionEnabled = enabled
+			view.alpha = enabled ? 1 : 0.5
+		}
+	}
+}
 
 //MARK: - Class
 class WorkoutEditorControllerTableViewController: UITableViewController, UITextFieldDelegate {
 	
 	private var isInitialized = false
+	private var shouldAlert = true
+	private let cellFontMedium = UIFont(name: "Avenir Next Medium", size: 17.0)
+	
 	
 	let gradientView = StyledGradientView.shared
 	private let WorkoutsMaster: Workouts = Workouts.shared
@@ -83,7 +94,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	//MARK: - View Did Load
 	override func viewDidLoad() {
 		super.viewDidLoad()
-				
+		
 		// Uncomment the following line to preserve selection between presentations
 		//self.clearsSelectionOnViewWillAppear = false
 		
@@ -179,7 +190,15 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? WorkoutCellTableViewCell else {
 			fatalError("Dequeued cell not an instance of WorkoutCell")
 		}
+		//print("Cell Font: \(cellFont)")
+		if (indexPath.row == WorkoutsMaster.currentWorkoutIndex) {
+			cell.workoutLabel.textColor = .black
+			cell.workoutLabel.font = cellFontMedium //make the font bold?
+		} else if (indexPath.row < WorkoutsMaster.currentWorkoutIndex) {
+			cell.appearsEnabled(false) //give the cell the "disabled" look
+		}
 		cell.workoutLabel.textColor = .black
+		
 		cell.backgroundColor = .clear
 		
 		let name = workoutList[indexPath.row].name
@@ -200,7 +219,11 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	
 	//MARK: - Enable Cell Editing
 	override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-		return true
+		if (VCMaster.timerInitiallyStarted) {
+			return indexPath.row != WorkoutsMaster.currentWorkoutIndex
+		} else {
+			return true
+		}
 	}
 	
 	//MARK: - Configure Edit and Delete Functionality
@@ -214,16 +237,17 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 			
 			alert.addTextField(configurationHandler: { (numberField) in
 				numberField.keyboardType = .numberPad
-				numberField.delegate = self //should restrict input to numeric only
+				numberField.delegate = self //restricts input to numeric only
 				let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
 				numberField.text = String(durationAsDouble.clean)
 			})
+			
 			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
 				let durationInput = alert.textFields![1].text!
 				self.workoutList[indexPath.row].name = alert.textFields!.first!.text!
 				self.workoutList[indexPath.row].duration = Double(durationInput) //input should be numeric only via delegate
 				self.VCMaster.resetAll()
-				self.tableView.reloadRows(at: [indexPath], with: .bottom)
+				self.tableView.reloadRows(at: [indexPath], with: .right)
 			}))
 			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 			self.present(alert, animated: false)
@@ -245,7 +269,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if (editingStyle == .delete) {
 			self.workoutList.remove(at: indexPath.row)
-			//self.WorkoutsMaster.workoutList.remove(at: indexPath.row)
 			tableView.deleteRows(at: [indexPath], with: .fade)
 		}
 	}
@@ -262,17 +285,31 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 extension WorkoutEditorControllerTableViewController {
 	
 	override func reorderFinished(initialIndex: IndexPath, finalIndex: IndexPath) {
-		self.workoutList.swapAt(initialIndex.row, finalIndex.row) //swap the rows in the underlying data model
-		//VCMaster.resetAll()
+		workoutList.swapAt(initialIndex.row, finalIndex.row)
+		
 		VCMaster.currentWorkout = WorkoutsMaster.getCurrentWorkout()
 		VCMaster.nextWorkout = WorkoutsMaster.getNextWorkout()
-		if (initialIndex.row == WorkoutsMaster.currentWorkoutIndex || finalIndex.row == WorkoutsMaster.currentWorkoutIndex) {
-			VCMaster.timerRing.resetTimer()
-			VCMaster.timerRing.shouldShowValueText = false
-			VCMaster.timerInitiallyStarted = false
-			VCMaster.changeButtonToMode(mode: .start)
+		if (!VCMaster.isRestTimerActive) {
+			VCMaster.updateLabels()
+		} else {
+			VCMaster.updateLabels(nextWorkoutOnly: true)
 		}
-		VCMaster.updateLabels()
+		
+		//code for resetting ring if needed
+		//				VCMaster.timerRing.resetTimer()
+		//				VCMaster.timerRing.shouldShowValueText = false
+		//				VCMaster.timerInitiallyStarted = false
+		//				VCMaster.changeButtonToMode(mode: .start)
+		
+	}
+	
+	
+	override func allowChangingRow(atIndex: IndexPath) -> Bool{
+		if (atIndex.row <= WorkoutsMaster.currentWorkoutIndex && VCMaster.timerInitiallyStarted) {
+			return false
+		} else {
+			return true
+		}
 	}
 	
 	

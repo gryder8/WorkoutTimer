@@ -33,7 +33,7 @@ class Workouts {
     
     
     //MARK: - Workout Struct Definition
-    struct Workout: Codable { //can be encoded and decoded
+    struct Workout: Codable, Equatable { //can be encoded and decoded
         var duration:TimeInterval?
         var name:String
     }

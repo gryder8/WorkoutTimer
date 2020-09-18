@@ -276,9 +276,13 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
         
         if (color1Button.backgroundColor!.isLight()) {
             color1Button.setTitleColor(.black, for: .normal)
-            color2Button.setTitleColor(.black, for: .normal)
         } else {
             color1Button.setTitleColor(.white, for: .normal)
+        }
+        
+        if (color2Button.backgroundColor!.isLight()) {
+            color2Button.setTitleColor(.black, for: .normal)
+        } else {
             color2Button.setTitleColor(.white, for: .normal)
         }
         

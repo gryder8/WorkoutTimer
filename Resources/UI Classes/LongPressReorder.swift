@@ -315,7 +315,7 @@ extension UIViewController: LongPressReorder {
     }
     
     /**
-     Default implementation: every table row can be swaped against the current moving row.
+     Default implementation: every table row can be swapped against the current moving row.
      
      - Parameter atIndex: Position of row that is allowed to be swapped
      - Returns: True to allow row to change its position, false if row is imutable

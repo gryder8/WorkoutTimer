@@ -313,6 +313,32 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         controller.delegate = self
         self.present(controller, animated: true)
     }
+    
+    var shouldAlert = true
+    
+//    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+//        if (identifier == "workoutBtnPressed") {
+//            if (timerInitiallyStarted && shouldAlert) {
+//                var decision = false
+//                let alert = UIAlertController(title: "Warning", message: "If you re-arrange the current workout, the timer will be reset", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (continueAction) in
+//                    self.shouldAlert = false
+//                    self.performSegue(withIdentifier: identifier, sender: sender)
+//                }))
+//
+//                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (cancelAction) in
+//                    decision = false
+//                }))
+//                self.present(alert, animated: true)
+//                return decision
+//            } else {
+//                return true
+//            }
+//        } else {
+//            return true //allow segues for any other identifiers with no conditions
+//        }
+//    }
+    
     //MARK: - Delegates
     func mediaPicker(_ mediaPicker: MPMediaPickerController,
                      didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
@@ -417,9 +443,10 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    func updateLabels() { //set the label text to be the same as the name of the current workout
-        self.workoutNameLabel.text = currentWorkout.name
-        
+    func updateLabels(nextWorkoutOnly: Bool = false) { //set the label text to be the same as the name of the current workout
+        if(!nextWorkoutOnly) {
+            self.workoutNameLabel.text = currentWorkout.name
+        }
         if (currentWorkout.duration == nil) {
             self.nextWorkoutNameLabel.text = "" //won't be visible but isn't technically hidden
         } else if (nextWorkout.duration != nil) {
@@ -541,7 +568,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     @objc private func updateLabelForCountdown() {
-        if (count > 0) {
+        if (count > 1) {
             count -= 1
             restTimerLabel.text = String(count)
         } else {

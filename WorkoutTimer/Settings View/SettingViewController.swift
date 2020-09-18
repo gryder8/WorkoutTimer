@@ -86,6 +86,7 @@ class SettingViewController: UIViewController {
         sender.value = roundedValue
         sliderValueLabel.text = secondsToMinutesSeconds(secondsInput: Int(sender.value.clean)!)
         //sliderValueLabel.text = "\(sender.value.clean) seconds"
+        VCMaster.restDuration = Int(sender.value)
         timeStepper.value = Double(sender.value)
     }
     
