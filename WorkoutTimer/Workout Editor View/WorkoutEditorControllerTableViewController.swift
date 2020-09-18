@@ -33,6 +33,8 @@ extension Double {
 	}
 }
 
+
+//MARK: - Cell extension for "disabled" look
 extension UITableViewCell {
 	func appearsEnabled(_ enabled: Bool) {
 		for view in contentView.subviews {

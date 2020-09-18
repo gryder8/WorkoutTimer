@@ -62,10 +62,10 @@
             filePath = "WorkoutTimer/Appearance Editor View/AppearanceEditorController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
-            landmarkName = "colorPickerViewControllerDidSelectColor(_:)"
-            landmarkType = "7">
+            startingLineNumber = "315"
+            endingLineNumber = "315"
+            landmarkName = "AppearanceEditorController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,8 +94,8 @@
             filePath = "WorkoutTimer/Workout Editor View/WorkoutEditorControllerTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "reorderFinished(initialIndex:finalIndex:)"
             landmarkType = "7">
          </BreakpointContent>

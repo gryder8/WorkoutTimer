@@ -131,7 +131,7 @@ extension Double {
 }
 
 public extension UIDevice {
-
+    
     static let modelName: String = {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -140,11 +140,11 @@ public extension UIDevice {
             guard let value = element.value as? Int8, value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
-
+        
         func mapToDevice(identifier: String) -> String {
             #if os(iOS)
             switch identifier {
-
+            
             case "iPod9,1":                                 return "iPod touch (7th generation)"
             case "iPhone7,2":                               return "iPhone 6"
             case "iPhone7,1":                               return "iPhone 6 Plus"
@@ -168,17 +168,16 @@ public extension UIDevice {
             }
             #endif
         }
-
+        
         return mapToDevice(identifier: identifier)
     }()
-
+    
 }
 
 
-@available(iOS 14.0, *)
+//@available(iOS 14.0, *)
 class AppearanceEditorController: UIViewController, UIColorPickerViewControllerDelegate {
-    
-    
+
     @IBOutlet weak var gradientColorsLabel: UILabel!
     @IBOutlet var gradientView: GradientBackgroundView!
     @IBOutlet weak var color1Button: UIButton!
@@ -189,19 +188,13 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
     let endColorPicker = UIColorPickerViewController()
     
     @IBAction func color1BtnTapped(_ sender: UIButton) {
-        //currentColorIndex = 0
-        //colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
         color2Button.isEnabled = !color2Button.isEnabled
         self.present(startColorPicker, animated: true, completion: nil)
-        //hideSliderElements(!tileSizeSlider.isHidden)
     }
     
     @IBAction func color2BtnTapped(_ sender: UIButton) {
-        //currentColorIndex = 1
-        //colorPicker.setIsHidden(!colorPicker.isHidden, animated: true)
         color1Button.isEnabled = !color1Button.isEnabled
         self.present(endColorPicker, animated: true, completion: nil)
-        //hideSliderElements(!tileSizeSlider.isHidden)
     }
     
     
@@ -211,7 +204,7 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
         self.gradientView.setNeedsDisplay()
     }
     
-        
+    
     let sharedView:GradientBackgroundView = StyledGradientView.shared
     
     override func viewDidLoad() {
@@ -223,7 +216,7 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
         
         StyledGradientView.setup()
         configNavBar()
-        refreshUIElements()
+        setUIElements()
         
         roundUIView(color1Button)
         roundUIView(color2Button)
@@ -262,14 +255,11 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
         }
     }
     
-    private func refreshUIElements() {
+    private func setUIElements() {
         let buttonTitleFont = UIFont(name: "Avenir Next", size: 15.0)
         
         color1Button.backgroundColor = StyledGradientView.viewColors.first!
         color2Button.backgroundColor = StyledGradientView.viewColors.last!
-        
-        //color1Button.titleLabel?.isHidden = false
-        //color2Button.titleLabel?.isHidden = false
         
         color1Button.titleLabel?.font = buttonTitleFont
         color2Button.titleLabel?.font = buttonTitleFont
@@ -286,12 +276,11 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
             color2Button.setTitleColor(.white, for: .normal)
         }
         
-        gradientColorsLabel.textColor = .black
-//        if (StyledGradientView.viewColors.first!.isLight()) {
-//            gradientColorsLabel.textColor = .black
-//        } else {
-//            gradientColorsLabel.textColor = .white
-//        }
+        if (StyledGradientView.viewColors.first!.isLight()){
+            gradientColorsLabel.textColor = .black
+        } else {
+            gradientColorsLabel.textColor = .white
+        }
         
         self.navigationController?.navigationBar.tintColor = StyledGradientView.viewColors.last!
     }
@@ -301,10 +290,9 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        //self.navigationController?.navigationBar.barTintColor = gradientView.startColor
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.navigationBar.tintColor = .black
-        navigationItem.hidesBackButton = false
+        self.navigationItem.hidesBackButton = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -331,33 +319,13 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
             StyledGradientView.viewColors[1] = viewController.selectedColor
         }
         updateViewColors()
-        refreshUIElements()
+        setUIElements()
     }
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         color1Button.isEnabled = true
         color2Button.isEnabled = true
     }
-    
-    
-    //    private func checkForLocalColors() {
-    //        if let foundColors:[UIColor] = defaults.array(forKey: COLORS_KEY) as? [UIColor] {
-    //            viewColors = foundColors
-    //            setLocalColors(colors: viewColors, forKey: COLORS_KEY)
-    //            setGradientViewColors()
-    //        } else {
-    //            setLocalColors(colors: viewColors, forKey: COLORS_KEY)
-    //        }
-    //    }
-    //
-    //    private func setLocalColors(colors: [UIColor], forKey key: String) {
-    //        defaults.set(colors, forKey: key)
-    //    }
-    //
-    //    private func setGradientViewColors() {
-    //        sharedView.firstColor = viewColors.first!
-    //        sharedView.secondColor = viewColors.last!
-    //    }
     
     
     /*
