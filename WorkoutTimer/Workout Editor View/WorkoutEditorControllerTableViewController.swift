@@ -50,6 +50,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	private var isInitialized = false
 	private var shouldAlert = true
 	private let cellFontMedium = UIFont(name: "Avenir Next Medium", size: 17.0)
+	private let cellFontRegular = UIFont(name: "Avenir Next", size: 17.0)
 	
 	
 	let gradientView = StyledGradientView.shared
@@ -249,7 +250,8 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 				self.workoutList[indexPath.row].name = alert.textFields!.first!.text!
 				self.workoutList[indexPath.row].duration = Double(durationInput) //input should be numeric only via delegate
 				self.VCMaster.resetAll()
-				self.tableView.reloadRows(at: [indexPath], with: .right)
+				self.tableView.reloadRows(at: [indexPath], with: .left)
+				self.updateCellStyles(endCellRow: indexPath.row)
 			}))
 			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 			self.present(alert, animated: false)
@@ -279,6 +281,44 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		return false
 	}
 	
+	private func updateCellStyles(endCellRow: Int = -1) {
+		//print(tableView.visibleCells.count)
+		var counter = 0
+		let currentWorkoutIndex  = WorkoutsMaster.currentWorkoutIndex
+		if  (endCellRow != -1){
+			let tableCells = tableView.visibleCells as! [WorkoutCellTableViewCell]
+			for cell in tableCells[0...endCellRow] {
+				if (counter < currentWorkoutIndex) {
+					cell.appearsEnabled(false)
+					counter += 1
+				} else if (counter == currentWorkoutIndex) {
+					cell.workoutLabel.textColor = .black
+					cell.workoutLabel.font = cellFontMedium
+					counter += 1
+				} else {
+					cell.workoutLabel.textColor = .black
+					cell.workoutLabel.font = cellFontRegular
+					counter += 1
+				}
+			}
+		} else {
+			for cell in tableView.visibleCells as! [WorkoutCellTableViewCell] {
+				if (counter < currentWorkoutIndex) {
+					cell.appearsEnabled(false)
+					counter += 1
+				} else if (counter == currentWorkoutIndex) {
+					cell.workoutLabel.textColor = .black
+					cell.workoutLabel.font = cellFontMedium
+					counter += 1
+				} else {
+					cell.workoutLabel.textColor = .black
+					cell.workoutLabel.font = cellFontRegular
+					counter += 1
+				}
+			}
+		}
+	}
+	
 }
 
 //MARK: - Extension For Reorder Lib
@@ -288,7 +328,24 @@ extension WorkoutEditorControllerTableViewController {
 	
 	override func reorderFinished(initialIndex: IndexPath, finalIndex: IndexPath) {
 		workoutList.swapAt(initialIndex.row, finalIndex.row)
-		
+//		if (initialIndex.row == WorkoutsMaster.currentWorkoutIndex) {
+//			let cell:WorkoutCellTableViewCell = tableView.cellForRow(at: initialIndex) as! WorkoutCellTableViewCell //should cast as all cells are forced to have this as their class
+//			cell.workoutLabel.textColor = .black
+//			cell.workoutLabel.font = cellFontMedium
+//
+//			let otherCell = tableView.cellForRow(at: finalIndex) as! WorkoutCellTableViewCell
+//			otherCell.workoutLabel.textColor = .black
+//			otherCell.workoutLabel.font = cellFontRegular
+//		} else if (finalIndex.row == WorkoutsMaster.currentWorkoutIndex) {
+//			let cell:WorkoutCellTableViewCell = tableView.cellForRow(at: finalIndex) as! WorkoutCellTableViewCell //should cast as all cells are forced to have this as their class
+//			cell.workoutLabel.textColor = .black
+//			cell.workoutLabel.font = cellFontMedium
+//
+//			let otherCell = tableView.cellForRow(at: initialIndex) as! WorkoutCellTableViewCell
+//			otherCell.workoutLabel.textColor = .black
+//			otherCell.workoutLabel.font = cellFontRegular
+//		}
+		updateCellStyles(endCellRow: max(initialIndex.row, finalIndex.row))
 		VCMaster.currentWorkout = WorkoutsMaster.getCurrentWorkout()
 		VCMaster.nextWorkout = WorkoutsMaster.getNextWorkout()
 		if (!VCMaster.isRestTimerActive) {
