@@ -100,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vl2-2D-V0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2040.8" y="939.58020989505258"/>
+            <point key="canvasLocation" x="1047" y="917"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -624,7 +624,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nA8-zZ-Z2O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="940"/>
+            <point key="canvasLocation" x="2041" y="935"/>
         </scene>
         <!--WorkoutsEditor-->
         <scene sceneID="JxR-Nq-KFp">

@@ -186,7 +186,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	
 	//MARK: - Initialize Cells
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 40)
+		tableView.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
 		tableView.separatorColor = UIColor(red:0.18, green:0.18, blue:0.18, alpha:0.5)
 		let cellIdentifier = "WorkoutCell"
 		
