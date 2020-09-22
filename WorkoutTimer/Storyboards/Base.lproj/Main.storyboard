@@ -17,16 +17,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="INW-0T-Ru3">
-                                <rect key="frame" x="68" y="69" width="239" height="169"/>
+                                <rect key="frame" x="68" y="69" width="239" height="199"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gradient Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBt-9U-ruX">
-                                        <rect key="frame" x="54" y="8" width="131" height="41"/>
+                                        <rect key="frame" x="54" y="8" width="131" height="71"/>
                                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qC-9I-gIA">
-                                        <rect key="frame" x="69.666666666666657" y="54" width="100" height="40"/>
+                                        <rect key="frame" x="69.666666666666657" y="84" width="100" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="ddz-0V-Xj5"/>
@@ -40,7 +40,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqQ-G9-0bL">
-                                        <rect key="frame" x="69.666666666666657" y="109" width="100" height="40"/>
+                                        <rect key="frame" x="69.666666666666657" y="139" width="100" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="PyD-4l-OJu"/>
@@ -78,7 +78,7 @@
                             <constraint firstItem="INW-0T-Ru3" firstAttribute="leading" secondItem="Egn-s5-Rba" secondAttribute="leading" constant="68" id="YLw-5L-Lcm"/>
                             <constraint firstItem="INW-0T-Ru3" firstAttribute="centerX" secondItem="Ga4-Ob-oZy" secondAttribute="centerX" id="eOT-6z-CaS"/>
                             <constraint firstItem="INW-0T-Ru3" firstAttribute="top" secondItem="Egn-s5-Rba" secondAttribute="top" constant="25" id="fh4-Dz-NFP"/>
-                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="INW-0T-Ru3" secondAttribute="bottom" constant="540" id="wNY-Dh-TeQ"/>
+                            <constraint firstItem="Egn-s5-Rba" firstAttribute="bottom" secondItem="INW-0T-Ru3" secondAttribute="bottom" constant="510" id="wNY-Dh-TeQ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="startColor">
