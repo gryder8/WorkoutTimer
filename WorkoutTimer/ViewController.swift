@@ -124,6 +124,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     @IBOutlet weak var soundToggle: UISwitch!
     @IBOutlet weak var swipeToTableView: UISwipeGestureRecognizer!
     @IBOutlet weak var restTimerLabel: UILabel!
+    @IBOutlet weak var musicPlayPauseButon: UIButton!
+    @IBOutlet weak var musicLabel: UILabel!
     
     
     //MARK: - Navigation
@@ -168,11 +170,12 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         
         updateLabels() //MUST come after current workout init
         configMainPlayerToPlaySound(name: workoutEndSoundName)
-        setupAudio() //setup audio stuff
-        
+        setupAudioAndControlColors() //setup audio stuff
+                
         //********************************************************
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
+        NotificationCenter.default.addObserver(self, selector: #selector(self.observeReentry), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -184,12 +187,27 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         soundToggle.onTintColor = gradientView.startColor
         soundToggle.thumbTintColor = gradientView.endColor
         
+        musicPlayPauseButon.backgroundColor = StyledGradientView.viewColors.first ?? .black
+        musicPlayPauseButon.tintColor = StyledGradientView.viewColors.last ?? .white
+        
         if (gradientView.endColor!.isLight()) {
             soundToggleLabel.textColor = .black
+            musicLabel.textColor = .black
         } else {
             soundToggleLabel.textColor = .white
+            musicLabel.textColor = .white
         }
+        
+        let playbackState = MPMusicPlayerController.systemMusicPlayer.playbackState.rawValue
+        if (playbackState == 1 || playbackState == 2) {
+            setMusicControlButtonImage(state: playbackState)
+            musicControlIsHidden(false)
+        } else {
+            musicControlIsHidden(true)
+        }
+
     }
+    
     
     @objc func switchToggled() {
         if (soundToggle.isOn) {
@@ -209,6 +227,17 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             mainPlayer.delegate = self
         } catch {
             print("Failed to initialize player with error: \(error)")
+        }
+    }
+    
+    @objc private func observeReentry() {
+        let playbackState = MPMusicPlayerController.systemMusicPlayer.playbackState.rawValue
+        //print(playbackState)
+        if (playbackState == 1 || playbackState == 2) {
+            setMusicControlButtonImage(state: playbackState)
+            musicControlIsHidden(false)
+        } else {
+            musicControlIsHidden(true)
         }
     }
     
@@ -308,6 +337,20 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         self.present(controller, animated: true)
     }
             
+    @IBAction func playPauseMusicTapped(_ sender: UIButton) {
+        let musicPlayer = MPMusicPlayerController.systemMusicPlayer
+        let state = musicPlayer.playbackState.rawValue
+        if (state == 1) { //playing
+            musicPlayer.pause()
+            musicPlayPauseButon.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        } else if (state == 2) { //paused
+            musicPlayer.prepareToPlay()
+            musicPlayer.play()
+            musicPlayPauseButon.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
+    }
+    
+    
     //MARK: - Delegates
     func mediaPicker(_ mediaPicker: MPMediaPickerController,
                      didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
@@ -318,6 +361,27 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         mediaPicker.dismiss(animated: true)
         // Begin playback.
         musicPlayer.play()
+        setMusicControlButtonImage(state: musicPlayer.playbackState.rawValue)
+        musicControlIsHidden(false)
+    }
+    
+    func musicControlIsHidden(_ isHidden: Bool) {
+        musicLabel.setIsHidden(isHidden, animated: false)
+//        if (!isHidden) {
+//            musicPlayPauseButon.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+//        }
+        musicPlayPauseButon.setIsHidden(isHidden, animated: false)
+    }
+    
+    func setMusicControlButtonImage(state: Int) {
+        //print(state)
+        if (state == 1) {
+            musicPlayPauseButon.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            //musicPlayPauseButon.setNeedsDisplay()
+        } else if (state == 2) {
+            musicPlayPauseButon.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            //musicPlayPauseButon.setNeedsDisplay()
+        }
     }
     
     func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
@@ -402,9 +466,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         roundButton(button: startButton)
         roundButton(button: stopButton)
         roundButton(button: restartButton)
+        roundButton(button: musicPlayPauseButon)
+        
     }
     
-    private func setupAudio() {
+    private func setupAudioAndControlColors() {
         do {
             try AVAudioSession.sharedInstance().setCategory(
                 AVAudioSession.Category.playback,

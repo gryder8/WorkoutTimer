@@ -196,7 +196,7 @@ class SettingViewController: UIViewController {
         } else {
             mixed = firstColor+lighten
         }
-        print("Mixed: \(String(describing: mixed.toHex))")
+        //print("Mixed: \(String(describing: mixed.toHex))")
         
         super.viewDidLoad()
         //StyledGradientView.setup()

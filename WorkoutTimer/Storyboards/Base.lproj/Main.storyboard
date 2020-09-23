@@ -252,6 +252,18 @@
                                 <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CAX-WT-g0L">
+                                <rect key="frame" x="140" y="652" width="65" height="27"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="pPr-dS-NdP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="20"/>
+                                <color key="textColor" systemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-AR-Rhe" userLabel="Sound Toggle">
                                 <rect key="frame" x="217" y="707" width="12" height="31"/>
                                 <color key="onTintColor" red="1" green="0.59024380450000002" blue="0.4333210045" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -271,6 +283,18 @@
                                     <segue destination="0ra-Om-irX" kind="show" identifier="appearanceSettingBtn" id="F2V-um-mdO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZl-Kt-LFd">
+                                <rect key="frame" x="205" y="645.66666666666663" width="50" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="aAp-Np-Eey"/>
+                                    <constraint firstAttribute="width" constant="50" id="jxO-VV-dBG"/>
+                                </constraints>
+                                <state key="normal" image="play.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="playPauseMusicTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IF2-Y4-fjz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -288,11 +312,13 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4RF-u0-MSf" secondAttribute="trailing" constant="28" id="7XU-F8-e3T"/>
                             <constraint firstItem="p6S-cP-Dvm" firstAttribute="top" secondItem="fsI-yh-1nd" secondAttribute="bottom" constant="22" id="7vn-Dg-va9"/>
                             <constraint firstItem="gXC-lX-GMk" firstAttribute="leading" secondItem="om1-Xh-PtC" secondAttribute="trailing" constant="5" id="8tw-0U-R9m"/>
+                            <constraint firstItem="CAX-WT-g0L" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="140" id="ABR-jH-j2k"/>
                             <constraint firstItem="JgV-x6-3ob" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EFW-tw-dAb"/>
                             <constraint firstItem="p6S-cP-Dvm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Edo-iY-8Kv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4gZ-Of-6N4" secondAttribute="trailing" constant="16" id="EuL-Zr-Hgy"/>
                             <constraint firstItem="JgV-x6-3ob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="146" id="FIX-Q5-9oD"/>
                             <constraint firstItem="om1-Xh-PtC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="HUR-TA-3p0"/>
+                            <constraint firstItem="HCm-fr-41V" firstAttribute="top" secondItem="CAX-WT-g0L" secondAttribute="bottom" constant="30" id="KFD-t3-QCx"/>
                             <constraint firstItem="m2g-Fc-yOZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Lud-8Z-dVb"/>
                             <constraint firstItem="p6S-cP-Dvm" firstAttribute="top" secondItem="prZ-hj-SYw" secondAttribute="bottom" constant="22" id="M7J-aF-a6D"/>
                             <constraint firstItem="1ll-GI-7F3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PD0-AB-fT1"/>
@@ -301,11 +327,13 @@
                             <constraint firstItem="prZ-hj-SYw" firstAttribute="top" secondItem="m2g-Fc-yOZ" secondAttribute="bottom" constant="40" id="Zzy-2E-smN"/>
                             <constraint firstItem="HCm-fr-41V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="122" id="bso-Xp-KlL"/>
                             <constraint firstItem="om1-Xh-PtC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="40" id="cgU-vN-VdA"/>
+                            <constraint firstItem="WZl-Kt-LFd" firstAttribute="centerY" secondItem="CAX-WT-g0L" secondAttribute="centerY" id="cuY-jg-x3f"/>
                             <constraint firstItem="m2g-Fc-yOZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="e7s-RV-btT"/>
                             <constraint firstItem="4gZ-Of-6N4" firstAttribute="leading" secondItem="GEj-qM-5Fb" secondAttribute="trailing" constant="5" id="gEh-DI-d1N"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HLl-AR-Rhe" secondAttribute="bottom" constant="40" id="lEY-3r-Wym"/>
                             <constraint firstItem="4RF-u0-MSf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="m9L-Wv-1Qx"/>
                             <constraint firstItem="GEj-qM-5Fb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="38" id="noo-wl-uwh"/>
+                            <constraint firstItem="WZl-Kt-LFd" firstAttribute="leading" secondItem="CAX-WT-g0L" secondAttribute="trailing" id="pgK-05-gWJ"/>
                             <constraint firstItem="HCm-fr-41V" firstAttribute="centerY" secondItem="HLl-AR-Rhe" secondAttribute="centerY" id="tMx-jl-dit"/>
                             <constraint firstItem="HLl-AR-Rhe" firstAttribute="leading" secondItem="HCm-fr-41V" secondAttribute="trailing" constant="3" id="ty3-7J-l9y"/>
                             <constraint firstItem="4gZ-Of-6N4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="36" id="yDu-gL-ojv"/>
@@ -327,6 +355,8 @@
                     <connections>
                         <outlet property="appearanceButton" destination="gXC-lX-GMk" id="DJV-lr-9ve"/>
                         <outlet property="gradientView" destination="8bC-Xf-vdC" id="op7-oK-17U"/>
+                        <outlet property="musicLabel" destination="CAX-WT-g0L" id="Ncx-FE-v85"/>
+                        <outlet property="musicPlayPauseButon" destination="WZl-Kt-LFd" id="CBv-Kw-rUj"/>
                         <outlet property="nextWorkoutNameLabel" destination="m2g-Fc-yOZ" id="HkR-wm-j9U"/>
                         <outlet property="restTimerLabel" destination="JgV-x6-3ob" id="Zgl-YZ-UPh"/>
                         <outlet property="restartButton" destination="fsI-yh-1nd" id="6w4-jW-ZzM"/>
@@ -350,7 +380,7 @@
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="WxT-fH-0xD"/>
             </objects>
-            <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+            <point key="canvasLocation" x="1047.2" y="137.4384236453202"/>
         </scene>
         <!--Settings Page-->
         <scene sceneID="LfQ-Av-wxj">
@@ -697,8 +727,12 @@
     <resources>
         <image name="musicButton.png" width="700" height="700"/>
         <image name="paintbrush" catalog="system" width="122" height="128"/>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="settingsIcon.png" width="512" height="512"/>
         <image name="workoutList.png" width="512" height="512"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

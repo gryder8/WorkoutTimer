@@ -231,7 +231,7 @@ class AppearanceEditorController: UIViewController, UIColorPickerViewControllerD
     
     private func configBackingViewSpacing() {
         let modelName = UIDevice.modelName
-        print("Model: \(modelName)")
+        //print("Model: \(modelName)")
         if (modelName == "iPhone 8" || modelName == "iPhone SE (2nd generation)") {
             NSLayoutConstraint.activate([
                 backingView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -425)
