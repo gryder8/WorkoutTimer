@@ -179,8 +179,6 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
         gradientView.startColor = StyledGradientView.viewColors[0]
         gradientView.endColor = StyledGradientView.viewColors[1]
         
@@ -205,8 +203,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         } else {
             musicControlIsHidden(true)
         }
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        self.navigationController?.setNavigationBarHidden(true, animated: false)
+//    }
+    
     
     
     @objc func switchToggled() {
