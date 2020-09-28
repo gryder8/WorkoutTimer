@@ -175,7 +175,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         //********************************************************
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.observeBackgroundEntry), name: UIApplication.didEnterBackgroundNotification, object: nil) //add observer to handle leaving the foreground and pausing the timer
-        NotificationCenter.default.addObserver(self, selector: #selector(self.observeReentry), name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.configMusicButton), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -196,22 +196,11 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             musicLabel.textColor = .white
         }
         
-        let playbackState = MPMusicPlayerController.systemMusicPlayer.playbackState.rawValue
-        if (playbackState == 1 || playbackState == 2) {
-            setMusicControlButtonImage(state: playbackState)
-            musicControlIsHidden(false)
-        } else {
-            musicControlIsHidden(true)
-        }
+        configMusicButton()
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(true, animated: false)
-//    }
-    
     
     
     @objc func switchToggled() {
@@ -235,7 +224,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         }
     }
     
-    @objc private func observeReentry() {
+    @objc private func configMusicButton() {
         let playbackState = MPMusicPlayerController.systemMusicPlayer.playbackState.rawValue
         //print(playbackState)
         if (playbackState == 1 || playbackState == 2) {
