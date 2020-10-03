@@ -249,7 +249,9 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 				let durationInput = alert.textFields![1].text!
 				self.workoutList[indexPath.row].name = alert.textFields!.first!.text!
 				self.workoutList[indexPath.row].duration = Double(durationInput) //input should be numeric only via delegate
-				self.VCMaster.resetAll()
+				//self.VCMaster.resetAll()
+				self.VCMaster.currentWorkout = self.WorkoutsMaster.getCurrentWorkout()
+				self.VCMaster.nextWorkout = self.WorkoutsMaster.getNextWorkout()
 				self.tableView.reloadRows(at: [indexPath], with: .left)
 				self.updateCellStyles(endCellRow: indexPath.row)
 			}))

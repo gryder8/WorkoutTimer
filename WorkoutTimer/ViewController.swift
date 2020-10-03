@@ -238,7 +238,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     //MARK: - Enable and Disable Button
     func transitioningActionsEnabled(_ enabled: Bool) { //determine if buttons are on or off on the home page
-        soundToggle.isEnabled = enabled
+        //soundToggle.isEnabled = true
         selectSongs.isEnabled = enabled
         workoutViewBtn.isEnabled = enabled
         swipeToTableView.isEnabled = enabled
