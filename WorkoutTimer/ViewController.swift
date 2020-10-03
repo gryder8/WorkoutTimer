@@ -78,7 +78,9 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     var currentWorkout = Workouts.Workout(duration: 0, name: "")
     var nextWorkout = Workouts.Workout(duration: 0, name: "")
+    
     var timerInitiallyStarted = false
+    var canStart = true
     
     var isRestTimerActive = false
     private var restTimer:Timer!
@@ -196,7 +198,20 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             musicLabel.textColor = .white
         }
         
+        if (self.workouts.allWorkouts.isEmpty) {
+            canStart = false
+            //nextWorkoutNameLabel.setIsHidden(true, animated: false)
+            workoutNameLabel.font = UIFont(name: "Avenir Next", size: 18.0)
+            workoutNameLabel.text = "Add a workout to get started!"
+            nextWorkoutNameLabel.font = UIFont(name: "Avenir Next", size: 13.0)
+            nextWorkoutNameLabel.text = "Swipe right and press the add button in the top right corner."
+        } else {
+            canStart = true
+            updateLabels()
+        }
+        startButton.isEnabled = canStart
         configMusicButton()
+        
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
 
@@ -248,39 +263,39 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     //MARK: - State Management
     @IBAction func startButtonTapped(_ sender: UIButton) {
-        if (buttonState == .start && !timerInitiallyStarted) { //first start
-            timerInitiallyStarted = true
-            startTimerIfWorkoutExists()
-            changeButtonToMode(mode: .pause)
-            self.settingsBtn.isEnabled = false
-            transitioningActionsEnabled(false)
-            UIApplication.shared.isIdleTimerDisabled = true //once the user starts the workout, prevent the device from going to sleep
-            return
-        } else if (buttonState == .start) { //resuming from pause
-            if (!isRestTimerActive) {
-                timerRing.continueTimer()
-            } else {
-                restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
+            if (buttonState == .start && !timerInitiallyStarted) { //first start
+                timerInitiallyStarted = true
+                startTimerIfWorkoutExists()
+                changeButtonToMode(mode: .pause)
+                self.settingsBtn.isEnabled = false
+                transitioningActionsEnabled(false)
+                UIApplication.shared.isIdleTimerDisabled = true //once the user starts the workout, prevent the device from going to sleep
+                return
+            } else if (buttonState == .start) { //resuming from pause
+                if (!isRestTimerActive) {
+                    timerRing.continueTimer()
+                } else {
+                    restTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.updateLabelForCountdown), userInfo: nil, repeats: true)
+                }
+                self.settingsBtn.isEnabled = false
+                changeButtonToMode(mode: .pause)
+                transitioningActionsEnabled(false)
+                return
+            } else if (buttonState == .pause){ //pause timer
+                if (!isRestTimerActive) {
+                    timerRing.pauseTimer()
+                    settingsBtn.isEnabled = true
+                } else {
+                    restTimer.invalidate()
+                    settingsBtn.isEnabled = true
+                }
+                transitioningActionsEnabled(true)
+                changeButtonToMode(mode: .start)
+                return
+            } else if (buttonState == .restart){ //restart timer
+                self.resetAll()
+                return
             }
-            self.settingsBtn.isEnabled = false
-            changeButtonToMode(mode: .pause)
-            transitioningActionsEnabled(false)
-            return
-        } else if (buttonState == .pause){ //pause timer
-            if (!isRestTimerActive) {
-                timerRing.pauseTimer()
-                settingsBtn.isEnabled = true
-            } else {
-                restTimer.invalidate()
-                settingsBtn.isEnabled = true
-            }
-            transitioningActionsEnabled(true)
-            changeButtonToMode(mode: .start)
-            return
-        } else if (buttonState == .restart){ //restart timer
-            self.resetAll()
-            return
-        }
     }
     
     func changeButtonToMode(mode: ButtonMode) {
@@ -489,6 +504,8 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
         } else {
             self.nextWorkoutNameLabel.text = self.nextWorkout.name
         }
+        workoutNameLabel.font = UIFont(name: "Avenir Next", size: 32.0)
+        nextWorkoutNameLabel.font = UIFont(name: "Avenir Next", size: 25.0)
     }
     
     private func advanceWorkout() {

@@ -79,14 +79,22 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		return allowedCharSet.isSuperset(of: typedCharSet)
 	}
 	
+	private func roundButton(button:UIButton) { //round the corners of the button passed in
+		button.layer.cornerRadius = 10
+		button.clipsToBounds = true
+	}
+	
 	//MARK: - View Overrides
 	override func viewWillAppear(_ animated: Bool) {
-		setUpTableViewHeader()
 		self.navigationController?.setNavigationBarHidden(false, animated: false)
 		StyledGradientView.setColorsForGradientView(view: gradientView)
 		self.tableView.backgroundView = gradientView
 		self.navigationController?.navigationBar.barTintColor = StyledGradientView.viewColors.first!
 		self.navigationController?.navigationBar.tintColor = StyledGradientView.viewColors.last!
+		setUpTableViewHeader()
+		if (!WorkoutsMaster.allWorkouts.isEmpty) {
+			setUpTableViewFooter()
+		}
 	}
 	
 	
@@ -98,6 +106,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		//self.tableView.addGestureRecognizer(longPressGesture)
 		// Uncomment the following line to preserve selection between presentations
 		//self.clearsSelectionOnViewWillAppear = false
 		
@@ -110,6 +119,29 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		reorderTableView.delegate = self
 		self.isInitialized = true
 		self.navigationController?.setNavigationBarHidden(false, animated: false)
+	}
+	
+	@objc func buttonAction() {
+		showClearAlert()
+	}
+	
+	func reloadTableViewDataAnimated(animation: UITableView.RowAnimation = .fade) {
+		self.tableView.reloadSections(IndexSet(0..<tableView.numberOfSections), with: animation)
+	}
+	
+	func showClearAlert() {
+		let alert = UIAlertController(title: "Clear Workouts?", message: "All workouts will be removed", preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { (clearAction) in
+			self.workoutList.removeAll()
+			self.reloadTableViewDataAnimated()
+			self.tableView.tableFooterView?.setIsHidden(true, animated: true)
+			//self.VCMaster.currentWorkout = self.WorkoutsMaster.getCurrentWorkout()
+			//self.VCMaster.nextWorkout = self.WorkoutsMaster.getNextWorkout()
+		}))
+		
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (cancelAction) in
+		}))
+		self.present(alert, animated: true)
 	}
 	
 	//MARK: - View customization and UI Event handling
@@ -126,19 +158,38 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		//navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done,target: self, action: #selector(backTapped))
 		let label = UILabel(frame: CGRect(x:0, y:0, width:350, height:30))
 		label.backgroundColor = .clear
-		label.numberOfLines = 1
 		label.font = UIFont (name: "Avenir Next", size: 14.0)!
 		label.textAlignment = .center
-		label.textColor = .black
 		label.numberOfLines = 2
-		label.text = "Swipe right to remove or edit a workout \n Long press to re-arrange"
+		label.text = "Swipe right to remove or edit \n Long press cell to re-arrange"
 		
-		label.textColor = StyledGradientView.viewColors.last!
+		label.textColor = tableGradient.endColor
 		
 		self.navigationItem.titleView = label
 		addButton.action = #selector(self.addCellTapped)
 		addButton.target = self
 		self.navigationController?.navigationBar.setIsHidden(false, animated: true)
+	}
+	
+	private func setUpTableViewFooter() {
+		let customFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+		customFooterView.backgroundColor = .clear
+
+		let clearWorkoutsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
+		clearWorkoutsButton.backgroundColor = gradientView.startColor
+		clearWorkoutsButton.titleLabel?.font = UIFont(name: "Avenir Next", size: 18.0)
+		clearWorkoutsButton.setTitleColor(gradientView.endColor, for: .normal)
+		clearWorkoutsButton.setTitle("Clear Workouts", for: .normal)
+		clearWorkoutsButton.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+		roundButton(button: clearWorkoutsButton)
+		customFooterView.addSubview(clearWorkoutsButton)
+		self.tableView.tableFooterView = customFooterView
+
+		clearWorkoutsButton.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			clearWorkoutsButton.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
+			clearWorkoutsButton.centerYAnchor.constraint(equalTo: customFooterView.centerYAnchor)
+		])
 	}
 	
 	//MARK: - Unused, stored in case of need
@@ -160,12 +211,18 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		})
 		
 		alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (updateAction) in
+			let wasEmpty = self.workoutList.isEmpty
 			let durationInput = alert.textFields![1].text!
 			var newWorkout:Workouts.Workout
 			newWorkout = Workouts.Workout(duration: Double(durationInput), name: alert.textFields!.first!.text!) //input should be numeric only
 			self.workoutList.append(newWorkout)
-			self.VCMaster.resetAll()
+			self.VCMaster.currentWorkout = self.WorkoutsMaster.getCurrentWorkout()
+			self.VCMaster.nextWorkout = self.WorkoutsMaster.getNextWorkout()
+			if (wasEmpty) {
+				self.setUpTableViewFooter()
+			}
 			self.tableView.reloadData()
+			self.tableView.tableFooterView?.setIsHidden(false, animated: true)
 		}))
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 		self.present(alert, animated: true)
