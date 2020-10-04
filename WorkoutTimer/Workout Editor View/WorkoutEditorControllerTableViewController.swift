@@ -119,6 +119,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		reorderTableView.delegate = self
 		self.isInitialized = true
 		self.navigationController?.setNavigationBarHidden(false, animated: false)
+		//updateCellStyles()
 	}
 	
 	@objc func buttonAction() {
@@ -130,7 +131,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	}
 	
 	func showClearAlert() {
-		let alert = UIAlertController(title: "Clear Workouts?", message: "All workouts will be removed", preferredStyle: .alert)
+		let alert = UIAlertController(title: "Clear Workouts?", message: "All workouts will be removed!", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { (clearAction) in
 			self.workoutList.removeAll()
 			self.reloadTableViewDataAnimated()
@@ -175,7 +176,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		let customFooterView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
 		customFooterView.backgroundColor = .clear
 
-		let clearWorkoutsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 80))
+		let clearWorkoutsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 120, height: 80))
 		clearWorkoutsButton.backgroundColor = gradientView.startColor
 		clearWorkoutsButton.titleLabel?.font = UIFont(name: "Avenir Next", size: 18.0)
 		clearWorkoutsButton.setTitleColor(gradientView.endColor, for: .normal)
@@ -187,6 +188,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 
 		clearWorkoutsButton.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
+			clearWorkoutsButton.widthAnchor.constraint(equalToConstant: 150),
 			clearWorkoutsButton.centerXAnchor.constraint(equalTo: self.tableView.centerXAnchor),
 			clearWorkoutsButton.centerYAnchor.constraint(equalTo: customFooterView.centerYAnchor)
 		])
@@ -247,15 +249,18 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		tableView.separatorColor = UIColor(red:0.18, green:0.18, blue:0.18, alpha:0.5)
 		let cellIdentifier = "WorkoutCell"
 		
+		let currentWorkoutName = WorkoutsMaster.getCurrentWorkout().name
+		let indexWorkoutName = WorkoutsMaster.allWorkouts[indexPath.row].name
+		
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? WorkoutCellTableViewCell else {
 			fatalError("Dequeued cell not an instance of WorkoutCell")
 		}
-		//print("Cell Font: \(cellFont)")
-		if (indexPath.row == WorkoutsMaster.currentWorkoutIndex) {
-			cell.workoutLabel.textColor = .black
+		if (currentWorkoutName == indexWorkoutName) {
 			cell.workoutLabel.font = cellFontMedium //make the font bold?
 		} else if (indexPath.row < WorkoutsMaster.currentWorkoutIndex) {
 			cell.appearsEnabled(false) //give the cell the "disabled" look
+		} else {
+			cell.workoutLabel.font = cellFontRegular
 		}
 		cell.workoutLabel.textColor = .black
 		
@@ -341,19 +346,22 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	}
 	
 	private func updateCellStyles(endCellRow: Int = -1) {
-		//print(tableView.visibleCells.count)
 		var counter = 0
-		let currentWorkoutIndex  = WorkoutsMaster.currentWorkoutIndex
-		if  (endCellRow != -1){
+		//var hasBoldedCurrent = false
+		let currentWorkoutIndex = WorkoutsMaster.currentWorkoutIndex
+		let currentWorkoutName = WorkoutsMaster.getCurrentWorkout().name
+		if  (endCellRow != -1){ //ending row is passed so update up until the end
 			let tableCells = tableView.visibleCells as! [WorkoutCellTableViewCell]
 			for cell in tableCells[0...endCellRow] {
+				let cellWorkoutName = WorkoutsMaster.allWorkouts[counter].name
 				if (counter < currentWorkoutIndex) {
 					cell.appearsEnabled(false)
 					counter += 1
-				} else if (counter == currentWorkoutIndex) {
+				} else if (counter == currentWorkoutIndex && currentWorkoutName == cellWorkoutName) {
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontMedium
 					counter += 1
+					//hasBoldedCurrent = true
 				} else {
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontRegular
@@ -361,14 +369,16 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 				}
 			}
 		} else {
-			for cell in tableView.visibleCells as! [WorkoutCellTableViewCell] {
+			for cell in tableView.visibleCells as! [WorkoutCellTableViewCell] { //no end row passed
+				let cellWorkoutName = WorkoutsMaster.allWorkouts[counter].name
 				if (counter < currentWorkoutIndex) {
 					cell.appearsEnabled(false)
 					counter += 1
-				} else if (counter == currentWorkoutIndex) {
+				} else if (counter == currentWorkoutIndex && currentWorkoutName == cellWorkoutName) {
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontMedium
 					counter += 1
+					//hasBoldedCurrent = true
 				} else {
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontRegular
