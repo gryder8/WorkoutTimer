@@ -204,7 +204,7 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
             workoutNameLabel.font = UIFont(name: "Avenir Next", size: 18.0)
             workoutNameLabel.text = "Add a workout to get started!"
             nextWorkoutNameLabel.font = UIFont(name: "Avenir Next", size: 13.0)
-            nextWorkoutNameLabel.text = "Swipe right and press the add button in the top right corner."
+            nextWorkoutNameLabel.text = "Swipe left and press the add button in the top right."
         } else {
             canStart = true
             updateLabels()

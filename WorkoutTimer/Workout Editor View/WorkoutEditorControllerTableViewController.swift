@@ -84,6 +84,21 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		button.clipsToBounds = true
 	}
 	
+	func secondsToMinutesSeconds(secondsInput: Int) -> String {
+		let seconds = secondsInput % 60
+		let minutes = secondsInput / 60
+		if (minutes <= 0) {
+			return "\(seconds) seconds"
+		} else if (seconds == 0) {
+			if (minutes == 1) {
+				return "\(minutes) minute"
+			} else {
+				return "\(minutes) minutes"
+			}
+		}
+		return "\(minutes) min, \(seconds) sec"
+	}
+	
 	//MARK: - View Overrides
 	override func viewWillAppear(_ animated: Bool) {
 		self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -106,7 +121,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		//self.tableView.addGestureRecognizer(longPressGesture)
 		// Uncomment the following line to preserve selection between presentations
 		//self.clearsSelectionOnViewWillAppear = false
 		
@@ -119,7 +133,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		reorderTableView.delegate = self
 		self.isInitialized = true
 		self.navigationController?.setNavigationBarHidden(false, animated: false)
-		//updateCellStyles()
 	}
 	
 	@objc func buttonAction() {
@@ -269,14 +282,14 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		let name = workoutList[indexPath.row].name
 		let duration = workoutList[indexPath.row].duration
 		let num:Double = Double(duration ?? -1.0)
+		let durationAsInt: Int = Int(num)
 		var combinedText:String
 		if (duration != nil) {
-			combinedText = "\(name) : \(String(num.clean)) secs"
+			combinedText = "\(name) : \(secondsToMinutesSeconds(secondsInput: durationAsInt))"
 		} else {
 			combinedText = "\(name)"
 		}
 		cell.workoutLabel.text = combinedText
-		
 		return cell
 	}
 	
@@ -297,10 +310,12 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { (action, view, boolValue) in
 			let alert = UIAlertController(title: "", message: "Edit Workout", preferredStyle: .alert)
 			alert.addTextField(configurationHandler: { (textField) in
+				textField.placeholder = "Workout name"
 				textField.text = self.workoutList[indexPath.row].name
 			})
 			
 			alert.addTextField(configurationHandler: { (numberField) in
+				numberField.placeholder = "Duration in seconds"
 				numberField.keyboardType = .numberPad
 				numberField.delegate = self //restricts input to numeric only
 				let durationAsDouble:Double = Double(self.workoutList[indexPath.row].duration ?? 0)
@@ -308,14 +323,19 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 			})
 			
 			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
-				let durationInput = alert.textFields![1].text!
-				self.workoutList[indexPath.row].name = alert.textFields!.first!.text!
-				self.workoutList[indexPath.row].duration = Double(durationInput) //input should be numeric only via delegate
-				//self.VCMaster.resetAll()
-				self.VCMaster.currentWorkout = self.WorkoutsMaster.getCurrentWorkout()
-				self.VCMaster.nextWorkout = self.WorkoutsMaster.getNextWorkout()
-				self.tableView.reloadRows(at: [indexPath], with: .left)
-				self.updateCellStyles(endCellRow: indexPath.row)
+				let durationInput = alert.textFields!.last!.text!
+				let nameInput = alert.textFields!.first!.text!
+				if (!(alert.textFields?.first?.text?.isEmpty ?? true) && !(alert.textFields?.last?.text?.isEmpty ?? true)) {
+					self.workoutList[indexPath.row].name = nameInput
+					self.workoutList[indexPath.row].duration = Double(durationInput) //input should be numeric only via delegate
+					//self.VCMaster.resetAll()
+					self.VCMaster.currentWorkout = self.WorkoutsMaster.getCurrentWorkout()
+					self.VCMaster.nextWorkout = self.WorkoutsMaster.getNextWorkout()
+					self.tableView.reloadRows(at: [indexPath], with: .left)
+					self.updateCellStyles(endCellRow: indexPath.row)
+				} else {
+					self.tableView.cellForRow(at: indexPath)?.shake(duration: 0.5, pathLength: 30)
+				}
 			}))
 			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 			self.present(alert, animated: false)
@@ -334,12 +354,12 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	
 	//MARK: - Define Delete Behavior [UNUSED]
 	// Override to support editing the table view.
-	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		if (editingStyle == .delete) {
-			self.workoutList.remove(at: indexPath.row)
-			tableView.deleteRows(at: [indexPath], with: .fade)
-		}
-	}
+//	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//		if (editingStyle == .delete) {
+//			self.workoutList.remove(at: indexPath.row)
+//			tableView.deleteRows(at: [indexPath], with: .fade)
+//		}
+//	}
 	
 	override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
 		return false
@@ -347,7 +367,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 	
 	private func updateCellStyles(endCellRow: Int = -1) {
 		var counter = 0
-		//var hasBoldedCurrent = false
 		let currentWorkoutIndex = WorkoutsMaster.currentWorkoutIndex
 		let currentWorkoutName = WorkoutsMaster.getCurrentWorkout().name
 		if  (endCellRow != -1){ //ending row is passed so update up until the end
@@ -361,7 +380,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontMedium
 					counter += 1
-					//hasBoldedCurrent = true
 				} else {
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontRegular
@@ -378,7 +396,6 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontMedium
 					counter += 1
-					//hasBoldedCurrent = true
 				} else {
 					cell.workoutLabel.textColor = .black
 					cell.workoutLabel.font = cellFontRegular
@@ -397,23 +414,6 @@ extension WorkoutEditorControllerTableViewController {
 	
 	override func reorderFinished(initialIndex: IndexPath, finalIndex: IndexPath) {
 		workoutList.swapAt(initialIndex.row, finalIndex.row)
-//		if (initialIndex.row == WorkoutsMaster.currentWorkoutIndex) {
-//			let cell:WorkoutCellTableViewCell = tableView.cellForRow(at: initialIndex) as! WorkoutCellTableViewCell //should cast as all cells are forced to have this as their class
-//			cell.workoutLabel.textColor = .black
-//			cell.workoutLabel.font = cellFontMedium
-//
-//			let otherCell = tableView.cellForRow(at: finalIndex) as! WorkoutCellTableViewCell
-//			otherCell.workoutLabel.textColor = .black
-//			otherCell.workoutLabel.font = cellFontRegular
-//		} else if (finalIndex.row == WorkoutsMaster.currentWorkoutIndex) {
-//			let cell:WorkoutCellTableViewCell = tableView.cellForRow(at: finalIndex) as! WorkoutCellTableViewCell //should cast as all cells are forced to have this as their class
-//			cell.workoutLabel.textColor = .black
-//			cell.workoutLabel.font = cellFontMedium
-//
-//			let otherCell = tableView.cellForRow(at: initialIndex) as! WorkoutCellTableViewCell
-//			otherCell.workoutLabel.textColor = .black
-//			otherCell.workoutLabel.font = cellFontRegular
-//		}
 		updateCellStyles(endCellRow: max(initialIndex.row, finalIndex.row))
 		VCMaster.currentWorkout = WorkoutsMaster.getCurrentWorkout()
 		VCMaster.nextWorkout = WorkoutsMaster.getNextWorkout()
