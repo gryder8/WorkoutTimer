@@ -332,7 +332,7 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 					self.VCMaster.currentWorkout = self.WorkoutsMaster.getCurrentWorkout()
 					self.VCMaster.nextWorkout = self.WorkoutsMaster.getNextWorkout()
 					self.tableView.reloadRows(at: [indexPath], with: .left)
-					self.updateCellStyles(endCellRow: indexPath.row)
+					self.updateCellStyles()
 				} else {
 					self.tableView.cellForRow(at: indexPath)?.shake(duration: 0.5, pathLength: 30)
 				}
@@ -365,42 +365,24 @@ class WorkoutEditorControllerTableViewController: UITableViewController, UITextF
 		return false
 	}
 	
-	private func updateCellStyles(endCellRow: Int = -1) {
+	private func updateCellStyles() {
 		var counter = 0
 		let currentWorkoutIndex = WorkoutsMaster.currentWorkoutIndex
 		let currentWorkoutName = WorkoutsMaster.getCurrentWorkout().name
-		if  (endCellRow != -1){ //ending row is passed so update up until the end
-			let tableCells = tableView.visibleCells as! [WorkoutCellTableViewCell]
-			for cell in tableCells[0...endCellRow] {
-				let cellWorkoutName = WorkoutsMaster.allWorkouts[counter].name
-				if (counter < currentWorkoutIndex) {
-					cell.appearsEnabled(false)
-					counter += 1
-				} else if (counter == currentWorkoutIndex && currentWorkoutName == cellWorkoutName) {
-					cell.workoutLabel.textColor = .black
-					cell.workoutLabel.font = cellFontMedium
-					counter += 1
-				} else {
-					cell.workoutLabel.textColor = .black
-					cell.workoutLabel.font = cellFontRegular
-					counter += 1
-				}
-			}
-		} else {
-			for cell in tableView.visibleCells as! [WorkoutCellTableViewCell] { //no end row passed
-				let cellWorkoutName = WorkoutsMaster.allWorkouts[counter].name
-				if (counter < currentWorkoutIndex) {
-					cell.appearsEnabled(false)
-					counter += 1
-				} else if (counter == currentWorkoutIndex && currentWorkoutName == cellWorkoutName) {
-					cell.workoutLabel.textColor = .black
-					cell.workoutLabel.font = cellFontMedium
-					counter += 1
-				} else {
-					cell.workoutLabel.textColor = .black
-					cell.workoutLabel.font = cellFontRegular
-					counter += 1
-				}
+		
+		for cell in tableView.visibleCells as! [WorkoutCellTableViewCell] { //no end row passed
+			let cellWorkoutName = WorkoutsMaster.allWorkouts[counter].name
+			if (counter < currentWorkoutIndex) {
+				cell.appearsEnabled(false)
+				counter += 1
+			} else if (counter == currentWorkoutIndex && currentWorkoutName == cellWorkoutName) {
+				cell.workoutLabel.textColor = .black
+				cell.workoutLabel.font = cellFontMedium
+				counter += 1
+			} else {
+				cell.workoutLabel.textColor = .black
+				cell.workoutLabel.font = cellFontRegular
+				counter += 1
 			}
 		}
 	}
@@ -414,7 +396,7 @@ extension WorkoutEditorControllerTableViewController {
 	
 	override func reorderFinished(initialIndex: IndexPath, finalIndex: IndexPath) {
 		workoutList.swapAt(initialIndex.row, finalIndex.row)
-		updateCellStyles(endCellRow: max(initialIndex.row, finalIndex.row))
+		updateCellStyles()
 		VCMaster.currentWorkout = WorkoutsMaster.getCurrentWorkout()
 		VCMaster.nextWorkout = WorkoutsMaster.getNextWorkout()
 		if (!VCMaster.isRestTimerActive) {
