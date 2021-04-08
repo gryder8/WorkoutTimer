@@ -330,7 +330,14 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, MPMediaPickerCont
     
     //MARK: - Button Action Handlers
     @IBAction func stopButtonTapped(_ sender: UIButton) {
-        self.resetAll()
+        let alert = UIAlertController(title: "Stop Workout?", message: "All your progress will be lost!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Keep Going!", style: .cancel, handler: { (stopAction) in
+            return
+        }))
+        alert.addAction(UIAlertAction(title: "Stop Workout", style: .destructive, handler: { (stopAction) in
+            self.resetAll()
+        }))
+        self.present(alert, animated: true)
     }
     
     
